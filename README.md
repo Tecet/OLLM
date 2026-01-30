@@ -124,23 +124,30 @@ ollm --help
 npm uninstall -g @tecet/ollm
 ```
 
-Raport bugs:
+
+
+# Raport bugs:
 
  https://discord.gg/9GuCwdrB
  
  https://github.com/Tecet/OLLM
 
+ 
 
-#Screenshoots
+# Watch the video
 
+[![Watch the video](https://img.youtube.com/vi/XhJQ_XYVgzk/0.jpg)](https://www.youtube.com/watch?v=XhJQ_XYVgzk)
+
+
+
+# Screenshoots
 
 ![Logo](https://github.com/Tecet/OLLM-CLI/blob/main/img/VS.png)
-
 ![Logo](https://github.com/Tecet/OLLM-CLI/blob/main/img/w4%20ter-chat.png)
-
 ![docs/img/logo.png](https://github.com/Tecet/OLLM-CLI/blob/main/img/settings%20models.png)
 
  
+
 
 # 📖 Documentation
 
