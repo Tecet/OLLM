@@ -1,8 +1,9 @@
 # System Prompt Architecture
 
-**Last Updated:** January 26, 2026  
+**Last Updated:** January 26, 2026
 
 **Related Documents:**
+
 - `ContextManagement.md` - Context sizing, tiers, VRAM
 - `ContextCompression.md` - Compression, checkpoints, snapshots
 
@@ -32,6 +33,7 @@ The system prompt consists of multiple components assembled in a specific order:
 ### Component Breakdown
 
 **1. Core Mandates (Tier-Specific)**
+
 - Essential behavior guidelines
 - Quality standards
 - Guardrails (what NOT to do)
@@ -39,6 +41,7 @@ The system prompt consists of multiple components assembled in a specific order:
 - Token budget: 200-1500 tokens depending on tier
 
 **2. Active Goal (Optional)**
+
 - Current goal description
 - Checkpoints (pending, in-progress, completed)
 - Locked decisions
@@ -48,17 +51,20 @@ The system prompt consists of multiple components assembled in a specific order:
 - **Never compressed** (see ContextCompression.md)
 
 **3. Active Skills (Optional)**
+
 - Skill-specific instructions
 - Domain expertise
 - Specialized techniques
 - Token budget: ~100-300 tokens per skill
 
 **4. Sanity Checks**
+
 - Reality checks before responding
 - Common mistake prevention
 - Token budget: ~50-100 tokens
 
 **5. Mode-Specific Guidance**
+
 - Operational mode instructions
 - Focus areas
 - Expected behavior
@@ -71,6 +77,7 @@ The system prompt consists of multiple components assembled in a specific order:
 **Challenge:** System prompts are critical for LLM output quality, but they consume valuable context tokens. How do we balance quality with efficiency?
 
 **Without Adaptive Prompts:**
+
 - ❌ Fixed prompt size regardless of context capacity
 - ❌ Small contexts waste space on detailed prompts
 - ❌ Large contexts underutilize with minimal prompts
@@ -78,6 +85,7 @@ The system prompt consists of multiple components assembled in a specific order:
 - ❌ No adaptation to operational mode
 
 **Our Solution:** Adaptive system prompts that scale intelligently:
+
 - **Tier 1 (Minimal):** Essential prompts (~200 tokens) - basic behavior + guardrails
 - **Tier 2 (Basic):** Detailed prompts (~500 tokens) - comprehensive guidance
 - **Tier 3 (Standard):** Comprehensive prompts (~1000 tokens) - full methodology ⭐
@@ -94,15 +102,16 @@ Context tiers are **labels** that represent different context window sizes. The 
 
 ### Tier Definitions
 
-| Tier | Context Size | Ollama Size (85%) | Prompt Budget | Use Case |
-|------|--------------|-------------------|---------------|----------|
-| Tier 1 (Minimal) | 2K, 4K | 1700, 3400 | ~200 tokens | Quick tasks, minimal context |
-| Tier 2 (Basic) | 8K | 6800 | ~500 tokens | Standard conversations |
-| Tier 3 (Standard) | 16K | 13600 | ~1000 tokens | Complex tasks, code review ⭐ |
-| Tier 4 (Premium) | 32K | 27200 | ~1500 tokens | Large codebases, long conversations |
-| Tier 5 (Ultra) | 64K, 128K | 54400, 108800 | ~1500 tokens | Maximum context, research tasks |
+| Tier              | Context Size | Ollama Size (85%) | Prompt Budget | Use Case                            |
+| ----------------- | ------------ | ----------------- | ------------- | ----------------------------------- |
+| Tier 1 (Minimal)  | 2K, 4K       | 1700, 3400        | ~200 tokens   | Quick tasks, minimal context        |
+| Tier 2 (Basic)    | 8K           | 6800              | ~500 tokens   | Standard conversations              |
+| Tier 3 (Standard) | 16K          | 13600             | ~1000 tokens  | Complex tasks, code review ⭐       |
+| Tier 4 (Premium)  | 32K          | 27200             | ~1500 tokens  | Large codebases, long conversations |
+| Tier 5 (Ultra)    | 64K, 128K    | 54400, 108800     | ~1500 tokens  | Maximum context, research tasks     |
 
 **Key Points:**
+
 - Tiers are **labels only** - they don't make decisions
 - Context size drives everything
 - Each tier has specific context sizes (not ranges)
@@ -124,6 +133,7 @@ Tier 5 (Ultra):    ~1500 tokens (1.2% of 128K) - Full expertise + extensive exam
 ```
 
 **Design Philosophy:**
+
 - **Tier 1:** Essential behavior, basic guardrails, minimal examples
 - **Tier 2:** Detailed guidance, key examples, important guardrails
 - **Tier 3:** Comprehensive instructions, multiple examples, full guardrails ⭐
@@ -131,6 +141,7 @@ Tier 5 (Ultra):    ~1500 tokens (1.2% of 128K) - Full expertise + extensive exam
 - **Tier 5:** Maximum sophistication, advanced patterns, mentoring approach
 
 **What Each Tier Includes:**
+
 - ✅ Behavioral guidelines (tone, style, approach)
 - ✅ Guardrails (what NOT to do)
 - ✅ Concrete examples (do this, not that)
@@ -138,6 +149,7 @@ Tier 5 (Ultra):    ~1500 tokens (1.2% of 128K) - Full expertise + extensive exam
 - ✅ Quality expectations
 
 **Efficiency Analysis:**
+
 - Tier 1: 5.0% overhead, 95.0% workspace
 - Tier 2: 6.3% overhead, 93.7% workspace
 - Tier 3: 3.1% overhead, 96.9% workspace ⭐
@@ -153,24 +165,28 @@ The system supports multiple operational modes, each with specific focus areas a
 ### Mode Definitions
 
 **1. Developer Mode**
+
 - **Focus:** Code quality, architecture, testing
 - **Guidance:** SOLID principles, design patterns, error handling
 - **Output:** Production-quality code with tests and documentation
 - **Use Case:** Software development, code review, refactoring
 
 **2. Planning Mode**
+
 - **Focus:** Task breakdown, dependencies, estimation
 - **Guidance:** Risk assessment, realistic planning, clear criteria
 - **Output:** Actionable plans with dependencies and estimates
 - **Use Case:** Project planning, task organization, sprint planning
 
 **3. Assistant Mode**
+
 - **Focus:** Clear communication, helpful responses
 - **Guidance:** Conversational style, examples, explanations
 - **Output:** Informative, well-structured answers
 - **Use Case:** General questions, learning, exploration
 
 **4. Debugger Mode**
+
 - **Focus:** Systematic debugging, root cause analysis
 - **Guidance:** Debugging process, hypothesis testing, verification
 - **Output:** Clear diagnosis with reproduction steps and fixes
@@ -179,6 +195,7 @@ The system supports multiple operational modes, each with specific focus areas a
 ### Mode Selection
 
 Modes are selected based on:
+
 - User explicit selection (`/mode developer`)
 - Task analysis (automatic detection)
 - Context clues (code files → developer, planning docs → planning)
@@ -190,12 +207,14 @@ Modes are selected based on:
 ### What's Included at Each Level
 
 **Tier 1 (~200 tokens):**
+
 - ✅ Core behavior guidelines
 - ✅ Basic guardrails (what NOT to do)
 - ✅ 1-2 simple examples
 - ✅ Essential quality standards
 
 **Tier 2 (~500 tokens):**
+
 - ✅ Detailed responsibilities
 - ✅ Comprehensive guardrails
 - ✅ 3-5 concrete examples (do/don't)
@@ -203,6 +222,7 @@ Modes are selected based on:
 - ✅ Quality standards with reasoning
 
 **Tier 3 (~1000 tokens) ⭐:**
+
 - ✅ Comprehensive methodology
 - ✅ Full guardrails with explanations
 - ✅ 5-8 detailed examples with code
@@ -212,6 +232,7 @@ Modes are selected based on:
 - ✅ Common pitfalls to avoid
 
 **Tier 4/5 (~1500 tokens):**
+
 - ✅ Expert-level detail
 - ✅ Extensive examples (10+)
 - ✅ Sophisticated reasoning
@@ -224,26 +245,31 @@ Modes are selected based on:
 ### Why This Design Works
 
 **1. Proper Guardrails ✅**
+
 - Clear "what NOT to do" sections
 - Prevents common mistakes
 - Sets quality expectations
 
 **2. Concrete Examples ✅**
+
 - Shows good vs bad code
 - Demonstrates concepts clearly
 - Reduces ambiguity
 
 **3. Behavioral Guidance ✅**
+
 - Sets tone and approach
 - Defines communication style
 - Establishes expectations
 
 **4. Reasoning and Trade-offs ✅**
+
 - Explains the "why" behind guidelines
 - Helps LLM make better decisions
 - Improves output quality
 
 **5. Scales Appropriately ✅**
+
 - Small contexts: Essential guidance only
 - Medium contexts: Detailed with examples
 - Large contexts: Comprehensive methodology
@@ -256,6 +282,7 @@ Modes are selected based on:
 ### Tier 1 (Minimal) - Essential (~200 tokens)
 
 **Developer Mode:**
+
 ```
 You are a coding assistant focused on practical solutions.
 
@@ -276,9 +303,11 @@ Example:
 
 Keep responses concise but complete.
 ```
+
 **~200 tokens** - Essential behavior + basic guardrails
 
 **Planning Mode:**
+
 ```
 You help plan and organize tasks effectively.
 
@@ -299,6 +328,7 @@ Example:
 
 Be practical and actionable.
 ```
+
 **~200 tokens** - Essential planning guidance
 
 ---
@@ -306,6 +336,7 @@ Be practical and actionable.
 ### Tier 2 (Basic) - Detailed (~500 tokens)
 
 **Developer Mode:**
+
 ```
 You are an expert coding assistant focused on quality and maintainability.
 
@@ -348,6 +379,7 @@ Examples:
 
 When in doubt, choose clarity over cleverness.
 ```
+
 **~500 tokens** - Detailed guidance with examples
 
 ---
@@ -355,6 +387,7 @@ When in doubt, choose clarity over cleverness.
 ### Tier 3 (Standard) - Comprehensive (~1000 tokens) ⭐ PRIMARY
 
 **Developer Mode:**
+
 ```
 You are an expert software developer and architect with a focus on production-quality code.
 
@@ -456,6 +489,7 @@ When Making Decisions:
 
 Remember: Code is read far more often than it's written. Optimize for clarity and maintainability.
 ```
+
 **~1000 tokens** - Comprehensive guidance with multiple examples
 
 ---
@@ -465,6 +499,7 @@ Remember: Code is read far more often than it's written. Optimize for clarity an
 **Note:** Tier 4 and 5 use the same prompts. At these context sizes, the prompt overhead is negligible (2.3% for Tier 4, 1.2% for Tier 5), and the focus shifts to maintaining quality across extremely long conversations.
 
 **Developer Mode includes:**
+
 - Extensive examples (10+ scenarios)
 - Sophisticated reasoning frameworks
 - Multiple scenario handling
@@ -483,48 +518,58 @@ Remember: Code is read far more often than it's written. Optimize for clarity an
 ### Overhead vs Workspace
 
 **Tier 1 (4K context):**
+
 ```
 System Prompt:    200 tokens (5.0%)
 Work Space:     3,800 tokens (95.0%)
 ────────────────────────────────
 Total:          4,000 tokens
 ```
+
 ✅ Efficient for small contexts
 
 **Tier 2 (8K context):**
+
 ```
 System Prompt:    500 tokens (6.3%)
 Work Space:     7,500 tokens (93.7%)
 ────────────────────────────────
 Total:          8,000 tokens
 ```
+
 ✅ Good balance
 
 **Tier 3 (32K context) ⭐:**
+
 ```
 System Prompt:  1,000 tokens (3.1%)
 Work Space:    31,000 tokens (96.9%)
 ────────────────────────────────
 Total:         32,000 tokens
 ```
+
 ✅ Excellent balance
 
 **Tier 4 (64K context):**
+
 ```
 System Prompt:  1,500 tokens (2.3%)
 Work Space:    62,500 tokens (97.7%)
 ────────────────────────────────
 Total:         64,000 tokens
 ```
+
 ✅ Very efficient
 
 **Tier 5 (128K context):**
+
 ```
 System Prompt:   1,500 tokens (1.2%)
 Work Space:    126,500 tokens (98.8%)
 ────────────────────────────────
 Total:         128,000 tokens
 ```
+
 ✅ Minimal overhead
 
 ---
@@ -534,12 +579,14 @@ Total:         128,000 tokens
 ### 1. Automatic Adaptation ✅
 
 **No Configuration Required:**
+
 - System detects context size automatically
 - Selects appropriate prompt tier
 - Adapts to operational mode
 - Updates seamlessly on changes
 
 **Example Flow:**
+
 ```
 User switches from 8K to 32K model
 → System detects new context size
@@ -551,35 +598,42 @@ User switches from 8K to 32K model
 ### 2. Quality Scaling ✅
 
 **Tier 1:** Basic functionality
+
 - "Write code" → Gets simple code
 - Good enough for quick tasks
 
 **Tier 3:** Production quality ⭐
+
 - "Write code" → Gets well-architected, tested, documented code
 - Suitable for real projects
 
 **Tier 4/5:** Expert-level
+
 - "Write code" → Gets enterprise-grade, scalable, maintainable code
 - Suitable for critical systems
 
 ### 3. Mode-Specific Guidance ✅
 
 **Developer Mode:**
+
 - Focus on code quality, architecture, testing
 - SOLID principles, design patterns
 - Error handling, performance, security
 
 **Planning Mode:**
+
 - Focus on task breakdown, dependencies
 - Risk assessment, estimation
 - Clear acceptance criteria
 
 **Assistant Mode:**
+
 - Focus on clear communication
 - Examples and explanations
 - User preferences and context
 
 **Debugger Mode:**
+
 - Focus on systematic debugging
 - Root cause analysis
 - Reproduction steps and fixes
@@ -587,16 +641,19 @@ User switches from 8K to 32K model
 ### 4. Token Efficiency ✅
 
 **Small Contexts (Tier 1):**
+
 - 200 tokens = 5.0% overhead
 - 3,800 tokens workspace = 95.0%
 - **Maximizes available space**
 
 **Medium Contexts (Tier 3) ⭐:**
+
 - 1,000 tokens = 3.1% overhead
 - 31,000 tokens workspace = 96.9%
 - **Excellent balance**
 
 **Large Contexts (Tier 5):**
+
 - 1,500 tokens = 1.2% overhead
 - 126,500 tokens workspace = 98.8%
 - **Minimal overhead, maximum guidance**
@@ -608,6 +665,7 @@ User switches from 8K to 32K model
 ### Prompt Templates
 
 Store prompts in separate files for maintainability:
+
 ```
 packages/core/src/prompts/templates/
 ├── tier1/
@@ -635,18 +693,15 @@ packages/core/src/prompts/templates/
 ### Automatic Prompt Selection
 
 ```typescript
-function getSystemPromptForTierAndMode(
-  tier: ContextTier,
-  mode: OperationalMode
-): string {
+function getSystemPromptForTierAndMode(tier: ContextTier, mode: OperationalMode): string {
   const tierNumber = getTierNumber(tier); // 1-5
   const template = loadPromptTemplate(tierNumber, mode);
-  
+
   if (!template) {
     // Fallback to tier 3 developer
     return loadPromptTemplate(3, 'developer');
   }
-  
+
   return template;
 }
 ```
@@ -654,6 +709,7 @@ function getSystemPromptForTierAndMode(
 ### Automatic Updates
 
 **When tier changes:**
+
 ```typescript
 private onTierChange(newTier: ContextTier): void {
   this.currentTier = newTier;
@@ -663,6 +719,7 @@ private onTierChange(newTier: ContextTier): void {
 ```
 
 **When mode changes:**
+
 ```typescript
 public setMode(mode: OperationalMode): void {
   this.currentMode = mode;
@@ -672,12 +729,13 @@ public setMode(mode: OperationalMode): void {
 ```
 
 **Update system prompt:**
+
 ```typescript
 public updateSystemPrompt(): void {
   const newPrompt = this.getSystemPromptForTierAndMode();
   this.setSystemPrompt(newPrompt);
-  
-  this.emit('system-prompt-updated', { 
+
+  this.emit('system-prompt-updated', {
     tier: this.currentTier,
     mode: this.currentMode,
     tokenBudget: this.getSystemPromptTokenBudget()
@@ -764,6 +822,7 @@ const DEFAULT_PROMPT_CONFIG = {
 **Symptom:** LLM produces low-quality output
 
 **Solutions:**
+
 1. Check current tier (should be Tier 3+ for complex tasks)
 2. Verify mode matches task (developer for code, planning for tasks)
 3. Ensure system prompt is loaded correctly
@@ -774,6 +833,7 @@ const DEFAULT_PROMPT_CONFIG = {
 **Symptom:** System prompt consumes too much context
 
 **Solutions:**
+
 1. Verify tier is appropriate for context size
 2. Check for duplicate content in prompt
 3. Review custom templates for efficiency
@@ -783,13 +843,13 @@ const DEFAULT_PROMPT_CONFIG = {
 
 ## File Locations
 
-| File | Purpose |
-|------|---------|
-| `packages/core/src/context/SystemPromptBuilder.ts` | Builds system prompts |
-| `packages/core/src/prompts/PromptRegistry.ts` | Manages prompt templates |
-| `packages/core/src/prompts/templates/` | Prompt template files |
-| `packages/core/src/prompts/types.ts` | Type definitions |
-| `packages/core/src/context/contextManager.ts` | Uses system prompts |
+| File                                               | Purpose                  |
+| -------------------------------------------------- | ------------------------ |
+| `packages/core/src/context/SystemPromptBuilder.ts` | Builds system prompts    |
+| `packages/core/src/prompts/PromptRegistry.ts`      | Manages prompt templates |
+| `packages/core/src/prompts/templates/`             | Prompt template files    |
+| `packages/core/src/prompts/types.ts`               | Type definitions         |
+| `packages/core/src/context/contextManager.ts`      | Uses system prompts      |
 
 ---
 

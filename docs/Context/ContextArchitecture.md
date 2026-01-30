@@ -4,6 +4,7 @@
 **Status:** Source of Truth
 
 **Related Documents:**
+
 - `ContextManagement.md` - Context sizing, tiers, VRAM monitoring
 - `ContextCompression.md` - Compression, checkpoints, snapshots
 - `SystemPrompts.md` - System prompt architecture
@@ -40,6 +41,7 @@ This document describes the Context Management System Architecture - an intellig
 Large Language Models have a fundamental limitation: **fixed context windows**. When conversations exceed this limit, critical information is lost, leading to:
 
 **Without Context Management:**
+
 - ❌ **Information Loss**: Older messages simply disappear (FIFO truncation)
 - ❌ **Concept Drift**: LLM forgets the original task and goals
 - ❌ **Repeated Work**: User must re-explain context and decisions
@@ -48,6 +50,7 @@ Large Language Models have a fundamental limitation: **fixed context windows**. 
 - ❌ **One-Size-Fits-All**: Same approach for 4K and 128K contexts
 
 **Real-World Impact:**
+
 ```
 User: "Build a REST API with authentication"
 [... 100 messages later ...]
@@ -63,13 +66,14 @@ LLM: "What kind of API are we building again?"
 ✅ **VRAM-Aware** - Monitors GPU memory and selects optimal context size  
 ✅ **Compression System** - LLM-based summarization preserves critical information  
 ✅ **Never-Compressed Content** - Goals, decisions, and architecture always preserved  
-✅ **Adaptive Prompts** - System prompts scale with context capacity  
+✅ **Adaptive Prompts** - System prompts scale with context capacity
 
 **Real-World Result:**
+
 ```
 User: "Build a REST API with authentication"
 [... 100 messages later ...]
-LLM: "Continuing with the REST API using JWT authentication 
+LLM: "Continuing with the REST API using JWT authentication
       and PostgreSQL as discussed in our architecture decisions..."
 ```
 
@@ -84,36 +88,37 @@ Context size is determined once at startup and stays FIXED for the entire sessio
 ```mermaid
 graph TD
     Start[Session Start] --> Mode{Sizing Mode?}
-    
+
     Mode -->|Auto| Auto[Auto-Sizing]
     Mode -->|Manual| Manual[User Selection]
-    
+
     Auto --> CheckVRAM[Check VRAM]
     CheckVRAM --> CalcOptimal[Calculate Optimal Size]
     CalcOptimal --> PickTier[Pick One Tier Below Max]
     PickTier --> Lock[LOCK for Session]
-    
+
     Manual --> UserPick[User Picks Size]
     UserPick --> Lock
-    
+
     Lock --> SelectPrompt[Select System Prompt]
     SelectPrompt --> Fixed[Context FIXED]
-    
+
     Fixed --> LowMem{Low Memory<br/>During Session?}
     LowMem -->|Yes| Warn[Show Warning]
     LowMem -->|No| Continue[Continue]
-    
+
     Warn --> NoResize[Do NOT Resize]
     NoResize --> Continue
-    
+
     Continue --> End[Session Continues]
-    
+
     style Lock fill:#6bcf7f
     style Fixed fill:#6bcf7f
     style NoResize fill:#ffd93d
 ```
 
 **Key Points:**
+
 - Context size selected once at startup
 - Stays fixed for entire session
 - No mid-conversation changes
@@ -132,13 +137,13 @@ graph TD
     B -->|16K| E[Tier 3: Standard]
     B -->|32K| F[Tier 4: Premium]
     B -->|64K, 128K| G[Tier 5: Ultra]
-    
+
     C --> C1[Snapshot Rollover]
     D --> D1[Basic Compression]
     E --> E1[Progressive Checkpoints]
     F --> F1[Structured Checkpoints]
     G --> G1[Rich Preservation]
-    
+
     style E fill:#6bcf7f
     style E1 fill:#6bcf7f
 ```
@@ -154,12 +159,13 @@ graph LR
     C --> D[Create Checkpoint]
     D --> E[Replace Messages]
     E --> F[Compressed Context]
-    
+
     style C fill:#6bcf7f
     style D fill:#ffd93d
 ```
 
 **Key Points:**
+
 - LLM summarizes its own output
 - Preserves meaning and context
 - Compression quality scales with model size
@@ -172,17 +178,17 @@ Critical information is always preserved in full:
 ```mermaid
 graph TB
     A[Context Content] --> B{Type?}
-    
+
     B -->|System Prompt| C[NEVER Compress]
     B -->|User Messages| C
     B -->|Active Goals| C
     B -->|Locked Decisions| C
     B -->|Architecture| C
-    
+
     B -->|Assistant Messages| D[Compress When Needed]
     B -->|Tool Outputs| D
     B -->|Exploratory Work| D
-    
+
     style C fill:#6bcf7f
     style D fill:#ffd93d
 ```
@@ -200,35 +206,35 @@ graph TB
         C[Model Selection] --> B
         D[Mode Selection] --> B
     end
-    
+
     subgraph "Detection Layer"
         B --> E[VRAM Monitor]
         B --> F[Tier Detector]
         B --> G[Token Counter]
-        
+
         E --> H[Available VRAM]
         F --> I[Context Tier]
         G --> J[Token Usage]
     end
-    
+
     subgraph "Management Layer"
         I --> K[Context Pool]
         J --> K
         H --> K
-        
+
         K --> L[System Prompt Builder]
         K --> M[Compression Coordinator]
         K --> N[Memory Guard]
     end
-    
+
     subgraph "Output Layer"
         L --> O[Final Context]
         M --> O
         N --> O
-        
+
         O --> P[Send to LLM]
     end
-    
+
     style K fill:#4d96ff
     style M fill:#6bcf7f
     style O fill:#ffd93d
@@ -236,16 +242,16 @@ graph TB
 
 ### Component Responsibilities
 
-| Component | Responsibility | Input | Output |
-|-----------|---------------|-------|--------|
-| **Context Manager** | Main orchestration | Messages, config | Managed context |
-| **VRAM Monitor** | Track GPU memory | Hardware info | VRAM availability |
-| **Tier Detector** | Determine tier | Context size | Tier label |
-| **Token Counter** | Count tokens | Messages | Token counts |
-| **Context Pool** | Dynamic sizing | VRAM, model | Optimal size |
-| **System Prompt Builder** | Build prompts | Tier, mode | System prompt |
-| **Compression Coordinator** | Manage compression | Messages, tier | Checkpoints |
-| **Memory Guard** | Prevent OOM | Usage metrics | Warnings |
+| Component                   | Responsibility     | Input            | Output            |
+| --------------------------- | ------------------ | ---------------- | ----------------- |
+| **Context Manager**         | Main orchestration | Messages, config | Managed context   |
+| **VRAM Monitor**            | Track GPU memory   | Hardware info    | VRAM availability |
+| **Tier Detector**           | Determine tier     | Context size     | Tier label        |
+| **Token Counter**           | Count tokens       | Messages         | Token counts      |
+| **Context Pool**            | Dynamic sizing     | VRAM, model      | Optimal size      |
+| **System Prompt Builder**   | Build prompts      | Tier, mode       | System prompt     |
+| **Compression Coordinator** | Manage compression | Messages, tier   | Checkpoints       |
+| **Memory Guard**            | Prevent OOM        | Usage metrics    | Warnings          |
 
 ---
 
@@ -253,15 +259,16 @@ graph TB
 
 ### Tier Definitions
 
-| Tier | Label | Context Sizes | Ollama Size (85%) | Use Case |
-|------|-------|---------------|-------------------|----------|
-| 1 | Minimal | 2K, 4K | 1700, 3400 | Quick tasks, minimal context |
-| 2 | Basic | 8K | 6800 | Standard conversations |
-| 3 | Standard ⭐ | 16K | 13600 | Complex tasks, code review |
-| 4 | Premium | 32K | 27200 | Large codebases, long conversations |
-| 5 | Ultra | 64K, 128K | 54400, 108800 | Maximum context, research tasks |
+| Tier | Label       | Context Sizes | Ollama Size (85%) | Use Case                            |
+| ---- | ----------- | ------------- | ----------------- | ----------------------------------- |
+| 1    | Minimal     | 2K, 4K        | 1700, 3400        | Quick tasks, minimal context        |
+| 2    | Basic       | 8K            | 6800              | Standard conversations              |
+| 3    | Standard ⭐ | 16K           | 13600             | Complex tasks, code review          |
+| 4    | Premium     | 32K           | 27200             | Large codebases, long conversations |
+| 5    | Ultra       | 64K, 128K     | 54400, 108800     | Maximum context, research tasks     |
 
 **Key Points:**
+
 - Tiers are **labels** that represent context size ranges
 - Context size drives everything
 - Each tier has specific context sizes (not arbitrary ranges)
@@ -271,12 +278,14 @@ graph TB
 ### Tier 1: Minimal Context (2K, 4K)
 
 **Reality Check:**
+
 - Too small for sophisticated compression
 - Still needs context continuity
 - Summaries would consume needed workspace
 - Lightweight rollover mechanism required
 
 **Strategy:**
+
 ```
 [System Prompt: 200 tokens]        ← Core Mandates only
 [Session Summary: 300 tokens]      ← Lightweight rollover
@@ -290,6 +299,7 @@ Rollover: Create snapshot, start fresh with summary
 ```
 
 **When to Use:**
+
 - Quick questions and answers
 - Simple conversations
 - Resource-constrained devices
@@ -298,12 +308,14 @@ Rollover: Create snapshot, start fresh with summary
 ### Tier 2: Basic Context (8K)
 
 **Reality Check:**
+
 - Entry-level for serious work
 - Room for basic checkpoint system
 - Must be smart about compression
 - LLM quality starts to matter
 
 **Strategy:**
+
 ```
 [System Prompt: 500 tokens]        ← Core + Sanity
 [Session Context: 500 tokens]      ← Rollover summary
@@ -319,6 +331,7 @@ Utilization Target: 80% (erosion prevention)
 ```
 
 **When to Use:**
+
 - Short to medium tasks (< 50 exchanges)
 - Single-file modifications
 - Focused debugging sessions
@@ -327,6 +340,7 @@ Utilization Target: 80% (erosion prevention)
 ### Tier 3: Standard Context (16K) ⭐
 
 **Reality Check:**
+
 - **SWEET SPOT for most users**
 - **Most common hardware supports this**
 - Reliable LLM performance
@@ -335,6 +349,7 @@ Utilization Target: 80% (erosion prevention)
 - **This is where 90% of usage happens**
 
 **Strategy:**
+
 ```
 [System Prompt: 1,000 tokens]      ← Core + Sanity + Mode
 [Task Definition: 400 tokens]      ← Never compressed
@@ -352,6 +367,7 @@ Utilization Target: 70% (optimal performance)
 ```
 
 **When to Use:**
+
 - **PRIMARY TARGET: Most users**
 - Medium to long tasks (50-200 exchanges)
 - Multi-file projects
@@ -362,6 +378,7 @@ Utilization Target: 70% (optimal performance)
 ### Tier 4: Premium Context (32K)
 
 **Reality Check:**
+
 - **PREMIUM TIER: High-end hardware**
 - Excellent LLM performance
 - Room for rich metadata
@@ -370,6 +387,7 @@ Utilization Target: 70% (optimal performance)
 - **Requires 32GB+ RAM or cloud/API**
 
 **Strategy:**
+
 ```
 [System Prompt: 1,500 tokens]      ← Full expert prompt
 [Task Definition: 600 tokens]      ← Never compressed
@@ -388,6 +406,7 @@ Utilization Target: 70% (optimal performance)
 ```
 
 **When to Use:**
+
 - High-end local setups (64GB+ RAM)
 - Cloud/API deployments
 - Long-running projects (200+ exchanges)
@@ -397,6 +416,7 @@ Utilization Target: 70% (optimal performance)
 ### Tier 5: Ultra Context (64K, 128K)
 
 **Reality Check:**
+
 - **ULTRA TIER: Cloud/API or extreme hardware**
 - Exceptional LLM performance
 - Massive room for complete history
@@ -404,6 +424,7 @@ Utilization Target: 70% (optimal performance)
 - **Requires cloud/API or 128GB+ RAM**
 
 **Strategy:**
+
 ```
 [System Prompt: 1,500 tokens]      ← Full expert prompt
 [Task Definition: 600 tokens]      ← Never compressed
@@ -423,15 +444,15 @@ Utilization Target: 65% (maximum performance)
 
 ### Tier Comparison
 
-| Aspect | Tier 1 | Tier 2 | Tier 3 ⭐ | Tier 4 | Tier 5 |
-|--------|--------|--------|-----------|--------|--------|
-| **Target Users** | Casual | Entry | **90% of users** | Premium | Enterprise |
-| **Hardware** | Low-end | Mid | **Consumer** | High-end | Cloud |
-| **Compression** | Rollover | Smart | **Progressive** | Structured | Ultra |
-| **Checkpoints** | 0 | 1 | **3** | 10 | 15 |
-| **Preservation** | 5% | 10% | **15%** | 25% | 30% |
-| **Task Length** | < 20 msgs | < 50 | **< 200** | < 500 | Unlimited |
-| **System Prompt** | 200 tokens | 500 | **1000** | 1500 | 1500 |
+| Aspect            | Tier 1     | Tier 2 | Tier 3 ⭐        | Tier 4     | Tier 5     |
+| ----------------- | ---------- | ------ | ---------------- | ---------- | ---------- |
+| **Target Users**  | Casual     | Entry  | **90% of users** | Premium    | Enterprise |
+| **Hardware**      | Low-end    | Mid    | **Consumer**     | High-end   | Cloud      |
+| **Compression**   | Rollover   | Smart  | **Progressive**  | Structured | Ultra      |
+| **Checkpoints**   | 0          | 1      | **3**            | 10         | 15         |
+| **Preservation**  | 5%         | 10%    | **15%**          | 25%        | 30%        |
+| **Task Length**   | < 20 msgs  | < 50   | **< 200**        | < 500      | Unlimited  |
+| **System Prompt** | 200 tokens | 500    | **1000**         | 1500       | 1500       |
 
 ⭐ = Primary target for development effort
 
@@ -448,7 +469,7 @@ graph TD
     Start[Monitor Context Usage] --> Check{Usage > 80%?}
     Check -->|No| Continue[Continue]
     Check -->|Yes| Trigger[Trigger Compression]
-    
+
     Trigger --> Identify[Identify Messages to Compress]
     Identify --> Send[Send to LLM for Summary]
     Send --> Create[Create Checkpoint]
@@ -456,7 +477,7 @@ graph TD
     Age --> Replace[Replace Messages with Checkpoint]
     Replace --> Recalc[Recalculate Budget]
     Recalc --> Continue
-    
+
     style Trigger fill:#ffd93d
     style Create fill:#6bcf7f
     style Age fill:#4d96ff
@@ -504,7 +525,7 @@ graph LR
     C --> D[Age Checkpoint 2 → 1]
     D --> E[Age Checkpoint 1 → Merge]
     E --> F[Recalculate Budget]
-    
+
     style B fill:#6bcf7f
     style C fill:#ffd93d
     style D fill:#ffd93d
@@ -512,6 +533,7 @@ graph LR
 ```
 
 **Compression Levels:**
+
 - **Recent (Checkpoint 3):** 50-70% compression, ~1200 tokens
 - **Old (Checkpoint 2):** 60% compression, ~600 tokens
 - **Ancient (Checkpoint 1):** 70% compression, ~300 tokens
@@ -528,6 +550,7 @@ The following content is ALWAYS preserved in full:
 5. **Artifacts** - Files created/modified
 
 **Example Context Structure:**
+
 ```
 [System Prompt] - 1000 tokens (never compressed)
   ├─ Core Mandates
@@ -559,37 +582,40 @@ graph LR
     subgraph "Tier 1: 4K"
         T1[~400 tokens<br/>10% overhead]
     end
-    
+
     subgraph "Tier 2: 8K"
         T2[~800 tokens<br/>10% overhead]
     end
-    
+
     subgraph "Tier 3: 16K ⭐"
         T3[~1300 tokens<br/>8.1% overhead]
     end
-    
+
     subgraph "Tier 4: 32K"
         T4[~1800 tokens<br/>5.6% overhead]
     end
-    
+
     subgraph "Tier 5: 128K"
         T5[~1800 tokens<br/>1.4% overhead]
     end
-    
+
     style T3 fill:#6bcf7f
 ```
 
 ### Prompt Components
 
 **All Tiers:**
+
 - Core Mandates (~200 tokens)
 
 **Tier 2+:**
+
 - Core Mandates (~200 tokens)
 - Sanity Checks (~100 tokens)
 - Mode Template (200-1500 tokens)
 
 **Token Budget Breakdown:**
+
 - Tier 1: 200 tokens (Core only)
 - Tier 2: 800 tokens (Core + Sanity + Basic Mode)
 - Tier 3: 1300 tokens (Core + Sanity + Comprehensive Mode)
@@ -600,19 +626,23 @@ graph LR
 Each mode has specific focus areas:
 
 **Developer Mode:**
+
 - Focus: Code quality, architecture, testing
 - Preserves: Architecture decisions, API contracts, file changes
 
 **Planning Mode:**
+
 - Focus: Task breakdown, dependencies, estimation
 - Preserves: Goals, requirements, task breakdown
 
 **Assistant Mode:**
+
 - Focus: Clear communication, helpful responses
 - Preserves: User preferences, conversation context
 - Only available in Tier 4 and 5
 
 **Debugger Mode:**
+
 - Focus: Systematic debugging, root cause analysis
 - Preserves: Error traces, reproduction steps, fixes attempted
 
@@ -632,24 +662,27 @@ graph TD
     Calc --> Account[Account for Model Size]
     Account --> Buffer[Apply Safety Buffer]
     Buffer --> Optimal[Optimal Context Size]
-    
+
     style Optimal fill:#6bcf7f
 ```
 
 ### Platform Support
 
 **NVIDIA (nvidia-smi):**
+
 - Total VRAM
 - Used VRAM
 - Free VRAM
 - GPU utilization
 
 **AMD (rocm-smi):**
+
 - Total VRAM
 - Used VRAM
 - Free VRAM
 
 **Apple Silicon (system APIs):**
+
 - Unified memory
 - Memory pressure
 - Available memory
@@ -658,14 +691,15 @@ graph TD
 
 ```typescript
 enum MemoryLevel {
-  NORMAL,      // < 70% usage
-  WARNING,     // 70-85% usage
-  CRITICAL,    // 85-95% usage
-  EMERGENCY    // > 95% usage
+  NORMAL, // < 70% usage
+  WARNING, // 70-85% usage
+  CRITICAL, // 85-95% usage
+  EMERGENCY, // > 95% usage
 }
 ```
 
 **Actions by Level:**
+
 - **NORMAL:** Continue normally
 - **WARNING:** Show warning message
 - **CRITICAL:** Show critical warning
@@ -683,14 +717,15 @@ Tracks token usage across all context components:
 
 ```typescript
 interface ContextUsage {
-  currentTokens: number;    // Current usage
-  maxTokens: number;        // Ollama limit (85% of user selection)
-  percentage: number;       // Usage percentage
-  available: number;        // Remaining tokens
+  currentTokens: number; // Current usage
+  maxTokens: number; // Ollama limit (85% of user selection)
+  percentage: number; // Usage percentage
+  available: number; // Remaining tokens
 }
 ```
 
 **Example:**
+
 ```
 User selects: 16K
 Ollama limit: 13,600 (85%)
@@ -710,6 +745,7 @@ Available: 5,100 tokens
 ### Budget Recalculation
 
 After each compression:
+
 1. Count system prompt tokens
 2. Count checkpoint tokens
 3. Calculate available budget
@@ -721,29 +757,29 @@ After each compression:
 
 ### File Locations
 
-| Component | File Path |
-|-----------|-----------|
-| **Context Manager** | `packages/core/src/context/contextManager.ts` |
-| **VRAM Monitor** | `packages/core/src/context/vramMonitor.ts` |
-| **Token Counter** | `packages/core/src/context/tokenCounter.ts` |
-| **Context Pool** | `packages/core/src/context/contextPool.ts` |
-| **Memory Guard** | `packages/core/src/context/memoryGuard.ts` |
+| Component                   | File Path                                             |
+| --------------------------- | ----------------------------------------------------- |
+| **Context Manager**         | `packages/core/src/context/contextManager.ts`         |
+| **VRAM Monitor**            | `packages/core/src/context/vramMonitor.ts`            |
+| **Token Counter**           | `packages/core/src/context/tokenCounter.ts`           |
+| **Context Pool**            | `packages/core/src/context/contextPool.ts`            |
+| **Memory Guard**            | `packages/core/src/context/memoryGuard.ts`            |
 | **Compression Coordinator** | `packages/core/src/context/compressionCoordinator.ts` |
-| **Compression Service** | `packages/core/src/context/compressionService.ts` |
-| **Checkpoint Manager** | `packages/core/src/context/checkpointManager.ts` |
-| **Snapshot Manager** | `packages/core/src/context/snapshotManager.ts` |
-| **System Prompt Builder** | `packages/core/src/context/SystemPromptBuilder.ts` |
-| **Prompt Registry** | `packages/core/src/prompts/PromptRegistry.ts` |
+| **Compression Service**     | `packages/core/src/context/compressionService.ts`     |
+| **Checkpoint Manager**      | `packages/core/src/context/checkpointManager.ts`      |
+| **Snapshot Manager**        | `packages/core/src/context/snapshotManager.ts`        |
+| **System Prompt Builder**   | `packages/core/src/context/SystemPromptBuilder.ts`    |
+| **Prompt Registry**         | `packages/core/src/prompts/PromptRegistry.ts`         |
 
 ### Configuration
 
 ```typescript
 interface ContextConfig {
-  targetSize: number;      // Target context size (user selection)
-  minSize: number;         // Minimum context size
-  maxSize: number;         // Maximum context size
-  autoSize: boolean;       // Enable auto-sizing
-  vramBuffer: number;      // VRAM safety buffer (MB)
+  targetSize: number; // Target context size (user selection)
+  minSize: number; // Minimum context size
+  maxSize: number; // Maximum context size
+  autoSize: boolean; // Enable auto-sizing
+  vramBuffer: number; // VRAM safety buffer (MB)
   kvQuantization: boolean; // Enable KV cache quantization
 }
 ```
@@ -751,6 +787,7 @@ interface ContextConfig {
 ### Events
 
 **Context Events:**
+
 - `started` - Context management started
 - `stopped` - Context management stopped
 - `config-updated` - Configuration changed
@@ -758,12 +795,14 @@ interface ContextConfig {
 - `mode-changed` - Operational mode changed
 
 **Memory Events:**
+
 - `low-memory` - Low VRAM detected
 - `memory-warning` - Memory usage warning (70-85%)
 - `memory-critical` - Critical memory usage (85-95%)
 - `memory-emergency` - Emergency memory condition (>95%)
 
 **Compression Events:**
+
 - `compressed` - Compression completed
 - `compression-skipped` - Compression skipped (not needed)
 - `compression-error` - Compression failed
@@ -771,6 +810,7 @@ interface ContextConfig {
 - `checkpoint-aged` - Checkpoint aged
 
 **Snapshot Events:**
+
 - `snapshot-created` - Snapshot created
 - `snapshot-restored` - Snapshot restored
 - `snapshot-error` - Snapshot operation failed

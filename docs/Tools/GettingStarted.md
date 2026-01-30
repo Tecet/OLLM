@@ -17,6 +17,7 @@ This guide covers everything you need to know about finding, installing, and man
 7. [Troubleshooting](#troubleshooting)
 
 **See Also:**
+
 - [Extension System Overview](3%20projects/OLLM%20CLI/Extensions/README.md) - Extension system introduction
 - [Extension Development Guide](3%20projects/OLLM%20CLI/Extensions/development-guide.md) - Creating extensions
 - [Manifest Reference](manifest-reference.md) - Manifest schema
@@ -29,6 +30,7 @@ This guide covers everything you need to know about finding, installing, and man
 ### What are Extensions?
 
 Extensions are modular packages that add functionality to OLLM CLI. They can include:
+
 - **Skills** - Prompt templates for common tasks
 - **Settings** - Configuration presets
 - **Servers** - MCP servers for tools
@@ -37,6 +39,7 @@ Extensions are modular packages that add functionality to OLLM CLI. They can inc
 ### Why Use Extensions?
 
 **Benefits:**
+
 - 🚀 Quick setup - Install pre-configured functionality
 - 🔄 Reusable - Share configurations across projects
 - 🛡️ Safe - Sandboxed execution with permissions
@@ -63,12 +66,14 @@ Extensions are modular packages that add functionality to OLLM CLI. They can inc
 ### Browse Categories
 
 **Official Extensions:**
+
 - `ollm-dev-tools` - Development workflows
 - `ollm-github` - GitHub integration
 - `ollm-database` - Database tools
 - `ollm-docs` - Documentation templates
 
 **Community Extensions:**
+
 - `code-quality` - Linting and formatting
 - `test-automation` - Testing workflows
 - `deployment` - Deployment automation
@@ -217,6 +222,7 @@ Extensions are modular packages that add functionality to OLLM CLI. They can inc
 Prompt templates for common tasks.
 
 **Example:**
+
 ```bash
 # Extension includes code review skill
 /skill code-review
@@ -225,6 +231,7 @@ Prompt templates for common tasks.
 ```
 
 **Viewing Skills:**
+
 ```bash
 # List skills from extension
 /extensions info github-integration
@@ -237,6 +244,7 @@ Prompt templates for common tasks.
 Configuration presets and defaults.
 
 **Example:**
+
 ```yaml
 # Extension provides GitHub settings
 github:
@@ -246,6 +254,7 @@ github:
 ```
 
 **Using Settings:**
+
 - Settings are automatically loaded
 - Can be overridden in user config
 - Merged with existing settings
@@ -255,6 +264,7 @@ github:
 MCP servers for tools and integrations.
 
 **Example:**
+
 ```bash
 # Extension includes GitHub MCP server
 # Automatically available after installation
@@ -264,6 +274,7 @@ Can you show me the latest issues in my repository?
 ```
 
 **Managing Servers:**
+
 ```bash
 # List servers from extension
 /mcp list
@@ -276,6 +287,7 @@ Can you show me the latest issues in my repository?
 Automation scripts for workflows.
 
 **Example:**
+
 ```bash
 # Extension includes pre-commit hook
 # Automatically runs before commits
@@ -294,17 +306,18 @@ Automation scripts for workflows.
 
 Extensions request permissions in their manifest:
 
-| Permission | Description | Example |
-|------------|-------------|---------|
-| `filesystem` | File operations | `["read", "write"]` |
-| `network` | Network access | `["https://api.github.com"]` |
-| `tools` | Tool execution | `["read-file", "shell"]` |
-| `hooks` | Hook events | `["pre-execution", "on-save"]` |
-| `settings` | Settings access | `["read", "write"]` |
+| Permission   | Description     | Example                        |
+| ------------ | --------------- | ------------------------------ |
+| `filesystem` | File operations | `["read", "write"]`            |
+| `network`    | Network access  | `["https://api.github.com"]`   |
+| `tools`      | Tool execution  | `["read-file", "shell"]`       |
+| `hooks`      | Hook events     | `["pre-execution", "on-save"]` |
+| `settings`   | Settings access | `["read", "write"]`            |
 
 ### Granting Permissions
 
 **During Installation:**
+
 ```bash
 /extensions install github-integration
 
@@ -317,6 +330,7 @@ Extensions request permissions in their manifest:
 ```
 
 **After Installation:**
+
 ```bash
 # Review permissions
 /extensions info github-integration
@@ -331,12 +345,14 @@ Extensions request permissions in their manifest:
 ### Permission Best Practices
 
 **Do:**
+
 - ✅ Review permissions before installing
 - ✅ Only grant necessary permissions
 - ✅ Revoke unused permissions
 - ✅ Check extension source
 
 **Don't:**
+
 - ❌ Grant all permissions blindly
 - ❌ Install untrusted extensions
 - ❌ Ignore permission warnings
@@ -349,22 +365,26 @@ Extensions request permissions in their manifest:
 ### Extension Not Loading
 
 **Check if installed:**
+
 ```bash
 /extensions list
 ```
 
 **Check if enabled:**
+
 ```bash
 /extensions info my-extension
 # Look for "enabled: true"
 ```
 
 **Enable extension:**
+
 ```bash
 /extensions enable my-extension
 ```
 
 **Reload extensions:**
+
 ```bash
 /extensions reload
 ```
@@ -372,17 +392,20 @@ Extensions request permissions in their manifest:
 ### Components Not Working
 
 **Check permissions:**
+
 ```bash
 /extensions info my-extension
 # Review granted permissions
 ```
 
 **Check logs:**
+
 ```bash
 /extensions logs my-extension
 ```
 
 **Reinstall extension:**
+
 ```bash
 /extensions remove my-extension
 /extensions install <url>
@@ -391,32 +414,38 @@ Extensions request permissions in their manifest:
 ### Installation Fails
 
 **Check URL:**
+
 - Verify URL is correct
 - Check if file exists
 - Ensure proper format (.tar.gz)
 
 **Check network:**
+
 - Verify internet connection
 - Check firewall settings
 - Try different network
 
 **Check disk space:**
+
 - Ensure sufficient disk space
 - Check installation directory permissions
 
 ### Permission Issues
 
 **Grant missing permissions:**
+
 ```bash
 /extensions grant my-extension filesystem read
 ```
 
 **Review required permissions:**
+
 ```bash
 /extensions info my-extension
 ```
 
 **Reset permissions:**
+
 ```bash
 # Revoke all
 /extensions revoke my-extension --all
@@ -481,6 +510,7 @@ Some extensions depend on others:
 ### Extension Selection
 
 **Choose extensions that:**
+
 - ✅ Have clear documentation
 - ✅ Are actively maintained
 - ✅ Have good reviews
@@ -488,6 +518,7 @@ Some extensions depend on others:
 - ✅ Come from trusted sources
 
 **Avoid extensions that:**
+
 - ❌ Request excessive permissions
 - ❌ Have no documentation
 - ❌ Are unmaintained
@@ -496,6 +527,7 @@ Some extensions depend on others:
 ### Extension Management
 
 **Do:**
+
 - ✅ Keep extensions updated
 - ✅ Remove unused extensions
 - ✅ Review permissions regularly
@@ -503,6 +535,7 @@ Some extensions depend on others:
 - ✅ Backup extension configurations
 
 **Don't:**
+
 - ❌ Install too many extensions
 - ❌ Grant unnecessary permissions
 - ❌ Ignore update notifications
@@ -511,6 +544,7 @@ Some extensions depend on others:
 ### Performance
 
 **Optimize performance:**
+
 - Disable unused extensions
 - Remove unnecessary extensions
 - Use hot-reload only in development
@@ -566,17 +600,20 @@ Create a PR for the feature branch
 ## Further Reading
 
 ### Documentation
+
 - [Extension System Overview](3%20projects/OLLM%20CLI/Extensions/README.md) - Introduction
 - [Extension Development Guide](3%20projects/OLLM%20CLI/Extensions/development-guide.md) - Creating extensions
 - [Manifest Reference](manifest-reference.md) - Manifest schema
 - [Marketplace Guide](marketplace.md) - Extension marketplace
 
 ### Related Features
+
 - [Hooks](../hooks/) - Hook system
 - [MCP Servers](../servers/) - MCP servers
 - [MCP Commands](MCP_commands.md) - Extension commands
 
 ### External Resources
+
 - Extension Registry (https://github.com/ollm/extensions) - Official extensions
 - Community Extensions (https://github.com/topics/ollm-extension) - Community extensions
 

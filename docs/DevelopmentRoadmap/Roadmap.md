@@ -22,48 +22,56 @@ OLLM CLI is a local-first command-line interface for open-source LLMs with tools
 The foundation of OLLM CLI has been successfully implemented through 9 development stages:
 
 **Stage 1-2: Foundation & Core Provider**
+
 - Project structure and build system
 - Provider abstraction layer
 - Ollama provider integration
 - Basic message handling
 
 **Stage 3: Tools & Policy**
+
 - Tool registry and execution
 - Policy engine (ASK, AUTO, YOLO modes)
 - Built-in tools (file ops, shell, web)
 - Tool confirmation system
 
 **Stage 4: Services & Sessions**
+
 - Session recording and management
 - Context management foundation
 - Dynamic prompt system
 - Service container architecture
 
 **Stage 5: Hooks, Extensions & MCP**
+
 - Hook system for automation
 - Extension framework
 - MCP client integration
 - Event-driven architecture
 
 **Stage 6: CLI & UI**
+
 - React + Ink terminal UI
 - Interactive TUI components
 - Tool support detection
 - Hooks panel UI
 
 **Stage 7: Model Management**
+
 - Model discovery and metadata
 - Context window configuration
 - Tool support detection
 - Reasoning model support
 
 **Stage 8: Testing & QA**
+
 - Comprehensive test suite
 - Property-based testing
 - Integration tests
 - CI/CD pipeline
 
 **Stage 9: Documentation & Release**
+
 - Complete documentation
 - User guides and API reference
 - Release preparation
@@ -81,6 +89,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** Core functionality and stability
 
 **Features:**
+
 - Interactive TUI and non-interactive modes
 - Provider-agnostic architecture (Ollama)
 - Comprehensive tool system
@@ -104,6 +113,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Features:**
 
 **File Explorer:**
+
 - Tree-based file browser in side panel
 - File operations (open, edit, rename, delete)
 - Git status indicators
@@ -112,6 +122,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Follow active file mode
 
 **MCP Enhancements:**
+
 - OAuth authentication support
 - Health monitoring system
 - Server restart capabilities
@@ -119,6 +130,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Enhanced server management
 
 **Specifications:**
+
 - `.kiro/specs/v0.2.0 File Explorer/`
 - `.kiro/specs/v0.2.0 MCP Integration/`
 
@@ -132,6 +144,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Features:**
 
 **Advanced File Explorer:**
+
 - Multi-file selection
 - Drag and drop support
 - File preview panel
@@ -140,6 +153,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Custom file actions
 
 **MCP Polish:**
+
 - Improved error handling
 - Better resource management
 - Enhanced tool discovery
@@ -147,6 +161,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Stability improvements
 
 **Specifications:**
+
 - `.kiro/specs/v0.3.0 File Explorer/`
 - `.kiro/specs/v0.3.0 MCP Integration/`
 
@@ -158,6 +173,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** Built-in terminal-based code editor
 
 **Features:**
+
 - Terminal-based code editor (3rd window)
 - Cursor navigation and text editing
 - Undo/redo support
@@ -170,6 +186,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - External change detection
 
 **Benefits:**
+
 - Edit files without leaving OLLM CLI
 - Seamless integration with chat and terminal
 - Quick edits during development
@@ -185,6 +202,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** Semantic search and codebase understanding
 
 **Features:**
+
 - Codebase indexing with embeddings
 - Semantic code search
 - Context-aware file discovery
@@ -195,6 +213,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Search result ranking
 
 **Benefits:**
+
 - Find relevant code quickly
 - Better context for LLM
 - Improved code understanding
@@ -212,6 +231,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Features:**
 
 **CLI-Based Providers:**
+
 - Gemini CLI integration
 - Claude Code integration
 - Codex CLI integration
@@ -219,6 +239,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - STDIN/STDOUT communication
 
 **API-Based Providers:**
+
 - OpenAI API integration
 - Anthropic API integration
 - Google AI API integration
@@ -226,6 +247,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Token usage tracking
 
 **Kraken Management:**
+
 - Provider discovery and health checks
 - Intelligent provider selection
 - Context transfer between providers
@@ -234,6 +256,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Confirmation dialogs for external requests
 
 **Benefits:**
+
 - Access to powerful cloud models
 - Fallback when local models struggle
 - Cost-effective provider selection
@@ -249,6 +272,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** GitHub workflow integration
 
 **Features:**
+
 - GitHub API integration
 - Repository management
 - Issue and PR creation
@@ -259,6 +283,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Gist support
 
 **Benefits:**
+
 - Manage GitHub from CLI
 - Automated PR creation
 - AI-assisted code review
@@ -276,36 +301,42 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Features:**
 
 **Platform Detection:**
+
 - Automatic OS detection
 - Platform-specific defaults
 - Shell selection (cmd.exe, /bin/sh)
 - Python command resolution
 
 **Configuration Paths:**
+
 - Windows: %APPDATA%\ollm
 - macOS: ~/Library/Application Support/ollm
 - Linux: XDG directories (~/.config/ollm)
 - Legacy ~/.ollm support
 
 **Terminal Capabilities:**
+
 - Color support detection
 - Unicode support detection
 - TTY detection
 - ASCII fallback characters
 
 **GPU Monitoring:**
+
 - NVIDIA (nvidia-smi) on Windows/Linux
 - AMD (rocm-smi) on Linux
 - Apple Silicon on macOS
 - Graceful fallback to CPU mode
 
 **Path Normalization:**
+
 - Forward slash display
 - Native separator for operations
 - Mixed separator handling
 - Cross-platform path resolution
 
 **Benefits:**
+
 - Consistent experience across platforms
 - Platform-appropriate defaults
 - Better terminal adaptation
@@ -321,6 +352,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** High-performance inference engines
 
 **Features:**
+
 - vLLM provider integration
 - LM Studio support
 - Text Generation WebUI support
@@ -330,6 +362,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Model serving optimization
 
 **Benefits:**
+
 - Faster inference
 - Better resource utilization
 - Production-ready deployment
@@ -347,6 +380,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 **Focus:** Production readiness and stability
 
 **Goals:**
+
 - Feature complete for core workflows
 - Production-grade stability
 - Comprehensive documentation
@@ -355,6 +389,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Community feedback integration
 
 **Criteria for Beta:**
+
 - All alpha features implemented and tested
 - No critical bugs
 - Complete user documentation
@@ -367,6 +402,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 ## Feature Roadmap Summary
 
 ### Current (v0.1.0)
+
 - ✅ Core TUI and non-interactive modes
 - ✅ Ollama provider integration
 - ✅ Tool system with policy engine
@@ -378,24 +414,28 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - ✅ Testing infrastructure
 
 ### Near Term (v0.2.0 - v0.4.0)
+
 - 📋 File Explorer with git integration
 - 📋 Enhanced MCP with OAuth and health monitoring
 - 📋 Built-in code editor
 - 📋 Advanced file management
 
 ### Mid Term (v0.5.0 - v0.7.0)
+
 - 📋 RAG integration for semantic search
 - 📋 External LLM providers (Kraken)
 - 📋 GitHub integration
 - 📋 Cost tracking and budgets
 
 ### Long Term (v0.8.0 - v0.9.0)
+
 - 📋 Enhanced cross-platform support
 - 📋 vLLM and open source providers
 - 📋 Performance optimizations
 - 📋 Production deployment features
 
 ### Beta (v1.0.0+)
+
 - 🎯 Production readiness
 - 🎯 API stability
 - 🎯 Community features
@@ -406,17 +446,20 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 ## Implementation Priorities
 
 ### High Priority
+
 1. **File Explorer** (v0.2.0) - Essential for file management
 2. **Code Editor** (v0.4.0) - Core development workflow
 3. **Kraken Integration** (v0.6.0) - Access to powerful models
 4. **RAG Integration** (v0.5.0) - Better code understanding
 
 ### Medium Priority
+
 1. **GitHub Integration** (v0.7.0) - Workflow automation
 2. **Cross-Platform** (v0.8.0) - Broader compatibility
 3. **vLLM Support** (v0.9.0) - Performance improvements
 
 ### Community-Driven
+
 - Feature requests from users
 - Integration with popular tools
 - Platform-specific enhancements
@@ -465,16 +508,19 @@ We welcome contributions to any planned feature!
 Your input shapes the roadmap!
 
 **Feature Requests:**
+
 - Open issue with "feature-request" label
 - Describe your use case
 - Explain expected benefits
 
 **Priority Feedback:**
+
 - Comment on existing issues
 - Vote with 👍 reactions
 - Share your workflow needs
 
 **Roadmap Discussion:**
+
 - Open issue with "roadmap" label
 - Suggest priority changes
 - Discuss feature dependencies
@@ -484,38 +530,40 @@ Your input shapes the roadmap!
 ## Related Documentation
 
 ### Roadmap Documents
-- [Roadmap Overview](roadmap.md) - This document
-- [Future Development](future-development.md) - Detailed future plans
-- [Visual Roadmap](road_map_visual.md) - Timeline and diagrams
-- [Future Features](future-features.md) - Quick reference
+
+- [Roadmap Overview](Roadmap.md) - This document
+- [Planned Features](PlanedFeatures.md) - Detailed future plans
+- [Visual Roadmap](RoadmapVisual.md) - Timeline and diagrams
 
 ### Development Documents
+
 - Development Plan (`.dev/development-plan.md`) - Completed stages 1-9
 - Specifications (`.kiro/specs/`) - Detailed feature specs
 - Knowledge DB (`dev/docs/knowledgeDB/`) - Technical documentation
 
 ### User Documentation
+
 - [README](../../README.md) - Project overview
-- [Quick Start](../quickstart.md) - Getting started
-- [Configuration](../UserInterface/configuration.md) - Settings reference
-- [Troubleshooting](../troubleshooting.md) - Common issues
+- [Quick Start](../Quickstart.md) - Getting started
+- [Configuration](../UI&Settings/Configuration.md) - Settings reference
+- [Troubleshooting](../Troubleshooting.md) - Common issues
 
 ---
 
 ## Version History
 
-| Version | Release Date | Status | Highlights |
-|---------|--------------|--------|------------|
-| v0.1.0 | 2026-01-26 | ✅ Released | Foundation release with core features |
-| v0.2.0 | TBD | 📋 Planned | File Explorer & Enhanced MCP |
-| v0.3.0 | TBD | 📋 Planned | Advanced File Explorer & MCP Polish |
-| v0.4.0 | TBD | 📋 Planned | Code Editor |
-| v0.5.0 | TBD | 📋 Planned | RAG Integration |
-| v0.6.0 | TBD | 📋 Planned | Release Kraken |
-| v0.7.0 | TBD | 📋 Planned | GitHub Integration |
-| v0.8.0 | TBD | 📋 Planned | Cross-Platform Support |
-| v0.9.0 | TBD | 📋 Planned | vLLM & Open Source Providers |
-| v1.0.0 | TBD | 🎯 Future | Beta Release |
+| Version | Release Date | Status      | Highlights                            |
+| ------- | ------------ | ----------- | ------------------------------------- |
+| v0.1.0  | 2026-01-26   | ✅ Released | Foundation release with core features |
+| v0.2.0  | TBD          | 📋 Planned  | File Explorer & Enhanced MCP          |
+| v0.3.0  | TBD          | 📋 Planned  | Advanced File Explorer & MCP Polish   |
+| v0.4.0  | TBD          | 📋 Planned  | Code Editor                           |
+| v0.5.0  | TBD          | 📋 Planned  | RAG Integration                       |
+| v0.6.0  | TBD          | 📋 Planned  | Release Kraken                        |
+| v0.7.0  | TBD          | 📋 Planned  | GitHub Integration                    |
+| v0.8.0  | TBD          | 📋 Planned  | Cross-Platform Support                |
+| v0.9.0  | TBD          | 📋 Planned  | vLLM & Open Source Providers          |
+| v1.0.0  | TBD          | 🎯 Future   | Beta Release                          |
 
 ---
 

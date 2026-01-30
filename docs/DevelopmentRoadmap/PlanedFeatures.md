@@ -8,8 +8,9 @@
 This document provides a quick reference for planned features in OLLM CLI alpha releases.
 
 **For detailed information, see:**
-- [Development Roadmap](roadmap.md) - Complete roadmap overview
-- [Visual Roadmap](road_map_visual.md) - Visual timeline and dependency graphs
+
+- [Development Roadmap](Roadmap.md) - Complete roadmap overview
+- [Visual Roadmap](RoadmapVisual.md) - Visual timeline and dependency graphs
 - Version Specifications (`.kiro/specs/vX.X.X/`) - Detailed requirements and design documents
 
 ---
@@ -21,6 +22,7 @@ This document provides a quick reference for planned features in OLLM CLI alpha 
 Tree-based file browser and enhanced MCP capabilities.
 
 **Key Features:**
+
 - Tree-based file browser in side panel
 - File operations (open, edit, rename, delete)
 - Git status indicators
@@ -31,7 +33,8 @@ Tree-based file browser and enhanced MCP capabilities.
 
 **Use When:** Managing project files, browsing code, MCP server management
 
-**Specs:** 
+**Specs:**
+
 - `.kiro/specs/v0.2.0 File Explorer/`
 - `.kiro/specs/v0.2.0 MCP Integration/`
 
@@ -44,6 +47,7 @@ Tree-based file browser and enhanced MCP capabilities.
 Advanced file operations and MCP stability improvements.
 
 **Key Features:**
+
 - Multi-file selection
 - File preview panel
 - Advanced search and filtering
@@ -54,6 +58,7 @@ Advanced file operations and MCP stability improvements.
 **Use When:** Complex file operations, advanced search, stable MCP usage
 
 **Specs:**
+
 - `.kiro/specs/v0.3.0 File Explorer/`
 - `.kiro/specs/v0.3.0 MCP Integration/`
 
@@ -66,6 +71,7 @@ Advanced file operations and MCP stability improvements.
 Edit files without leaving OLLM CLI.
 
 **Key Features:**
+
 - Terminal-based code editor (3rd window)
 - Cursor navigation and text editing
 - Undo/redo support
@@ -82,13 +88,51 @@ Edit files without leaving OLLM CLI.
 
 ---
 
-## v0.5.0: RAG Integration 🔍
+## v0.5.0: Release Kraken 🦑
+
+**External LLM Provider Access**
+
+Access powerful cloud models when local models need assistance.
+
+**Key Features:**
+
+**CLI-Based Providers:**
+
+- Gemini CLI integration
+- Claude Code integration
+- Codex CLI integration
+- Subprocess execution bridge
+
+**API-Based Providers:**
+
+- OpenAI API integration
+- Anthropic API integration
+- Google AI API integration
+- Streaming response handling
+
+**Management:**
+
+- Provider discovery and health checks
+- Intelligent provider selection
+- Context transfer between providers
+- Cost tracking and budget enforcement
+- Auto-escalation on local model failure
+- Confirmation dialogs for external requests
+
+**Use When:** Complex reasoning, large context, specialized domains, local model limitations
+
+**Spec:** `.kiro/specs/v0.5.0 Release Kraken/`
+
+---
+
+## v0.6.0: RAG Integration 🔍
 
 **Semantic Search & Codebase Understanding**
 
 Find relevant code with semantic search.
 
 **Key Features:**
+
 - Codebase indexing with embeddings
 - Semantic code search
 - Context-aware file discovery
@@ -100,41 +144,7 @@ Find relevant code with semantic search.
 
 **Use When:** Large codebases, finding relevant code, better LLM context
 
-**Spec:** `.kiro/specs/v0.5.0 RAG-integration/`
-
----
-
-## v0.6.0: Release Kraken 🦑
-
-**External LLM Provider Access**
-
-Access powerful cloud models when local models need assistance.
-
-**Key Features:**
-
-**CLI-Based Providers:**
-- Gemini CLI integration
-- Claude Code integration
-- Codex CLI integration
-- Subprocess execution bridge
-
-**API-Based Providers:**
-- OpenAI API integration
-- Anthropic API integration
-- Google AI API integration
-- Streaming response handling
-
-**Management:**
-- Provider discovery and health checks
-- Intelligent provider selection
-- Context transfer between providers
-- Cost tracking and budget enforcement
-- Auto-escalation on local model failure
-- Confirmation dialogs for external requests
-
-**Use When:** Complex reasoning, large context, specialized domains, local model limitations
-
-**Spec:** `.kiro/specs/v0.6.0 Release Kraken/`
+**Spec:** `.kiro/specs/v0.6.0 RAG-integration/`
 
 ---
 
@@ -145,6 +155,7 @@ Access powerful cloud models when local models need assistance.
 Manage GitHub from the CLI.
 
 **Key Features:**
+
 - GitHub API integration
 - Repository management
 - Issue and PR creation
@@ -167,6 +178,7 @@ Manage GitHub from the CLI.
 Consistent behavior across all major operating systems.
 
 **Key Features:**
+
 - Platform detection and defaults
 - Configuration path resolution (XDG, AppData)
 - Terminal capability detection
@@ -188,6 +200,7 @@ Consistent behavior across all major operating systems.
 Extended provider system for production deployments.
 
 **Key Features:**
+
 - vLLM provider integration
 - LM Studio support
 - Text Generation WebUI support
@@ -204,20 +217,20 @@ Extended provider system for production deployments.
 
 ## Feature Comparison Matrix
 
-| Feature | Version | Priority | Dependencies |
-|---------|---------|----------|--------------|
-| File Explorer | v0.2.0 | High | v0.1.0 |
-| Enhanced MCP | v0.2.0 | High | v0.1.0 |
-| Advanced Explorer | v0.3.0 | High | v0.2.0 |
-| MCP Polish | v0.3.0 | High | v0.2.0 |
-| Code Editor | v0.4.0 | High | v0.1.0 |
-| RAG Search | v0.5.0 | High | v0.1.0 |
-| Kraken (CLI) | v0.6.0 | High | v0.1.0 |
-| Kraken (API) | v0.6.0 | High | v0.1.0 |
-| GitHub Integration | v0.7.0 | Medium | v0.1.0 |
-| Cross-Platform | v0.8.0 | Medium | v0.1.0 |
-| vLLM Provider | v0.9.0 | Medium | v0.1.0 |
-| LM Studio | v0.9.0 | Medium | v0.1.0 |
+| Feature            | Version | Priority | Dependencies |
+| ------------------ | ------- | -------- | ------------ |
+| File Explorer      | v0.2.0  | High     | v0.1.0       |
+| Enhanced MCP       | v0.2.0  | High     | v0.1.0       |
+| Advanced Explorer  | v0.3.0  | High     | v0.2.0       |
+| MCP Polish         | v0.3.0  | High     | v0.2.0       |
+| Code Editor        | v0.4.0  | High     | v0.1.0       |
+| RAG Search         | v0.5.0  | High     | v0.1.0       |
+| Kraken (CLI)       | v0.6.0  | High     | v0.1.0       |
+| Kraken (API)       | v0.6.0  | High     | v0.1.0       |
+| GitHub Integration | v0.7.0  | Medium   | v0.1.0       |
+| Cross-Platform     | v0.8.0  | Medium   | v0.1.0       |
+| vLLM Provider      | v0.9.0  | Medium   | v0.1.0       |
+| LM Studio          | v0.9.0  | Medium   | v0.1.0       |
 
 ---
 
@@ -243,7 +256,7 @@ mcp:
     autoRefresh: true
   health:
     enabled: true
-    checkInterval: 60000  # 60 seconds
+    checkInterval: 60000 # 60 seconds
   marketplace:
     enabled: true
     autoUpdate: false
@@ -256,7 +269,7 @@ editor:
   enabled: true
   syntaxHighlighting: true
   autoSave: true
-  autoSaveDelay: 2000  # 2 seconds
+  autoSaveDelay: 2000 # 2 seconds
   prettier:
     enabled: true
     formatOnSave: true
@@ -264,19 +277,7 @@ editor:
     maxOpen: 10
 ```
 
-### v0.5.0: RAG Integration
-
-```yaml
-codebaseIndex:
-  enabled: true
-  autoIndex: true
-  extensions: ['.ts', '.js', '.py', '.java', '.go']
-  excludePatterns: ['node_modules', 'dist', '.git']
-  maxFileSize: 1048576  # 1MB
-  vectorDatabase: 'lancedb'
-```
-
-### v0.6.0: Kraken Integration
+### v0.5.0: Kraken Integration
 
 ```yaml
 kraken:
@@ -287,7 +288,7 @@ kraken:
     triggers:
       - contextOverflow
       - localModelError
-  sessionBudget: 10.00  # USD
+  sessionBudget: 10.00 # USD
   providers:
     geminiCli:
       enabled: true
@@ -303,6 +304,18 @@ kraken:
       maxTokens: 8192
 ```
 
+### v0.6.0: RAG Integration
+
+```yaml
+codebaseIndex:
+  enabled: true
+  autoIndex: true
+  extensions: ['.ts', '.js', '.py', '.java', '.go']
+  excludePatterns: ['node_modules', 'dist', '.git']
+  maxFileSize: 1048576 # 1MB
+  vectorDatabase: 'lancedb'
+```
+
 ### v0.7.0: GitHub Integration
 
 ```yaml
@@ -310,7 +323,7 @@ github:
   enabled: true
   token: ${GITHUB_TOKEN}
   defaultRepo: owner/repo
-  autoLink: true  # Auto-link issues/PRs in chat
+  autoLink: true # Auto-link issues/PRs in chat
   features:
     issues: true
     pullRequests: true
@@ -329,7 +342,7 @@ platform:
     windows: python
     unix: python3
   paths:
-    normalizeDisplay: true  # Show forward slashes in UI
+    normalizeDisplay: true # Show forward slashes in UI
   terminal:
     forceUnicode: false
     forceColor: false
@@ -338,14 +351,14 @@ platform:
 ### v0.9.0: vLLM Provider
 
 ```yaml
-provider: vllm  # ollama, vllm, lmstudio, etc.
+provider: vllm # ollama, vllm, lmstudio, etc.
 
 providers:
   vllm:
     baseUrl: http://localhost:8000
     apiKey: ${VLLM_API_KEY}
     timeout: 60000
-  
+
   lmstudio:
     baseUrl: http://localhost:1234
     timeout: 30000
@@ -358,12 +371,14 @@ providers:
 **Current Status:** v0.1.0 (Alpha) - Released
 
 **Alpha Releases (v0.2.0 - v0.9.0):** Timeline to be determined based on:
+
 - Community feedback and feature requests
 - Resource availability
 - Technical dependencies
 - User workflow priorities
 
 **Estimated Timeline:**
+
 - Q2 2026: v0.2.0 - v0.3.0 (File Explorer & MCP)
 - Q3 2026: v0.4.0 - v0.5.0 (Code Editor & RAG)
 - Q4 2026: v0.6.0 - v0.7.0 (Kraken & GitHub)
@@ -376,12 +391,14 @@ providers:
 ## Priority Levels
 
 ### High Priority
+
 - **v0.2.0:** File Explorer & Enhanced MCP
 - **v0.4.0:** Code Editor
-- **v0.5.0:** RAG Integration
-- **v0.6.0:** Release Kraken
+- **v0.5.0:** Release Kraken
+- **v0.6.0:** RAG Integration
 
 ### Medium Priority
+
 - **v0.3.0:** Advanced File Explorer
 - **v0.7.0:** GitHub Integration
 - **v0.8.0:** Cross-Platform Support
@@ -414,15 +431,14 @@ Interested in implementing a planned feature?
    - Include tests and documentation
    - Respond to review feedback
 
-See [Development Roadmap](roadmap.md#contributing) for detailed contribution guidelines.
+See [Development Roadmap](Roadmap.md#contributing) for detailed contribution guidelines.
 
 ---
 
 ## Related Documentation
 
-- **[Roadmap Overview](roadmap.md)** - Main roadmap document
-- **[Visual Roadmap](road_map_visual.md)** - Timeline and diagrams
-- **[Future Development](future-development.md)** - Detailed feature plans
+- **[Roadmap Overview](Roadmap.md)** - Main roadmap document
+- **[Visual Roadmap](RoadmapVisual.md)** - Timeline and diagrams
 - **Version Specifications** - `.kiro/specs/vX.X.X/` directories
 
 ---

@@ -7,6 +7,7 @@ Get up and running with OLLM CLI in 5 minutes! This guide will walk you through 
 ## Before You Start
 
 Make sure you've [installed OLLM CLI](Installation.md). You should have:
+
 - ✅ OLLM CLI installed (`ollm --version` works)
 - ✅ Ollama running (`ollama list` shows models)
 - ✅ At least one model downloaded
@@ -178,16 +179,16 @@ All tests passed! ✓
 
 Learn these shortcuts to work faster:
 
-| Shortcut | Action |
-|----------|--------|
-| `Return` | Send message |
-| `Shift+Return` | New line in message |
-| `Ctrl+K` | Open command palette |
-| `Ctrl+P` | Toggle side panel |
-| `Ctrl+?` | Show help |
-| `Ctrl+C` | Exit OLLM CLI |
-| `Ctrl+L` | Clear screen |
-| `Up Arrow` | Previous message |
+| Shortcut       | Action               |
+| -------------- | -------------------- |
+| `Return`       | Send message         |
+| `Shift+Return` | New line in message  |
+| `Ctrl+K`       | Open command palette |
+| `Ctrl+P`       | Toggle side panel    |
+| `Ctrl+?`       | Show help            |
+| `Ctrl+C`       | Exit OLLM CLI        |
+| `Ctrl+L`       | Clear screen         |
+| `Up Arrow`     | Previous message     |
 
 ---
 
@@ -262,6 +263,7 @@ You: Add a new section to README.md about installation
 ```
 
 The AI will:
+
 1. Read the current file
 2. Generate the new content
 3. Ask for your approval
@@ -274,6 +276,7 @@ You: Create a new file called utils.ts with a function to format dates
 ```
 
 The AI will:
+
 1. Generate the code
 2. Show you what it will create
 3. Ask for approval
@@ -314,6 +317,7 @@ Press `Ctrl+P` to open the side panel:
 ```
 
 **Tabs:**
+
 - **Tools** - Enable/disable tools
 - **Hooks** - Automation hooks
 - **Files** - File explorer
@@ -404,25 +408,33 @@ Done! Your changes are committed and ready to push.
 Different modes for different tasks:
 
 ### Assistant Mode (Default)
+
 General help and conversation.
+
 ```bash
 /mode assistant
 ```
 
 ### Developer Mode
+
 Focused on coding tasks.
+
 ```bash
 /mode developer
 ```
 
 ### Planning Mode
+
 Project planning and architecture.
+
 ```bash
 /mode planning
 ```
 
 ### Debugger Mode
+
 Systematic problem-solving.
+
 ```bash
 /mode debugger
 ```

@@ -52,12 +52,14 @@
 ### Panel Components
 
 **Left Column (30%):**
+
 - Exit item at top
 - Category headers with icons
 - Hook items with status indicators
 - Scroll indicators (when needed)
 
 **Right Column (70%):**
+
 - Hook name (bold, yellow)
 - Hook ID
 - Command and arguments
@@ -566,6 +568,7 @@ Bottom of List
 ### Icon Recognition
 
 Learn the category icons to quickly find hooks:
+
 - 📝 = Files
 - 💬 = Prompts
 - 👤 = User actions
@@ -574,6 +577,7 @@ Learn the category icons to quickly find hooks:
 ### Layout Memory
 
 Remember the layout:
+
 - Left = List (what's available)
 - Right = Details (what's selected)
 - Top = Exit (quick way out)

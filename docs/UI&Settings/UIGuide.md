@@ -54,11 +54,13 @@ The header bar displays critical information about your current session.
 ### Elements
 
 **Model Display**
+
 - Shows currently active model
 - Icon indicates model type
 - Click or use `/model` to switch
 
 **Context Usage**
+
 - Format: `{current}/{max}` tokens
 - Example: `5,234/13,926`
 - Color coding:
@@ -67,11 +69,13 @@ The header bar displays critical information about your current session.
   - 🔴 Red: > 80% usage
 
 **Mode Indicator**
+
 - Shows current operational mode
 - Examples: Assistant, Developer, Planning
 - Use `/mode` to switch modes
 
 **Clock**
+
 - Displays current time
 - Updates every second
 
@@ -86,6 +90,7 @@ The left column displays your conversation with the AI.
 #### Chat History
 
 **Features:**
+
 - Scrollable message list
 - Auto-scroll to bottom on new messages
 - Syntax highlighting for code blocks
@@ -111,6 +116,7 @@ The left column displays your conversation with the AI.
    - Shows tool execution details
 
 **Tool Call Display:**
+
 ```
 ┌─ Tool: glob ─────────────────────────┐
 │ Pattern: **/*.ts                      │
@@ -142,18 +148,21 @@ For models that support reasoning (e.g., DeepSeek R1), the UI displays the think
    - Shows summary line only
 
 **Controls:**
+
 - Navigate to reasoning block with arrow keys
 - Press `Space` or `Return` to toggle expand/collapse
 
 #### Input Area
 
 **Features:**
+
 - Multi-line text input
 - Auto-resize based on content
 - Keybind hints
 - Character/token count (optional)
 
 **Keybinds:**
+
 - `Return` - Send message
 - `Shift+Return` - New line
 - `Escape` - Cancel/clear
@@ -178,6 +187,7 @@ Navigate between different side panel views:
 ```
 
 **Available Tabs:**
+
 1. **Tools** (`Ctrl+2`) - Tool management
 2. **Hooks** (`Ctrl+3`) - Hook management
 3. **Files** (`Ctrl+4`) - File explorer
@@ -188,6 +198,7 @@ Navigate between different side panel views:
 8. **Settings** (`Ctrl+9`) - Settings
 
 **Navigation:**
+
 - `Ctrl+1-9` - Switch tabs directly
 - `Tab` - Cycle through tabs
 
@@ -215,6 +226,7 @@ Manage available tools and their permissions.
 ```
 
 **Features:**
+
 - Tool categories (collapsible)
 - Enable/disable toggles
 - Tool descriptions on hover
@@ -240,6 +252,7 @@ Configure automation hooks for event-driven actions.
 ```
 
 **Features:**
+
 - Hook list by category
 - Enable/disable toggles
 - Add/edit/delete hooks
@@ -266,6 +279,7 @@ Browse and manage project files.
 ```
 
 **Features:**
+
 - Tree view with expand/collapse
 - File operations (open, edit, rename, delete)
 - Git status indicators
@@ -293,6 +307,7 @@ Manage Model Context Protocol servers.
 ```
 
 **Features:**
+
 - Server list with status
 - Health indicators
 - Server actions (restart, configure)
@@ -324,6 +339,7 @@ Configure OLLM CLI preferences.
 ```
 
 **Features:**
+
 - Model picker
 - Context size selector
 - Theme picker
@@ -345,17 +361,20 @@ The status bar displays current status and helpful hints.
 ### Elements
 
 **Status Indicator**
+
 - 🟢 Ready - System ready for input
 - 🟡 Thinking - AI processing
 - 🔴 Error - Error occurred
 - 🔵 Info - Information message
 
 **Keybind Hints**
+
 - Context-sensitive shortcuts
 - Updates based on current focus
 - Shows most relevant actions
 
 **Notifications**
+
 - Temporary messages
 - Success/warning/error alerts
 - Auto-dismiss after timeout
@@ -397,6 +416,7 @@ OLLM CLI uses a focus system to route keyboard input to the appropriate componen
 **Recommended:** 120x40
 
 **Behavior:**
+
 - Side panel auto-hides on narrow terminals (< 100 columns)
 - Chat history scrolls on short terminals (< 30 rows)
 - Input area shrinks on very short terminals
@@ -404,14 +424,17 @@ OLLM CLI uses a focus system to route keyboard input to the appropriate componen
 ### Overflow Handling
 
 **Chat History:**
+
 - Vertical scroll enabled
 - No horizontal scroll (text wraps)
 
 **Side Panel Content:**
+
 - Vertical scroll enabled
 - Long lines wrap
 
 **Input Area:**
+
 - Scrolls if exceeds max height
 - Long lines wrap
 
@@ -433,11 +456,13 @@ OLLM CLI includes 6 built-in themes with customizable colors.
 ### Theme Management
 
 **Commands:**
+
 - `/theme list` - List available themes
 - `/theme use <name>` - Switch to a theme
 - `/theme preview <name>` - Preview temporarily
 
 **Settings:**
+
 - Theme selection persists across sessions
 - Stored in `~/.ollm/settings.json`
 

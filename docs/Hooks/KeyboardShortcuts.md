@@ -6,13 +6,13 @@
 
 ## Navigation
 
-| Key | Action | Description |
-|-----|--------|-------------|
-| **Tab** | Enter Panel | Navigate to Hooks tab and activate panel |
-| **↑** | Move Up | Navigate to previous hook in list |
-| **↓** | Move Down | Navigate to next hook in list |
-| **Esc** | Exit Panel | Return to main navigation (Browse Mode) |
-| **0** | Exit Panel | Alternative way to return to main navigation |
+| Key     | Action      | Description                                  |
+| ------- | ----------- | -------------------------------------------- |
+| **Tab** | Enter Panel | Navigate to Hooks tab and activate panel     |
+| **↑**   | Move Up     | Navigate to previous hook in list            |
+| **↓**   | Move Down   | Navigate to next hook in list                |
+| **Esc** | Exit Panel  | Return to main navigation (Browse Mode)      |
+| **0**   | Exit Panel  | Alternative way to return to main navigation |
 
 ### Navigation Tips
 
@@ -25,15 +25,15 @@
 
 ## Hook Actions
 
-| Key | Action | Description |
-|-----|--------|-------------|
-| **Enter** | Toggle | Enable/disable selected hook |
-| **←** | Toggle | Alternative way to toggle hook |
-| **→** | Toggle | Alternative way to toggle hook |
-| **A** | Add | Open Add Hook dialog |
-| **E** | Edit | Open Edit Hook dialog (user hooks only) |
-| **D** | Delete | Open Delete Confirmation dialog (user hooks only) |
-| **T** | Test | Open Test Hook dialog |
+| Key       | Action | Description                                       |
+| --------- | ------ | ------------------------------------------------- |
+| **Enter** | Toggle | Enable/disable selected hook                      |
+| **←**     | Toggle | Alternative way to toggle hook                    |
+| **→**     | Toggle | Alternative way to toggle hook                    |
+| **A**     | Add    | Open Add Hook dialog                              |
+| **E**     | Edit   | Open Edit Hook dialog (user hooks only)           |
+| **D**     | Delete | Open Delete Confirmation dialog (user hooks only) |
+| **T**     | Test   | Open Test Hook dialog                             |
 
 ### Action Tips
 
@@ -46,12 +46,12 @@
 
 ## Dialog Controls
 
-| Key | Action | Description |
-|-----|--------|-------------|
-| **S** | Save | Save changes in Add/Edit dialog |
-| **C** | Cancel | Close dialog without saving |
-| **Esc** | Cancel | Alternative way to close dialog |
-| **D** | Confirm | Confirm deletion in Delete dialog |
+| Key     | Action  | Description                       |
+| ------- | ------- | --------------------------------- |
+| **S**   | Save    | Save changes in Add/Edit dialog   |
+| **C**   | Cancel  | Close dialog without saving       |
+| **Esc** | Cancel  | Alternative way to close dialog   |
+| **D**   | Confirm | Confirm deletion in Delete dialog |
 
 ### Dialog Tips
 
@@ -65,12 +65,14 @@
 ## Visual Indicators
 
 ### Hook Status
+
 - **● Green** - Hook is enabled
 - **○ Gray** - Hook is disabled
 - **Yellow highlight** - Currently selected hook (when panel has focus)
 - **Cyan border** - Panel has focus
 
 ### Category Icons
+
 - **📝** File Events
 - **💬** Prompt Events
 - **👤** User Triggered
@@ -82,6 +84,7 @@
 - **🔔** Notifications
 
 ### Scroll Indicators
+
 - **▲** More hooks above (scroll up)
 - **▼** More hooks below (scroll down)
 
@@ -90,31 +93,37 @@
 ## Common Workflows
 
 ### Quick Toggle
+
 ```
 Tab → Enter → ↓ (to hook) → Enter (toggle)
 ```
 
 ### Add New Hook
+
 ```
 Tab → Enter → A → (fill form) → S
 ```
 
 ### Edit Hook
+
 ```
 Tab → Enter → ↓ (to hook) → E → (modify) → S
 ```
 
 ### Delete Hook
+
 ```
 Tab → Enter → ↓ (to hook) → D → D (confirm)
 ```
 
 ### Test Hook
+
 ```
 Tab → Enter → ↓ (to hook) → T → (review) → Esc
 ```
 
 ### Quick Exit
+
 ```
 Esc (from anywhere in panel)
 or
@@ -201,11 +210,13 @@ Some keys have alternatives for different keyboard layouts:
 ### Keys Not Working
 
 **Check panel focus:**
+
 - Panel border should be cyan
 - Selected hook should be yellow
 - Press **Tab** to give focus
 
 **Check terminal:**
+
 - Ensure terminal supports arrow keys
 - Try alternative keys (Esc, 0)
 - Restart terminal if needed
@@ -213,10 +224,12 @@ Some keys have alternatives for different keyboard layouts:
 ### Dialogs Not Responding
 
 **Close existing dialogs:**
+
 - Press **Esc** to close
 - Try action again
 
 **Check terminal size:**
+
 - Dialogs require minimum 80x24
 - Resize terminal if too small
 

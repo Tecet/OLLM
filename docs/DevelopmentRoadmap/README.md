@@ -9,6 +9,7 @@
 This directory contains documentation about planned future development for OLLM CLI beyond the current v0.1.0 release.
 
 **Current Status:**
+
 - **Latest Release:** v0.1.0
 - **Completed:** Stages 1-9 (Core features)
 - **Planned:** Stages 10-15 (Future development)
@@ -17,10 +18,12 @@ This directory contains documentation about planned future development for OLLM 
 
 ## Documentation
 
-### [Roadmap Overview](roadmap.md)
+### [Roadmap Overview](Roadmap.md)
+
 **Main entry point and overview**
 
 Quick overview of completed and planned features:
+
 - Completed features (v0.1.0)
 - Planned stages table with priorities
 - Contributing guidelines
@@ -29,10 +32,12 @@ Quick overview of completed and planned features:
 **Topics:** Overview, Status, Quick Reference  
 **Audience:** All users, new contributors
 
-### [Future Development](future-development.md)
+### [Planned Features](PlanedFeatures.md)
+
 **Complete roadmap for planned features**
 
 Detailed descriptions of all planned future development stages including:
+
 - Stage 10: Kraken Integration (External LLM providers)
 - Stage 11: Developer Productivity Tools (Git, @-mentions, diff review)
 - Stage 12: Cross-Platform Support (Enhanced compatibility)
@@ -43,10 +48,12 @@ Detailed descriptions of all planned future development stages including:
 **Topics:** Future Features, Planned Development, Roadmap  
 **Audience:** All users, contributors, stakeholders
 
-### [Future Features Quick Reference](future-features.md)
+### [Planned Features Quick Reference](PlanedFeatures.md)
+
 **One-page quick reference guide**
 
 Quick reference with:
+
 - One-page summaries of each stage
 - Configuration previews for each feature
 - Feature comparison matrix
@@ -55,10 +62,12 @@ Quick reference with:
 **Topics:** Quick Reference, Configuration Examples  
 **Audience:** Developers, system administrators
 
-### [Visual Roadmap](road_map_visual.md)
+### [Visual Roadmap](RoadmapVisual.md)
+
 **Visual representation with ASCII diagrams**
 
 Visual timeline and dependency graphs showing:
+
 - Development timeline with progress bars
 - Feature dependency graph
 - Priority vs complexity matrix
@@ -75,11 +84,13 @@ Visual timeline and dependency graphs showing:
 ### By Priority
 
 **High Priority:**
+
 - Kraken Integration (Stage 10)
 - Developer Productivity Tools (Stage 11)
 - Intelligence Layer (Stage 15)
 
 **Medium Priority:**
+
 - Cross-Platform Support (Stage 12)
 - Multi-Provider Support (Stage 13)
 - File Upload System (Stage 14)
@@ -87,17 +98,21 @@ Visual timeline and dependency graphs showing:
 ### By Category
 
 **🔌 Provider Integration:**
+
 - Kraken Integration
 - Multi-Provider Support
 
 **🛠️ Developer Tools:**
+
 - Developer Productivity Tools
 - Intelligence Layer
 
 **🖥️ Platform:**
+
 - Cross-Platform Support
 
 **📁 File & Media:**
+
 - File Upload System
 - Intelligence Layer (vision)
 
@@ -115,6 +130,7 @@ Each planned stage has detailed specifications in `.kiro/specs/`:
 - `.kiro/specs/stage-15-intelligence-layer-future-dev/`
 
 Each specification directory contains:
+
 - `requirements.md` - Detailed requirements with acceptance criteria
 - `design.md` - Architecture and design decisions
 - `tasks.md` - Implementation task breakdown
@@ -145,13 +161,12 @@ Have suggestions for the roadmap?
 
 ## Related Documentation
 
-- [Roadmap Overview](roadmap.md) - Main entry point
-- [Future Development](future-development.md) - Detailed roadmap
-- [Future Features](future-features.md) - Quick reference
-- [Visual Roadmap](road_map_visual.md) - Visual timeline and diagrams
+- [Roadmap Overview](Roadmap.md) - Main entry point
+- [Planned Features](PlanedFeatures.md) - Detailed roadmap
+- [Visual Roadmap](RoadmapVisual.md) - Visual timeline and diagrams
 - Development Plan (../../.dev/Development-Roadmap/ROADMAP.md) - Development tracking
 - [README](../../README.md) - Project overview
-- [Configuration](../configuration.md) - Settings reference
+- [Configuration](../UI&Settings/Configuration.md) - Settings reference
 
 ---
 

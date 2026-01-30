@@ -34,11 +34,13 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 ### For New Users
 
 **Start Here:**
+
 1. [User Guide](UserGuide.md) - Complete guide to using tools
 2. [Available Tools](#available-tools) - Tool reference
 3. [Approval Modes](#approval-modes) - Safety settings
 
 **Then Explore:**
+
 - [Extension System](GettingStarted.md) - Adding more tools
 - [MCP Integration](../MCP/MCP_Integration.md) - External tools
 
@@ -47,11 +49,13 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 ### For Developers
 
 **Start Here:**
+
 1. [Architecture](Architecture.md) - System design
 2. [Tool Categories](#tool-categories) - Tool organization
 3. [Integration Points](#integration-points) - System integration
 
 **Then Explore:**
+
 - [MCP Architecture](../MCP/MCP_Architecture.md) - MCP tool integration
 - [Hook Architecture](../Hooks/Architecture.md) - Hook integration
 - [Extension Development](GettingStarted.md) - Creating tools
@@ -62,52 +66,52 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 
 ### File Discovery
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `glob` | Find files by pattern | Low | ✅ Yes |
-| `ls` | List directory contents | Low | ✅ Yes |
-| `grep` | Search file contents | Low | ✅ Yes |
+| Tool   | Description             | Risk Level | Auto-Approve |
+| ------ | ----------------------- | ---------- | ------------ |
+| `glob` | Find files by pattern   | Low        | ✅ Yes       |
+| `ls`   | List directory contents | Low        | ✅ Yes       |
+| `grep` | Search file contents    | Low        | ✅ Yes       |
 
 ### File Operations
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `read_file` | Read single file | Low | ✅ Yes |
-| `read_many_files` | Read multiple files | Low | ✅ Yes |
-| `edit_file` | Edit file sections | Medium | ❌ No |
-| `write_file` | Create/overwrite files | Medium | ❌ No |
+| Tool              | Description            | Risk Level | Auto-Approve |
+| ----------------- | ---------------------- | ---------- | ------------ |
+| `read_file`       | Read single file       | Low        | ✅ Yes       |
+| `read_many_files` | Read multiple files    | Low        | ✅ Yes       |
+| `edit_file`       | Edit file sections     | Medium     | ❌ No        |
+| `write_file`      | Create/overwrite files | Medium     | ❌ No        |
 
 ### Web Tools
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `web_search` | Search internet | Low | ✅ Yes |
-| `web_fetch` | Fetch URL content | Low | ✅ Yes |
+| Tool         | Description       | Risk Level | Auto-Approve |
+| ------------ | ----------------- | ---------- | ------------ |
+| `web_search` | Search internet   | Low        | ✅ Yes       |
+| `web_fetch`  | Fetch URL content | Low        | ✅ Yes       |
 
 ### Shell Tool
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `shell` | Execute commands | High | ❌ No |
+| Tool    | Description      | Risk Level | Auto-Approve |
+| ------- | ---------------- | ---------- | ------------ |
+| `shell` | Execute commands | High       | ❌ No        |
 
 ### Memory Tools
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `memory` | Persistent memory | Low | ✅ Yes |
-| `remember` | Simplified memory | Low | ✅ Yes |
-| `write_memory_dump` | Context snapshot | Low | ✅ Yes |
-| `read_reasoning` | Review past reasoning | Low | ✅ Yes |
+| Tool                | Description           | Risk Level | Auto-Approve |
+| ------------------- | --------------------- | ---------- | ------------ |
+| `memory`            | Persistent memory     | Low        | ✅ Yes       |
+| `remember`          | Simplified memory     | Low        | ✅ Yes       |
+| `write_memory_dump` | Context snapshot      | Low        | ✅ Yes       |
+| `read_reasoning`    | Review past reasoning | Low        | ✅ Yes       |
 
 ### Goal Tools
 
-| Tool | Description | Risk Level | Auto-Approve |
-|------|-------------|------------|--------------|
-| `create_goal` | Create new goal | Low | ✅ Yes |
-| `switch_goal` | Switch active goal | Low | ✅ Yes |
-| `complete_goal` | Mark goal complete | Low | ✅ Yes |
-| `create_checkpoint` | Create checkpoint | Low | ✅ Yes |
-| `record_decision` | Record decision | Low | ✅ Yes |
+| Tool                | Description        | Risk Level | Auto-Approve |
+| ------------------- | ------------------ | ---------- | ------------ |
+| `create_goal`       | Create new goal    | Low        | ✅ Yes       |
+| `switch_goal`       | Switch active goal | Low        | ✅ Yes       |
+| `complete_goal`     | Mark goal complete | Low        | ✅ Yes       |
+| `create_checkpoint` | Create checkpoint  | Low        | ✅ Yes       |
+| `record_decision`   | Record decision    | Low        | ✅ Yes       |
 
 ---
 
@@ -128,6 +132,7 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 **Use When:** Normal development work, balanced safety
 
 **Behavior:**
+
 - ✅ Auto-approve: Read operations, web search
 - ❌ Require approval: Write operations, shell commands
 
@@ -138,6 +143,7 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 **Use When:** Learning, critical data, maximum safety
 
 **Behavior:**
+
 - ❌ Require approval: All tools
 
 ---
@@ -147,18 +153,22 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 ### By Purpose
 
 **File Operations:**
+
 - Discovery: glob, ls, grep
 - Reading: read_file, read_many_files
 - Writing: edit_file, write_file
 
 **Web Access:**
+
 - Search: web_search
 - Fetch: web_fetch
 
 **System:**
+
 - Shell: shell
 
 **Data Management:**
+
 - Memory: memory, remember
 - Context: write_memory_dump, read_reasoning
 - Goals: create_goal, switch_goal, complete_goal, create_checkpoint, record_decision
@@ -166,16 +176,19 @@ The Tool Execution System enables LLMs to perform actions through a unified inte
 ### By Risk Level
 
 **Low Risk (Auto-Approve in AUTO mode):**
+
 - All read operations
 - Web search and fetch
 - Memory operations
 - Goal management
 
 **Medium Risk (Require Approval):**
+
 - File write operations
 - File edit operations
 
 **High Risk (Always Require Approval):**
+
 - Shell command execution
 
 ---
@@ -255,6 +268,7 @@ Simply ask the LLM to perform actions:
 ### Approving Tools
 
 When prompted:
+
 - `y` - Approve this execution
 - `n` - Deny this execution
 - `a` - Approve all (switch to YOLO)
@@ -267,11 +281,13 @@ When prompted:
 ### Tools Not Working
 
 **Check approval mode:**
+
 ```bash
 /config get approvalMode
 ```
 
 **Check tool registration:**
+
 ```bash
 /tools list
 ```
@@ -284,6 +300,7 @@ When prompted:
 ### Tool Execution Fails
 
 **Check error message:**
+
 - Read error carefully
 - Verify parameters
 - Check file paths
@@ -298,12 +315,14 @@ When prompted:
 ### Tool Usage
 
 **Do:**
+
 - ✅ Use natural language requests
 - ✅ Let LLM choose tools
 - ✅ Review actions before approval
 - ✅ Use AUTO mode for balance
 
 **Don't:**
+
 - ❌ Manually invoke tools
 - ❌ Use YOLO on critical data
 - ❌ Ignore approval prompts
@@ -353,12 +372,12 @@ LLM: "Tests failed with 2 errors..."
 
 ### Completed ✅
 
-| Document | Status |
-|----------|--------|
-| README.md | ✅ Complete |
-| UserGuide.md | ✅ Complete |
-| Architecture.md | ✅ Complete |
-| GettingStarted.md | ✅ Complete |
+| Document             | Status      |
+| -------------------- | ----------- |
+| README.md            | ✅ Complete |
+| UserGuide.md         | ✅ Complete |
+| Architecture.md      | ✅ Complete |
+| GettingStarted.md    | ✅ Complete |
 | ManifestReference.md | ✅ Complete |
 
 **Overall Progress:** 100% complete (5/5 files)
@@ -368,10 +387,12 @@ LLM: "Tests failed with 2 errors..."
 ## External Resources
 
 ### Official Resources
+
 - Tool Use Patterns (https://docs.anthropic.com/claude/docs/tool-use)
 - JSON Schema (https://json-schema.org/)
 
 ### OLLM CLI Resources
+
 - [Main Documentation](../) - OLLM CLI docs
 - [MCP Documentation](../MCP/) - MCP integration
 - [Hook Documentation](../Hooks/) - Hook system
@@ -393,11 +414,13 @@ Want to contribute to Tool documentation?
 ### Finding Information
 
 **By Task:**
+
 - Using tools → [User Guide](UserGuide.md)
 - Understanding architecture → [Architecture](Architecture.md)
 - Adding tools → [Extension System](GettingStarted.md)
 
 **By Tool:**
+
 - File operations → [File Tools](#file-operations)
 - Web access → [Web Tools](#web-tools)
 - Shell commands → [Shell Tool](#shell-tool)
@@ -405,6 +428,7 @@ Want to contribute to Tool documentation?
 - Goals → [Goal Tools](#goal-tools)
 
 **By Topic:**
+
 - Approval → [Approval Modes](#approval-modes)
 - Security → [Architecture - Security Model](Architecture.md#security-model)
 - Integration → [Integration Points](#integration-points)
@@ -414,4 +438,3 @@ Want to contribute to Tool documentation?
 **Last Updated:** 2026-01-26  
 **Version:** 0.1.0  
 **Documentation Progress:** 100% complete
-

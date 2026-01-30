@@ -16,6 +16,7 @@ This document provides a comprehensive reference for all model management comman
 6. [Configuration Commands](#configuration-commands)
 
 **See Also:**
+
 - [Getting Started](3%20projects/OLLM%20CLI/LLM%20Models/getting-started.md)
 - [Configuration Guide](Models_configuration.md)
 - [Model Architecture](Models_architecture.md)
@@ -29,11 +30,13 @@ This document provides a comprehensive reference for all model management comman
 List all available models from the current provider.
 
 **Syntax:**
+
 ```bash
 /model list
 ```
 
 **Output:**
+
 ```
 Available Models:
   ● llama3.1:8b (loaded)     4.7 GB   Modified 2 days ago
@@ -43,6 +46,7 @@ Available Models:
 ```
 
 **Information displayed:**
+
 - Model name and version
 - Size on disk
 - Last modified date
@@ -55,11 +59,13 @@ Available Models:
 Download a model from the provider registry.
 
 **Syntax:**
+
 ```bash
 /model pull <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # Pull a specific model
 /model pull llama3.1:8b
@@ -72,12 +78,14 @@ Download a model from the provider registry.
 ```
 
 **Features:**
+
 - Real-time progress display
 - Transfer rate monitoring
 - Cancellable with Ctrl+C
 - Automatic cache invalidation
 
 **Progress display:**
+
 ```
 Pulling llama3.1:8b...
 [████████████████████████] 100% 4.7 GB @ 12.3 MB/s
@@ -91,11 +99,13 @@ Model llama3.1:8b ready.
 Remove a model to free disk space.
 
 **Syntax:**
+
 ```bash
 /model delete <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # Delete a specific model
 /model delete codellama:7b
@@ -105,12 +115,14 @@ Remove a model to free disk space.
 ```
 
 **Safety features:**
+
 - Confirmation prompt
 - Shows space to be freed
 - Automatic unload if currently loaded
 - Cannot delete active model (switch first)
 
 **Example interaction:**
+
 ```
 Delete codellama:7b? This will free 3.8 GB. [y/N] y
 Unloading model...
@@ -125,11 +137,13 @@ Model codellama:7b removed successfully.
 View detailed model metadata and capabilities.
 
 **Syntax:**
+
 ```bash
 /model info <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # View model information
 /model info llama3.1:8b
@@ -139,6 +153,7 @@ View detailed model metadata and capabilities.
 ```
 
 **Information displayed:**
+
 ```
 Model: llama3.1:8b
 Size: 4.7 GB
@@ -160,11 +175,13 @@ License: Llama 3.1 Community License
 Switch to a specific model.
 
 **Syntax:**
+
 ```bash
 /model use <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # Switch to a model
 /model use llama3.1:8b
@@ -174,6 +191,7 @@ Switch to a specific model.
 ```
 
 **Behavior:**
+
 - Overrides routing for current session
 - Loads model if not already loaded
 - Updates status bar
@@ -185,11 +203,13 @@ Switch to a specific model.
 Keep a model loaded in VRAM for faster responses.
 
 **Syntax:**
+
 ```bash
 /model keep <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # Keep model loaded
 /model keep llama3.1:8b
@@ -200,11 +220,13 @@ Keep a model loaded in VRAM for faster responses.
 ```
 
 **Benefits:**
+
 - Eliminates model load time (2-5 seconds)
 - Reduces latency for subsequent requests
 - Useful for interactive sessions
 
 **How it works:**
+
 - Sends periodic keep-alive requests to provider
 - Prevents automatic unloading due to inactivity
 - Continues until manual unload or timeout
@@ -216,11 +238,13 @@ Keep a model loaded in VRAM for faster responses.
 Unload a model from VRAM.
 
 **Syntax:**
+
 ```bash
 /model unload <model-name>
 ```
 
 **Examples:**
+
 ```bash
 # Unload a model
 /model unload llama3.1:8b
@@ -230,6 +254,7 @@ Unload a model from VRAM.
 ```
 
 **When to unload:**
+
 - Switching to a different model
 - Freeing VRAM for other applications
 - Reducing power consumption
@@ -243,11 +268,13 @@ Unload a model from VRAM.
 Show all stored memories.
 
 **Syntax:**
+
 ```bash
 /memory list
 ```
 
 **Output:**
+
 ```
 Stored Memories:
   user_name: Alice (preference) - Accessed 5 times
@@ -257,6 +284,7 @@ Stored Memories:
 ```
 
 **Information displayed:**
+
 - Key and value
 - Category (fact, preference, context)
 - Access count
@@ -269,11 +297,13 @@ Stored Memories:
 Add a new memory.
 
 **Syntax:**
+
 ```bash
 /memory add <key> <value> [--category <category>]
 ```
 
 **Examples:**
+
 ```bash
 # Add a simple memory
 /memory add user_name Alice
@@ -289,6 +319,7 @@ Add a new memory.
 ```
 
 **Categories:**
+
 - `fact`: Factual information
 - `preference`: User preferences
 - `context`: Contextual information
@@ -300,11 +331,13 @@ Add a new memory.
 Search memories by key or value.
 
 **Syntax:**
+
 ```bash
 /memory search <query>
 ```
 
 **Examples:**
+
 ```bash
 # Search by key
 /memory search user
@@ -317,6 +350,7 @@ Search memories by key or value.
 ```
 
 **Output:**
+
 ```
 Found 2 memories:
   user_name: Alice (preference)
@@ -330,11 +364,13 @@ Found 2 memories:
 Remove a specific memory.
 
 **Syntax:**
+
 ```bash
 /memory forget <key>
 ```
 
 **Examples:**
+
 ```bash
 # Forget a memory
 /memory forget old_preference
@@ -350,16 +386,19 @@ Remove a specific memory.
 Clear all memories.
 
 **Syntax:**
+
 ```bash
 /memory clear
 ```
 
 **Safety:**
+
 - Confirmation prompt
 - Cannot be undone
 - Backup recommended
 
 **Example interaction:**
+
 ```
 Clear all memories? This cannot be undone. [y/N] y
 Cleared 12 memories.
@@ -374,11 +413,13 @@ Cleared 12 memories.
 Show all available templates.
 
 **Syntax:**
+
 ```bash
 /template list
 ```
 
 **Output:**
+
 ```
 Available Templates:
   code_review (3 variables) - Review code for quality and security
@@ -388,6 +429,7 @@ Available Templates:
 ```
 
 **Information displayed:**
+
 - Template name
 - Number of variables
 - Description
@@ -399,11 +441,13 @@ Available Templates:
 Use a template with variable substitution.
 
 **Syntax:**
+
 ```bash
 /template use <template-name> [variable=value ...]
 ```
 
 **Examples:**
+
 ```bash
 # Use with all variables
 /template use code_review language=TypeScript code="function add(a, b) { return a + b; }"
@@ -416,6 +460,7 @@ Use a template with variable substitution.
 ```
 
 **Variable syntax:**
+
 - `variable=value` - Set variable
 - `variable="value with spaces"` - Value with spaces
 - Missing optional variables use defaults
@@ -428,11 +473,13 @@ Use a template with variable substitution.
 Create a new template.
 
 **Syntax:**
+
 ```bash
 /template create <template-name>
 ```
 
 **Examples:**
+
 ```bash
 # Create a new template
 /template create my_template
@@ -442,6 +489,7 @@ Create a new template.
 ```
 
 **Template format (YAML):**
+
 ```yaml
 name: code_review
 description: Review code for quality and security
@@ -452,7 +500,7 @@ variables:
     description: Programming language
   - name: focus
     required: false
-    default: "bugs and security"
+    default: 'bugs and security'
     description: Review focus areas
   - name: code
     required: true
@@ -468,11 +516,13 @@ variables:
 Delete a template.
 
 **Syntax:**
+
 ```bash
 /template delete <template-name>
 ```
 
 **Examples:**
+
 ```bash
 # Delete a template
 /template delete old_template
@@ -490,11 +540,13 @@ Delete a template.
 Auto-detect project type from workspace files.
 
 **Syntax:**
+
 ```bash
 /project detect
 ```
 
 **Output:**
+
 ```
 Detected project type: TypeScript
 Characteristic files:
@@ -505,6 +557,7 @@ Suggested profile: typescript
 ```
 
 **Detection rules:**
+
 - **TypeScript**: `package.json` with TypeScript dependencies
 - **Python**: `requirements.txt`, `pyproject.toml`, `setup.py`
 - **Rust**: `Cargo.toml`
@@ -517,11 +570,13 @@ Suggested profile: typescript
 Select a project profile.
 
 **Syntax:**
+
 ```bash
 /project use <profile-name>
 ```
 
 **Examples:**
+
 ```bash
 # Use TypeScript profile
 /project use typescript
@@ -534,6 +589,7 @@ Select a project profile.
 ```
 
 **Built-in profiles:**
+
 - `typescript` - TypeScript projects
 - `python` - Python projects
 - `rust` - Rust projects
@@ -547,11 +603,13 @@ Select a project profile.
 Initialize project configuration file.
 
 **Syntax:**
+
 ```bash
 /project init [profile-name]
 ```
 
 **Examples:**
+
 ```bash
 # Initialize with detected profile
 /project init
@@ -566,6 +624,7 @@ Initialize project configuration file.
 **Creates:** `.ollm/project.yaml`
 
 **Example file:**
+
 ```yaml
 # Project profile
 profile: typescript
@@ -592,11 +651,13 @@ options:
 Run the same prompt through multiple models for comparison.
 
 **Syntax:**
+
 ```bash
 /compare "<prompt>" <model1> <model2> [model3...]
 ```
 
 **Examples:**
+
 ```bash
 # Compare two models
 /compare "Explain recursion" llama3.1:8b mistral:7b
@@ -609,6 +670,7 @@ Run the same prompt through multiple models for comparison.
 ```
 
 **Output:**
+
 ```
 Comparison Results:
 
@@ -624,6 +686,7 @@ Comparison Results:
 ```
 
 **Features:**
+
 - Parallel execution
 - Performance metrics
 - Side-by-side display
@@ -638,11 +701,13 @@ Comparison Results:
 Display current configuration.
 
 **Syntax:**
+
 ```bash
 /config show
 ```
 
 **Output:**
+
 ```
 Current Configuration:
 
@@ -672,11 +737,13 @@ Project:
 Set a configuration value.
 
 **Syntax:**
+
 ```bash
 /config set <key> <value>
 ```
 
 **Examples:**
+
 ```bash
 # Set default model
 /config set model.default llama3.1:8b
@@ -701,11 +768,13 @@ Set a configuration value.
 Reset configuration to defaults.
 
 **Syntax:**
+
 ```bash
 /config reset [section]
 ```
 
 **Examples:**
+
 ```bash
 # Reset all configuration
 /config reset
@@ -744,13 +813,13 @@ export OLLAMA_HOST=http://localhost:11434
 
 Some commands have shorter aliases:
 
-| Command | Alias |
-|---------|-------|
-| `/model list` | `/models` |
-| `/model use` | `/use` |
-| `/memory list` | `/memories` |
-| `/template list` | `/templates` |
-| `/project detect` | `/detect` |
+| Command           | Alias        |
+| ----------------- | ------------ |
+| `/model list`     | `/models`    |
+| `/model use`      | `/use`       |
+| `/memory list`    | `/memories`  |
+| `/template list`  | `/templates` |
+| `/project detect` | `/detect`    |
 
 ---
 
@@ -768,4 +837,3 @@ Some commands have shorter aliases:
 
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.0
-

@@ -17,6 +17,7 @@ This guide will help you get started with MCP (Model Context Protocol), hooks, a
 7. [Next Steps](#next-steps)
 
 **See Also:**
+
 - [Complete Documentation Index](MCP_index.md) - All documentation with summaries
 - [MCP Commands Reference](MCP_commands.md) - All available commands
 - [MCP Architecture](MCP_architecture.md) - System design details
@@ -28,7 +29,9 @@ This guide will help you get started with MCP (Model Context Protocol), hooks, a
 **Model Context Protocol (MCP)** is an open protocol that standardizes how applications provide context to LLMs. In OLLM CLI, MCP enables three powerful features:
 
 ### 1. MCP Servers
+
 External tools and services that your LLM can use:
+
 - File operations
 - Database queries
 - API integrations
@@ -36,14 +39,18 @@ External tools and services that your LLM can use:
 - Custom tools
 
 ### 2. Hooks
+
 Event-driven automation:
+
 - Run commands before/after execution
 - Automate workflows
 - Add safety gates
 - Custom event handling
 
 ### 3. Extensions
+
 Modular functionality packages:
+
 - Skills (prompt templates)
 - Settings (configuration)
 - MCP servers (tools)
@@ -54,16 +61,19 @@ Modular functionality packages:
 ## Prerequisites
 
 ### Required
+
 - OLLM CLI installed and configured
 - Node.js 20+ (for some MCP servers)
 - Basic command-line knowledge
 
 ### Optional
+
 - Git (for extension installation)
 - Python 3.8+ (for Python-based MCP servers)
 - Docker (for containerized MCP servers)
 
 ### Verify Installation
+
 ```bash
 # Check OLLM CLI version
 ollm --version
@@ -180,22 +190,23 @@ MCP servers are configured in your OLLM config file:
 **Location:** `~/.ollm/config.yaml` or `.ollm/config.yaml`
 
 **Example:**
+
 ```yaml
 mcp:
   servers:
     filesystem:
-      command: "npx"
-      args: ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/workspace"]
-      transport: "stdio"
-      
+      command: 'npx'
+      args: ['-y', '@modelcontextprotocol/server-filesystem', '/path/to/workspace']
+      transport: 'stdio'
+
     github:
-      command: "npx"
-      args: ["-y", "@modelcontextprotocol/server-github"]
-      transport: "stdio"
+      command: 'npx'
+      args: ['-y', '@modelcontextprotocol/server-github']
+      transport: 'stdio'
       oauth:
-        provider: "github"
-        clientId: "your-client-id"
-        scopes: ["repo", "user"]
+        provider: 'github'
+        clientId: 'your-client-id'
+        scopes: ['repo', 'user']
 ```
 
 **See:** [MCP Integration Guide](MCP_integration.md) for detailed configuration
@@ -210,20 +221,20 @@ Hooks automate workflows based on events. Here's how to use them:
 
 OLLM CLI supports 12 hook events:
 
-| Event | When it fires |
-|-------|---------------|
-| `pre-execution` | Before LLM execution |
-| `post-execution` | After LLM execution |
-| `pre-tool-call` | Before tool execution |
-| `post-tool-call` | After tool execution |
-| `on-error` | When an error occurs |
-| `on-file-change` | When a file changes |
-| `on-git-commit` | Before git commit |
-| `on-session-start` | When session starts |
-| `on-session-end` | When session ends |
-| `on-context-overflow` | When context is full |
-| `on-approval-request` | When approval needed |
-| `custom` | Custom events |
+| Event                 | When it fires         |
+| --------------------- | --------------------- |
+| `pre-execution`       | Before LLM execution  |
+| `post-execution`      | After LLM execution   |
+| `pre-tool-call`       | Before tool execution |
+| `post-tool-call`      | After tool execution  |
+| `on-error`            | When an error occurs  |
+| `on-file-change`      | When a file changes   |
+| `on-git-commit`       | Before git commit     |
+| `on-session-start`    | When session starts   |
+| `on-session-end`      | When session ends     |
+| `on-context-overflow` | When context is full  |
+| `on-approval-request` | When approval needed  |
+| `custom`              | Custom events         |
 
 ### Creating Hooks
 
@@ -276,16 +287,19 @@ Hooks have three trust levels:
 ### Example Hooks
 
 **Format code on save:**
+
 ```bash
 /hooks create on-file-change "prettier --write {file}"
 ```
 
 **Run tests before commit:**
+
 ```bash
 /hooks create on-git-commit "npm test"
 ```
 
 **Safety check before tool execution:**
+
 ```bash
 /hooks create pre-tool-call "./scripts/safety-check.sh {tool} {args}"
 ```
@@ -353,6 +367,7 @@ Extensions can include:
 4. **Hooks** - Automation
 
 **Example:** Installing a GitHub extension might add:
+
 - GitHub MCP server (tools for GitHub API)
 - GitHub hooks (auto-commit, PR creation)
 - GitHub skills (PR review templates)
@@ -376,17 +391,20 @@ To create your own extension:
 ### Learn More
 
 **For Users:**
+
 - [MCP Commands Reference](MCP_commands.md) - All available commands
 - [Hooks User Guide](3%20projects/OLLM%20CLI/Hooks/user-guide.md) - Advanced hook usage
 - [Extensions User Guide](3%20projects/OLLM%20CLI/Extensions/user-guide.md) - Extension management
 
 **For Developers:**
+
 - [MCP Architecture](MCP_architecture.md) - System design
 - [Creating Hooks](3%20projects/OLLM%20CLI/Hooks/development-guide.md) - Build custom hooks
 - [Creating Extensions](3%20projects/OLLM%20CLI/Extensions/development-guide.md) - Build extensions
 - [Creating MCP Servers](3%20projects/OLLM%20CLI/MCP/servers/development-guide.md) - Build servers
 
 **For Administrators:**
+
 - [OAuth Setup](oauth-setup.md) - Configure OAuth
 - [Health Monitoring](health-monitoring.md) - Monitor servers
 - [Extension Marketplace](marketplace.md) - Manage marketplace
@@ -394,6 +412,7 @@ To create your own extension:
 ### Common Workflows
 
 **Development Workflow:**
+
 ```bash
 # 1. Install development extensions
 /extensions install dev-tools
@@ -409,6 +428,7 @@ To create your own extension:
 ```
 
 **Data Analysis Workflow:**
+
 ```bash
 # 1. Install database extensions
 /extensions install postgres-tools
@@ -423,6 +443,7 @@ To create your own extension:
 ```
 
 **Content Creation Workflow:**
+
 ```bash
 # 1. Install content extensions
 /extensions install markdown-tools
@@ -439,6 +460,7 @@ To create your own extension:
 ### Troubleshooting
 
 **MCP server not working:**
+
 ```bash
 # Check server status
 /mcp health check <server>
@@ -451,6 +473,7 @@ To create your own extension:
 ```
 
 **Hook not executing:**
+
 ```bash
 # Enable debug mode
 /hooks debug on
@@ -463,6 +486,7 @@ To create your own extension:
 ```
 
 **Extension not loading:**
+
 ```bash
 # Check extension status
 /extensions info <extension>
@@ -474,7 +498,7 @@ To create your own extension:
 /extensions reload
 ```
 
-**See:** [Troubleshooting Guide](../troubleshooting.md) for more help
+**See:** [Troubleshooting Guide](../Troubleshooting.md) for more help
 
 ---
 
@@ -531,16 +555,19 @@ tar -czf my-workflow.tar.gz .
 ## Resources
 
 ### Documentation
+
 - [MCP Architecture](MCP_architecture.md) - System design
 - [MCP Integration](MCP_integration.md) - Integration guide
 - [MCP Commands](MCP_commands.md) - Command reference
 
 ### Community
+
 - GitHub: ollm/ollm-cli (https://github.com/ollm/ollm-cli)
 - Discord: [Join our server](#)
 - Forum: [Community forum](#)
 
 ### External Resources
+
 - MCP Specification (https://modelcontextprotocol.io)
 - MCP Servers (https://github.com/modelcontextprotocol/servers)
 - Extension Examples (https://github.com/ollm/extensions)

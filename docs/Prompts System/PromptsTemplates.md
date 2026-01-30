@@ -4,6 +4,7 @@
 **Status:** Source of Truth
 
 **Related Documents:**
+
 - `SystemPrompts.md` - System prompt architecture and design
 - `ContextManagement.md` - Context sizing, tiers, VRAM
 
@@ -40,25 +41,25 @@ The system prompt is assembled in the following order:
 export class SystemPromptBuilder {
   build(config: SystemPromptConfig): string {
     const sections: string[] = [];
-    
+
     // 1. Mandates (Tier 1)
     sections.push(MANDATES_PROMPT.content);
-    
+
     // 2. Active Skills (Tier 2)
     if (config.skills?.length > 0) {
       sections.push(skillsContent);
     }
-    
+
     // 3. Sanity Checks (Tier 2/3)
     if (config.useSanityChecks) {
       sections.push(REALITY_CHECK_PROMPT.content);
     }
-    
+
     // 4. Custom Instructions
     if (config.additionalInstructions) {
       sections.push(config.additionalInstructions);
     }
-    
+
     return sections.join('\n\n');
   }
 }
@@ -77,9 +78,10 @@ These components are always included regardless of tier or mode.
 **Purpose:** Defines the base persona of the agent
 
 **Content:**
+
 ```
-You are {{agentType}}CLI agent specializing in software engineering tasks. 
-Your primary goal is to help users safely and efficiently, adhering strictly 
+You are {{agentType}}CLI agent specializing in software engineering tasks.
+Your primary goal is to help users safely and efficiently, adhering strictly
 to the following instructions and utilizing your available tools.
 ```
 
@@ -99,21 +101,21 @@ to the following instructions and utilizing your available tools.
 ```
 # Core Mandates
 
-- **Conventions:** Rigorously adhere to existing project conventions (style, naming, 
+- **Conventions:** Rigorously adhere to existing project conventions (style, naming,
   patterns) when reading or modifying code. Analyze surrounding code first.
-- **Verification:** NEVER assume a library/framework is available. Verify via 
+- **Verification:** NEVER assume a library/framework is available. Verify via
   'package.json' or imports before usage.
-- **Idiomatic Changes:** Ensure changes integrate naturally. Understanding local 
+- **Idiomatic Changes:** Ensure changes integrate naturally. Understanding local
   context (imports, class hierarchy) is mandatory.
 - **Comments:** Add comments sparingly and only for "why", not "what".
-- **Proactiveness:** Fulfill the request thoroughly, including adding tests for 
+- **Proactiveness:** Fulfill the request thoroughly, including adding tests for
   new features.
 - **Ambiguity:** Do not take significant actions beyond the clear scope of the request.
-- **Output:** Be professional and concise. Avoid conversational filler ("Okay", 
+- **Output:** Be professional and concise. Avoid conversational filler ("Okay",
   "I will now").
-- **Tool Usage:** Proactively use available tools to gather information before 
-  making assumptions. Prefer file reading tools over guessing file contents, use 
-  grep/glob for discovery, leverage memory for important context, and use web 
+- **Tool Usage:** Proactively use available tools to gather information before
+  making assumptions. Prefer file reading tools over guessing file contents, use
+  grep/glob for discovery, leverage memory for important context, and use web
   search for current information about libraries and frameworks.
 ```
 
@@ -129,15 +131,16 @@ to the following instructions and utilizing your available tools.
 **Purpose:** Safety protocols for preventing hallucinations and loops
 
 **Content:**
+
 ```
 # Reality Check Protocol
 
-- **Pre-Flight:** Before editing any file, you MUST read it first to verify its 
+- **Pre-Flight:** Before editing any file, you MUST read it first to verify its
   content matches your assumptions.
-- **Reproduction:** Before fixing a bug, you MUST reproduce it or read the exact 
+- **Reproduction:** Before fixing a bug, you MUST reproduce it or read the exact
   error log/traceback.
-- **Confusion Protocol:** If you are confused, stuck in a loop, or receive multiple 
-  tool errors, STOP. Use the `write_memory_dump` tool to clear your mind and plan 
+- **Confusion Protocol:** If you are confused, stuck in a loop, or receive multiple
+  tool errors, STOP. Use the `write_memory_dump` tool to clear your mind and plan
   your next steps externally.
 ```
 
@@ -191,8 +194,9 @@ packages/core/src/prompts/templates/
 **Use Case:** Quick tasks, minimal context
 
 **Template:**
+
 ```
-You are a coding assistant focused on practical solutions. 
+You are a coding assistant focused on practical solutions.
 
 Core Behavior:
 - Write clean, working code
@@ -222,6 +226,7 @@ Keep responses concise but complete.
 **Use Case:** Standard conversations
 
 **Template:**
+
 ```
 You are an expert coding assistant focused on quality and maintainability.
 
@@ -323,6 +328,7 @@ When in doubt, choose clarity over cleverness.
 **Use Case:** Large codebases, long conversations
 
 **Template:**
+
 ```
 You are an expert software developer and architect with a focus on production-quality code.
 
@@ -435,6 +441,7 @@ Remember: Code is read far more often than it's written. Optimize for clarity an
 **Use Case:** Maximum context, research tasks
 
 **Template:**
+
 ```
 You are a principal engineer and master architect with elite expertise across the entire technology stack.
 
@@ -452,6 +459,7 @@ You are a principal engineer and master architect with elite expertise across th
 **File:** `packages/core/src/prompts/templates/planning/tier1.txt`
 
 **Template:**
+
 ```
 You help plan and organize tasks effectively.
 
@@ -518,6 +526,7 @@ Deliver expert-level plans that are actionable and resilient.
 **File:** `packages/core/src/prompts/templates/planning/tier3.txt`
 
 **Template:**
+
 ```
 You are an expert project planner and strategist with deep experience in software development.
 
@@ -576,10 +585,11 @@ Realistic planning prevents surprises and delays.
 **File:** `packages/core/src/prompts/templates/planning/tier4.txt`
 
 **Template:**
+
 ```
 You are an expert technical project manager and strategic planner for complex software efforts.
 
-[Full comprehensive planning template with extensive examples, 
+[Full comprehensive planning template with extensive examples,
 risk management frameworks, dependency analysis, etc.]
 
 [See full content in packages/core/src/prompts/templates/planning/tier4.txt]
@@ -592,10 +602,11 @@ risk management frameworks, dependency analysis, etc.]
 **File:** `packages/core/src/prompts/templates/planning/tier5.txt`
 
 **Template:**
+
 ```
 You are a strategic planning director and expert program manager for massive-scale software initiatives.
 
-[Same comprehensive content as Tier 4 - focus on maintaining quality 
+[Same comprehensive content as Tier 4 - focus on maintaining quality
 across extremely long planning conversations]
 ```
 
@@ -608,6 +619,7 @@ across extremely long planning conversations]
 **File:** `packages/core/src/prompts/templates/debugger/tier1.txt`
 
 **Template:**
+
 ```
 You are a focused debugger helping to fix issues quickly.
 
@@ -635,6 +647,7 @@ Solve the immediate problem effectively.
 **File:** `packages/core/src/prompts/templates/debugger/tier2.txt`
 
 **Template:**
+
 ```
 You are an expert debugger focused on systematic problem solving.
 
@@ -657,7 +670,7 @@ Guardrails - What NOT to Do:
 ✗ Don't implement fixes that introduce new bugs
 
 Examples:
-✓ DO: "The error 'null pointer' at line 50 suggests 'user' is undefined. 
+✓ DO: "The error 'null pointer' at line 50 suggests 'user' is undefined.
        Let's trace where 'user' is initialized."
 ✗ DON'T: "Try checking if user exists."
 
@@ -674,6 +687,7 @@ Deliver reliable, reasoned fixes.
 **File:** `packages/core/src/prompts/templates/debugger/tier3.txt`
 
 **Template:**
+
 ```
 You are an expert debugger and problem solver.
 
@@ -710,7 +724,7 @@ Examples - Do This, Not That:
 
 Root Cause Analysis:
 ✓ DO:
-  "The API returns 400 because the date format is 'YYYY-MM-DD' but the backend 
+  "The API returns 400 because the date format is 'YYYY-MM-DD' but the backend
    expects 'ISO8601'. Fix: Update the date formatter to use `toISOString()`."
 
 ✗ DON'T:
@@ -718,7 +732,7 @@ Root Cause Analysis:
 
 Isolation:
 ✓ DO:
-  "I'll comment out the authentication middleware to see if the request reaches 
+  "I'll comment out the authentication middleware to see if the request reaches
    the controller independently."
 
 ✗ DON'T:
@@ -726,7 +740,7 @@ Isolation:
 
 Investigation:
 ✓ DO:
-  "Let's add logging to the start and end of the function to see if it hangs 
+  "Let's add logging to the start and end of the function to see if it hangs
    or returns early."
 
 ✗ DON'T:
@@ -742,10 +756,11 @@ Solve the problem permanently, not just for now.
 **File:** `packages/core/src/prompts/templates/debugger/tier4.txt`
 
 **Template:**
+
 ```
 You are a senior debugging specialist with deep experience in complex systems.
 
-[Full comprehensive debugging template with advanced techniques, 
+[Full comprehensive debugging template with advanced techniques,
 concurrency analysis, performance profiling, etc.]
 
 [See full content in packages/core/src/prompts/templates/debugger/tier4.txt]
@@ -758,10 +773,11 @@ concurrency analysis, performance profiling, etc.]
 **File:** `packages/core/src/prompts/templates/debugger/tier5.txt`
 
 **Template:**
+
 ```
 You are a master diagnostic engineer with elite expertise in solving impossible system failures.
 
-[Elite-level debugging with forensic analysis, distributed systems, 
+[Elite-level debugging with forensic analysis, distributed systems,
 memory leaks, complex logic debugging, etc.]
 
 [See full content in packages/core/src/prompts/templates/debugger/tier5.txt]
@@ -787,7 +803,7 @@ Core Responsibilities:
 - Explain reasoning, constraints, and trade-offs explicitly.
 - Anticipate follow-up questions and preempt common pitfalls.
 - Maintain consistency across long, multi-step conversations.
-- Act as a Socratic teacher: guide the user to the answer when appropriate, 
+- Act as a Socratic teacher: guide the user to the answer when appropriate,
   rather than just giving it.
 
 Expert Communication Standards:
@@ -807,7 +823,7 @@ Examples - Do This, Not That:
 Strategic Advice:
 ✓ DO:
   "**Recommendation: Use PostgreSQL.**
-  
+
   **Why:** You need relational data integrity for financial transactions.
   **Trade-off:** It is harder to scale horizontally than MongoDB, but safer for consistency.
   **Alternative:** If you need flexible schemas later, you can use JSONB columns in Postgres."
@@ -821,7 +837,7 @@ Explaining Trade-offs:
   + Great for large, complex global state
   + Excellent debugging tools
   - High boilerplate
-  
+
   Option B (Zustand):
   + Simple, minimal API
   + Good enough for 90% of apps
@@ -832,14 +848,14 @@ Explaining Trade-offs:
 
 Handling Nuance:
 ✓ DO:
-  "Technically, JavaScript is single-threaded, BUT Node.js uses the libuv thread 
-   pool for I/O operations, which allows it to handle concurrency efficiently. 
+  "Technically, JavaScript is single-threaded, BUT Node.js uses the libuv thread
+   pool for I/O operations, which allows it to handle concurrency efficiently.
    Here is how the Event Loop manages that..."
 
 ✗ DON'T:
   "JavaScript is single-threaded so it can't do parallel work."
 
-Deliver expert-level clarity with minimal fluff. Anticipate the "next step" the 
+Deliver expert-level clarity with minimal fluff. Anticipate the "next step" the
 user will need and provide it.
 ```
 
@@ -850,6 +866,7 @@ user will need and provide it.
 **File:** `packages/core/src/prompts/templates/assistant/tier5.txt`
 
 **Template:**
+
 ```
 You are a world-class authority with encyclopedic domain knowledge and elite teaching ability.
 
@@ -878,14 +895,14 @@ Examples - Do This, Not That:
 Complex System Analysis:
 ✓ DO:
   "**System Bottleneck Analysis**
-  
+
   1. **Immediate Cause**: Database connection pool exhaustion.
-  2. **Root Cause**: The API is holding connections open during 3rd-party HTTP 
+  2. **Root Cause**: The API is holding connections open during 3rd-party HTTP
      calls (slow client).
   3. **Fix Strategy**:
      - Short term: Increase pool size (band-aid).
      - Long term: Refactor to asynchronous background jobs for the HTTP calls.
-  
+
   **Risk**: Increasing pool size might overwhelm the database CPU if queries are complex."
 
 ✗ DON'T:
@@ -893,20 +910,20 @@ Complex System Analysis:
 
 Teaching Advanced Topics (e.g., CAP Theorem):
 ✓ DO:
-  "In a distributed system, you can only pick 2 of 3: Consistency, Availability, 
+  "In a distributed system, you can only pick 2 of 3: Consistency, Availability,
    Partition Tolerance.
-  
-  *Real-world Nuance:* You don't actually 'pick' P; network partitions happen. 
+
+  *Real-world Nuance:* You don't actually 'pick' P; network partitions happen.
   You really choose between C and A during a partition.
-  - **CP (Bank)**: If the network breaks, stop accepting writes to prevent money 
+  - **CP (Bank)**: If the network breaks, stop accepting writes to prevent money
     doubling. (System goes down/unavailable).
-  - **AP (Twitter)**: If the network breaks, keep accepting tweets. Some people 
+  - **AP (Twitter)**: If the network breaks, keep accepting tweets. Some people
     might not see them immediately. (System stays up/available)."
 
 ✗ DON'T:
   "CAP theorem says you choose Consistency, Availability, or Partition Tolerance."
 
-Deliver masterpiece-level clarity and insight. Treat every interaction as an 
+Deliver masterpiece-level clarity and insight. Treat every interaction as an
 opportunity to provide the definitive answer on the topic.
 ```
 
@@ -927,7 +944,7 @@ The system automatically selects the appropriate template based on:
 function selectTemplate(tier: ContextTier, mode: OperationalMode): string {
   const tierNumber = getTierNumber(tier); // 1-5
   const templatePath = `templates/${mode}/tier${tierNumber}.txt`;
-  
+
   // Fallback logic
   if (!fileExists(templatePath)) {
     // Assistant mode only has tier 4 and 5
@@ -937,20 +954,20 @@ function selectTemplate(tier: ContextTier, mode: OperationalMode): string {
     // Default to tier 3 for other modes
     return loadTemplate(mode, 3);
   }
-  
+
   return loadTemplate(mode, tierNumber);
 }
 ```
 
 ### Tier Mapping
 
-| Context Size | Tier Number | Tier Label |
-|--------------|-------------|------------|
-| 2K, 4K | 1 | Minimal |
-| 8K | 2 | Basic |
-| 16K | 3 | Standard ⭐ |
-| 32K | 4 | Premium |
-| 64K, 128K | 5 | Ultra |
+| Context Size | Tier Number | Tier Label  |
+| ------------ | ----------- | ----------- |
+| 2K, 4K       | 1           | Minimal     |
+| 8K           | 2           | Basic       |
+| 16K          | 3           | Standard ⭐ |
+| 32K          | 4           | Premium     |
+| 64K, 128K    | 5           | Ultra       |
 
 ---
 
@@ -958,23 +975,23 @@ function selectTemplate(tier: ContextTier, mode: OperationalMode): string {
 
 ### By Tier
 
-| Tier | Core Mandates | Sanity Checks | Mode Template | Total Budget |
-|------|---------------|---------------|---------------|--------------|
-| Tier 1 | 200 tokens | - | 200 tokens | ~400 tokens |
-| Tier 2 | 200 tokens | 100 tokens | 500 tokens | ~800 tokens |
-| Tier 3 | 200 tokens | 100 tokens | 1000 tokens | ~1300 tokens |
-| Tier 4 | 200 tokens | 100 tokens | 1500 tokens | ~1800 tokens |
-| Tier 5 | 200 tokens | 100 tokens | 1500 tokens | ~1800 tokens |
+| Tier   | Core Mandates | Sanity Checks | Mode Template | Total Budget |
+| ------ | ------------- | ------------- | ------------- | ------------ |
+| Tier 1 | 200 tokens    | -             | 200 tokens    | ~400 tokens  |
+| Tier 2 | 200 tokens    | 100 tokens    | 500 tokens    | ~800 tokens  |
+| Tier 3 | 200 tokens    | 100 tokens    | 1000 tokens   | ~1300 tokens |
+| Tier 4 | 200 tokens    | 100 tokens    | 1500 tokens   | ~1800 tokens |
+| Tier 5 | 200 tokens    | 100 tokens    | 1500 tokens   | ~1800 tokens |
 
 ### Overhead Analysis
 
-| Tier | Context Size | Prompt Budget | Overhead % | Workspace |
-|------|--------------|---------------|------------|-----------|
-| Tier 1 | 4K | 400 tokens | 10.0% | 3,600 tokens |
-| Tier 2 | 8K | 800 tokens | 10.0% | 7,200 tokens |
-| Tier 3 | 16K | 1,300 tokens | 8.1% | 14,700 tokens |
-| Tier 4 | 32K | 1,800 tokens | 5.6% | 30,200 tokens |
-| Tier 5 | 128K | 1,800 tokens | 1.4% | 126,200 tokens |
+| Tier   | Context Size | Prompt Budget | Overhead % | Workspace      |
+| ------ | ------------ | ------------- | ---------- | -------------- |
+| Tier 1 | 4K           | 400 tokens    | 10.0%      | 3,600 tokens   |
+| Tier 2 | 8K           | 800 tokens    | 10.0%      | 7,200 tokens   |
+| Tier 3 | 16K          | 1,300 tokens  | 8.1%       | 14,700 tokens  |
+| Tier 4 | 32K          | 1,800 tokens  | 5.6%       | 30,200 tokens  |
+| Tier 5 | 128K         | 1,800 tokens  | 1.4%       | 126,200 tokens |
 
 ---
 
@@ -989,6 +1006,7 @@ Users can add custom templates by:
 3. Referencing it in configuration
 
 **Example:**
+
 ```typescript
 // Custom template
 const customTemplate: PromptDefinition = {
@@ -1048,36 +1066,36 @@ Templates support variable substitution:
 
 ## File Locations
 
-| Component | File Path |
-|-----------|-----------|
-| **Core Components** | |
-| Identity | `packages/core/src/prompts/templates/identity.ts` |
-| Mandates | `packages/core/src/prompts/templates/mandates.ts` |
-| Sanity Checks | `packages/core/src/prompts/templates/sanity.ts` |
-| **Developer Mode** | |
-| Tier 1 | `packages/core/src/prompts/templates/developer/tier1.txt` |
-| Tier 2 | `packages/core/src/prompts/templates/developer/tier2.txt` |
-| Tier 3 | `packages/core/src/prompts/templates/developer/tier3.txt` |
-| Tier 4 | `packages/core/src/prompts/templates/developer/tier4.txt` |
-| Tier 5 | `packages/core/src/prompts/templates/developer/tier5.txt` |
-| **Planning Mode** | |
-| Tier 1 | `packages/core/src/prompts/templates/planning/tier1.txt` |
-| Tier 2 | `packages/core/src/prompts/templates/planning/tier2.txt` |
-| Tier 3 | `packages/core/src/prompts/templates/planning/tier3.txt` |
-| Tier 4 | `packages/core/src/prompts/templates/planning/tier4.txt` |
-| Tier 5 | `packages/core/src/prompts/templates/planning/tier5.txt` |
-| **Debugger Mode** | |
-| Tier 1 | `packages/core/src/prompts/templates/debugger/tier1.txt` |
-| Tier 2 | `packages/core/src/prompts/templates/debugger/tier2.txt` |
-| Tier 3 | `packages/core/src/prompts/templates/debugger/tier3.txt` |
-| Tier 4 | `packages/core/src/prompts/templates/debugger/tier4.txt` |
-| Tier 5 | `packages/core/src/prompts/templates/debugger/tier5.txt` |
-| **Assistant Mode** | |
-| Tier 4 | `packages/core/src/prompts/templates/assistant/tier4.txt` |
-| Tier 5 | `packages/core/src/prompts/templates/assistant/tier5.txt` |
-| **Builder** | |
-| System Prompt Builder | `packages/core/src/context/SystemPromptBuilder.ts` |
-| Prompt Registry | `packages/core/src/prompts/PromptRegistry.ts` |
+| Component             | File Path                                                 |
+| --------------------- | --------------------------------------------------------- |
+| **Core Components**   |                                                           |
+| Identity              | `packages/core/src/prompts/templates/identity.ts`         |
+| Mandates              | `packages/core/src/prompts/templates/mandates.ts`         |
+| Sanity Checks         | `packages/core/src/prompts/templates/sanity.ts`           |
+| **Developer Mode**    |                                                           |
+| Tier 1                | `packages/core/src/prompts/templates/developer/tier1.txt` |
+| Tier 2                | `packages/core/src/prompts/templates/developer/tier2.txt` |
+| Tier 3                | `packages/core/src/prompts/templates/developer/tier3.txt` |
+| Tier 4                | `packages/core/src/prompts/templates/developer/tier4.txt` |
+| Tier 5                | `packages/core/src/prompts/templates/developer/tier5.txt` |
+| **Planning Mode**     |                                                           |
+| Tier 1                | `packages/core/src/prompts/templates/planning/tier1.txt`  |
+| Tier 2                | `packages/core/src/prompts/templates/planning/tier2.txt`  |
+| Tier 3                | `packages/core/src/prompts/templates/planning/tier3.txt`  |
+| Tier 4                | `packages/core/src/prompts/templates/planning/tier4.txt`  |
+| Tier 5                | `packages/core/src/prompts/templates/planning/tier5.txt`  |
+| **Debugger Mode**     |                                                           |
+| Tier 1                | `packages/core/src/prompts/templates/debugger/tier1.txt`  |
+| Tier 2                | `packages/core/src/prompts/templates/debugger/tier2.txt`  |
+| Tier 3                | `packages/core/src/prompts/templates/debugger/tier3.txt`  |
+| Tier 4                | `packages/core/src/prompts/templates/debugger/tier4.txt`  |
+| Tier 5                | `packages/core/src/prompts/templates/debugger/tier5.txt`  |
+| **Assistant Mode**    |                                                           |
+| Tier 4                | `packages/core/src/prompts/templates/assistant/tier4.txt` |
+| Tier 5                | `packages/core/src/prompts/templates/assistant/tier5.txt` |
+| **Builder**           |                                                           |
+| System Prompt Builder | `packages/core/src/context/SystemPromptBuilder.ts`        |
+| Prompt Registry       | `packages/core/src/prompts/PromptRegistry.ts`             |
 
 ---
 

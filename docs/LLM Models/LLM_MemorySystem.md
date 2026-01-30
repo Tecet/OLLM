@@ -30,6 +30,7 @@ The Memory System lets you store information that persists across sessions. The 
 ```
 
 **Examples:**
+
 ```bash
 /memory add user_name Alice
 /memory add project_name my-web-app
@@ -43,6 +44,7 @@ The Memory System lets you store information that persists across sessions. The 
 ```
 
 **Examples:**
+
 ```bash
 /memory recall user_name
 # Returns: Alice
@@ -55,6 +57,7 @@ The Memory System lets you store information that persists across sessions. The 
 ```
 
 **Examples:**
+
 ```bash
 /memory search project
 # Returns all memories with "project" in key or value
@@ -67,6 +70,7 @@ The Memory System lets you store information that persists across sessions. The 
 ```
 
 **Output:**
+
 ```
 user_name: Alice (fact, accessed 5 times)
 project_name: my-web-app (context, accessed 3 times)
@@ -80,6 +84,7 @@ preferred_style: functional programming (preference, accessed 2 times)
 ```
 
 **Examples:**
+
 ```bash
 /memory forget old_preference
 ```
@@ -101,6 +106,7 @@ preferred_style: functional programming (preference, accessed 2 times)
 **Purpose:** Objective information
 
 **Examples:**
+
 ```bash
 /memory add user_name Alice --category fact
 /memory add birth_year 1990 --category fact
@@ -112,6 +118,7 @@ preferred_style: functional programming (preference, accessed 2 times)
 **Purpose:** User preferences and choices
 
 **Examples:**
+
 ```bash
 /memory add preferred_language TypeScript --category preference
 /memory add code_style "functional" --category preference
@@ -123,6 +130,7 @@ preferred_style: functional programming (preference, accessed 2 times)
 **Purpose:** Current work and temporary information
 
 **Examples:**
+
 ```bash
 /memory add working_on "authentication system" --category context
 /memory add current_task "fix login bug" --category context
@@ -136,18 +144,21 @@ preferred_style: functional programming (preference, accessed 2 times)
 Memories are automatically injected into the system prompt:
 
 **Configuration:**
+
 ```yaml
 memory:
   enabled: true
-  system_prompt_budget: 500  # tokens
+  system_prompt_budget: 500 # tokens
 ```
 
 **How it works:**
+
 1. Memories sorted by priority (access count + recency)
 2. Highest priority memories included first
 3. Stops when token budget reached
 
 **Example injection:**
+
 ```
 user_name: Alice
 preferred_language: TypeScript
@@ -162,6 +173,7 @@ working_on: authentication system
 The model can remember things for you:
 
 **Example conversation:**
+
 ```
 You: My name is Alice
 Model: Nice to meet you, Alice! I'll remember that.
@@ -173,6 +185,7 @@ Model: Your name is Alice.
 ```
 
 **How it works:**
+
 - Model has access to `/remember` tool
 - Can store memories during conversation
 - Memories marked with source='llm'
@@ -184,12 +197,14 @@ Model: Your name is Alice.
 ### 1. Use Descriptive Keys
 
 **Good:**
+
 ```bash
 /memory add user_preferred_language TypeScript
 /memory add project_main_framework React
 ```
 
 **Bad:**
+
 ```bash
 /memory add lang TS
 /memory add fw R
@@ -204,11 +219,13 @@ Model: Your name is Alice.
 ### 3. Keep Values Concise
 
 **Good:**
+
 ```bash
 /memory add preferred_style "functional programming"
 ```
 
 **Bad:**
+
 ```bash
 /memory add preferred_style "I prefer functional programming because it's more maintainable and easier to test and..."
 ```
@@ -270,12 +287,14 @@ Model: Your name is Alice.
 **Problem:** Model doesn't seem to know memories
 
 **Solution 1:** Check if enabled
+
 ```yaml
 memory:
   enabled: true
 ```
 
 **Solution 2:** Increase budget
+
 ```yaml
 memory:
   system_prompt_budget: 1000
@@ -286,6 +305,7 @@ memory:
 **Problem:** Token budget exceeded, some memories not included
 
 **Solution:** Remove less important memories
+
 ```bash
 /memory forget old_memory
 ```
@@ -295,6 +315,7 @@ memory:
 **Problem:** Can't load memories
 
 **Solution:** Check file at `~/.ollm/memory.json`
+
 ```bash
 # Backup
 cp ~/.ollm/memory.json ~/.ollm/memory.json.backup

@@ -23,6 +23,7 @@ OLLM CLI includes a comprehensive theming system with 6 built-in color schemes. 
 **Best For:** Long coding sessions, reduced eye fatigue
 
 **Color Palette:**
+
 - **Background:** Deep blue-black (#002b36)
 - **Text:** Light gray (#839496)
 - **Accent:** Yellow-orange (#b58900)
@@ -42,6 +43,7 @@ OLLM CLI includes a comprehensive theming system with 6 built-in color schemes. 
 **Best For:** General use, modern terminals
 
 **Color Palette:**
+
 - **Background:** Very dark gray (#1e1e1e)
 - **Text:** Light gray (#d4d4d4)
 - **Accent:** Teal (#4ec9b0)
@@ -61,6 +63,7 @@ OLLM CLI includes a comprehensive theming system with 6 built-in color schemes. 
 **Best For:** High contrast preference, vibrant colors
 
 **Color Palette:**
+
 - **Background:** Dark purple-gray (#282a36)
 - **Text:** Off-white (#f8f8f2)
 - **Accent:** Purple (#bd93f9)
@@ -80,6 +83,7 @@ OLLM CLI includes a comprehensive theming system with 6 built-in color schemes. 
 **Best For:** Cool color preference, minimal aesthetic
 
 **Color Palette:**
+
 - **Background:** Dark blue-gray (#2e3440)
 - **Text:** Off-white (#eceff4)
 - **Accent:** Cyan (#88c0d0)
@@ -99,6 +103,7 @@ OLLM CLI includes a comprehensive theming system with 6 built-in color schemes. 
 **Best For:** Vibrant colors, high contrast
 
 **Color Palette:**
+
 - **Background:** Dark olive-gray (#272822)
 - **Text:** Off-white (#f8f8f2)
 - **Accent:** Orange (#fd971f)
@@ -130,6 +135,7 @@ View all available themes:
 ```
 
 **Output:**
+
 ```
 Available themes:
   • solarized-dark (default)
@@ -151,6 +157,7 @@ Switch to a theme permanently:
 ```
 
 **Examples:**
+
 ```bash
 /theme use dracula-dark
 /theme use nord-dark
@@ -158,12 +165,14 @@ Switch to a theme permanently:
 ```
 
 **Behavior:**
+
 1. Validates theme name
 2. Loads theme colors
 3. Applies theme to UI
 4. Saves selection to `~/.ollm/settings.json`
 
 **Output:**
+
 ```
 ✓ Theme changed to: dracula-dark
 ```
@@ -179,18 +188,21 @@ Preview a theme temporarily without saving:
 ```
 
 **Examples:**
+
 ```bash
 /theme preview nord-dark
 /theme preview monokai-dark
 ```
 
 **Behavior:**
+
 1. Validates theme name
 2. Loads theme colors
 3. Applies theme to UI
 4. Does NOT save to settings
 
 **Output:**
+
 ```
 ✓ Previewing theme: nord-dark
 (Use /theme use nord-dark to save permanently)
@@ -207,6 +219,7 @@ Theme selection is stored in your user settings:
 **Location:** `~/.ollm/settings.json`
 
 **Structure:**
+
 ```json
 {
   "ui": {
@@ -218,6 +231,7 @@ Theme selection is stored in your user settings:
 ```
 
 **Path Resolution:**
+
 - Windows: `C:\Users\<username>\.ollm\settings.json`
 - macOS: `/Users/<username>/.ollm/settings.json`
 - Linux: `/home/<username>/.ollm/settings.json`
@@ -241,34 +255,40 @@ The default theme is set in the application configuration:
 Themes define colors for the following categories:
 
 **Background Colors:**
+
 - `primary` - Main background
 - `secondary` - Secondary background
 - `tertiary` - Tertiary background
 
 **Text Colors:**
+
 - `primary` - Main text color
 - `secondary` - Secondary text color
 - `accent` - Accent/highlight color
 
 **Role Colors:**
+
 - `user` - User message color
 - `assistant` - Assistant message color
 - `system` - System message color
 - `tool` - Tool call color
 
 **Status Colors:**
+
 - `success` - Success state color
 - `warning` - Warning state color
 - `error` - Error state color
 - `info` - Info state color
 
 **Border Colors:**
+
 - `primary` - Primary border color
 - `secondary` - Secondary border color
 - `active` - Active border color
 - `style` - Border style (round, single, double)
 
 **Diff Colors:**
+
 - `added` - Added lines in diff
 - `removed` - Removed lines in diff
 
@@ -360,14 +380,17 @@ Themes define colors for the following categories:
 ### By Use Case
 
 **Long Coding Sessions:**
+
 - `solarized-dark` - Reduced eye strain
 - `nord-dark` - Cool, minimal aesthetic
 
 **High Contrast:**
+
 - `dracula-dark` - Vibrant, high contrast
 - `monokai-dark` - Vibrant with warm tones
 
 **General Use:**
+
 - `neon-dark` - Balanced, modern
 - `solarized-dark` - Precision colors
 
@@ -376,15 +399,18 @@ Themes define colors for the following categories:
 ### By Color Preference
 
 **Cool Colors (Blues, Cyans):**
+
 - `solarized-dark`
 - `nord-dark`
 - `neon-dark`
 
 **Warm Colors (Purples, Oranges):**
+
 - `dracula-dark`
 - `monokai-dark`
 
 **Balanced:**
+
 - `neon-dark`
 - `solarized-dark`
 
@@ -398,6 +424,7 @@ Themes define colors for the following categories:
 **Recommended:** True color (24-bit) support
 
 **Check Support:**
+
 ```bash
 # Check TERM variable
 echo $TERM
@@ -413,6 +440,7 @@ echo $TERM
 ### Terminal Emulators
 
 **Fully Supported:**
+
 - iTerm2 (macOS)
 - Windows Terminal (Windows)
 - Alacritty (Cross-platform)
@@ -420,11 +448,13 @@ echo $TERM
 - Hyper (Cross-platform)
 
 **Partially Supported:**
+
 - macOS Terminal (limited colors)
 - GNOME Terminal (Linux)
 - Konsole (Linux)
 
 **Not Recommended:**
+
 - cmd.exe (Windows) - Use Windows Terminal instead
 - Basic xterm - Use modern terminal emulator
 
@@ -435,16 +465,19 @@ echo $TERM
 ### Theme Not Applying
 
 **Symptoms:**
+
 - Theme command succeeds but colors don't change
 - Colors look wrong or default
 
 **Solutions:**
+
 1. Check theme name is correct (case-sensitive)
 2. Verify terminal supports 256 colors
 3. Restart OLLM CLI
 4. Check `~/.ollm/settings.json` for correct theme name
 
 **Verify:**
+
 ```bash
 # List themes
 /theme list
@@ -458,16 +491,19 @@ echo $TERM
 ### Theme Not Persisting
 
 **Symptoms:**
+
 - Theme resets to default on restart
 - Settings not saved
 
 **Solutions:**
+
 1. Check `~/.ollm/` directory exists
 2. Verify `settings.json` is writable
 3. Check for permission errors
 4. Manually edit `settings.json`
 
 **Verify:**
+
 ```bash
 # Check settings file
 cat ~/.ollm/settings.json
@@ -480,16 +516,19 @@ cat ~/.ollm/settings.json
 ### Colors Look Wrong
 
 **Symptoms:**
+
 - Colors don't match theme description
 - Washed out or incorrect colors
 
 **Solutions:**
+
 1. Verify terminal supports true color
 2. Check terminal color scheme not overriding
 3. Try different terminal emulator
 4. Test with different theme
 
 **Verify:**
+
 ```bash
 # Test true color support
 curl -s https://gist.githubusercontent.com/lifepillar/09a44b8cf0f9397465614e622979107f/raw/24-bit-color.sh | bash
@@ -520,21 +559,25 @@ curl -s https://gist.githubusercontent.com/lifepillar/09a44b8cf0f9397465614e6229
 ### Planned Features
 
 **Custom Themes:**
+
 - User-defined themes in `~/.ollm/themes/`
 - Theme import/export
 - Theme editor UI
 
 **Theme Variants:**
+
 - Light themes
 - High contrast themes
 - Colorblind-friendly themes
 
 **Dynamic Theming:**
+
 - Time-based theme switching
 - Context-aware themes
 - Adaptive contrast
 
 **Theme Marketplace:**
+
 - Community themes
 - Theme ratings
 - Theme preview gallery

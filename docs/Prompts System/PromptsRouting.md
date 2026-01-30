@@ -4,6 +4,7 @@
 **Status:** Source of Truth
 
 **Related Documents:**
+
 - `SystemPrompts.md` - System prompt architecture and design
 - `PromptsTemplates.md` - Actual prompt templates
 - `ContextManagement.md` - Context sizing, tiers, VRAM
@@ -13,6 +14,7 @@
 ## Overview
 
 The adaptive system prompt system automatically selects and switches prompts based on:
+
 1. **Context Tier** - Detected from context size (Minimal, Basic, Standard, Premium, Ultra)
 2. **Operational Mode** - User-selected mode (Developer, Planning, Assistant, Debugger)
 3. **Hardware Capability** - Maximum context size hardware can support (auto-sizing)
@@ -27,15 +29,16 @@ This document provides visual diagrams showing how prompts are selected and when
 
 ### Tier Definitions
 
-| Tier | Label | Context Sizes | Ollama Size (85%) | Prompt Budget | Use Case |
-|------|-------|---------------|-------------------|---------------|----------|
-| 1 | Minimal | 2K, 4K | 1700, 3400 | ~200 tokens | Quick tasks, minimal context |
-| 2 | Basic | 8K | 6800 | ~500 tokens | Standard conversations |
-| 3 | Standard ⭐ | 16K | 13600 | ~1000 tokens | Complex tasks, code review |
-| 4 | Premium | 32K | 27200 | ~1500 tokens | Large codebases, long conversations |
-| 5 | Ultra | 64K, 128K | 54400, 108800 | ~1500 tokens | Maximum context, research tasks |
+| Tier | Label       | Context Sizes | Ollama Size (85%) | Prompt Budget | Use Case                            |
+| ---- | ----------- | ------------- | ----------------- | ------------- | ----------------------------------- |
+| 1    | Minimal     | 2K, 4K        | 1700, 3400        | ~200 tokens   | Quick tasks, minimal context        |
+| 2    | Basic       | 8K            | 6800              | ~500 tokens   | Standard conversations              |
+| 3    | Standard ⭐ | 16K           | 13600             | ~1000 tokens  | Complex tasks, code review          |
+| 4    | Premium     | 32K           | 27200             | ~1500 tokens  | Large codebases, long conversations |
+| 5    | Ultra       | 64K, 128K     | 54400, 108800     | ~1500 tokens  | Maximum context, research tasks     |
 
 **Key Points:**
+
 - Tiers are **labels only** - they represent context size ranges
 - Context size drives everything
 - Each tier has specific context sizes (not arbitrary ranges)
@@ -49,22 +52,26 @@ This document provides visual diagrams showing how prompts are selected and when
 ### Mode Definitions
 
 **1. Developer Mode**
+
 - **Focus:** Code quality, architecture, testing
 - **Guidance:** SOLID principles, design patterns, error handling
 - **Output:** Production-quality code with tests and documentation
 
 **2. Planning Mode**
+
 - **Focus:** Task breakdown, dependencies, estimation
 - **Guidance:** Risk assessment, realistic planning, clear criteria
 - **Output:** Actionable plans with dependencies and estimates
 
 **3. Assistant Mode**
+
 - **Focus:** Clear communication, helpful responses
 - **Guidance:** Conversational style, examples, explanations
 - **Output:** Informative, well-structured answers
 - **Note:** Only available in Tier 4 and 5 (larger contexts)
 
 **4. Debugger Mode**
+
 - **Focus:** Systematic debugging, root cause analysis
 - **Guidance:** Debugging process, hypothesis testing, verification
 - **Output:** Clear diagnosis with reproduction steps and fixes
@@ -75,56 +82,39 @@ This document provides visual diagrams showing how prompts are selected and when
 
 ### Selection Logic
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```mermaid
 graph TB
     Start[Context Manager Start] --> DetectTier[Detect Context Tier]
     Start --> GetMode[Get Current Mode]
-    
+
     DetectTier --> T1{Context Size?}
     T1 -->|2K, 4K| Tier1[Tier 1: Minimal]
     T1 -->|8K| Tier2[Tier 2: Basic]
     T1 -->|16K| Tier3[Tier 3: Standard]
     T1 -->|32K| Tier4[Tier 4: Premium]
     T1 -->|64K, 128K| Tier5[Tier 5: Ultra]
-    
+
     GetMode --> M1{Mode?}
     M1 --> Dev[Developer]
     M1 --> Plan[Planning]
     M1 --> Assist[Assistant]
     M1 --> Debug[Debugger]
-    
+
     Tier1 --> Combine[Combine Tier + Mode]
     Tier2 --> Combine
     Tier3 --> Combine
     Tier4 --> Combine
     Tier5 --> Combine
-    
+
     Dev --> Combine
     Plan --> Combine
     Assist --> Combine
     Debug --> Combine
-    
+
     Combine --> Lookup[Lookup Prompt Template]
     Lookup --> Apply[Apply System Prompt]
     Apply --> Done[Ready for Conversation]
-    
+
     style Tier3 fill:#6bcf7f
     style Dev fill:#61dafb
     style Combine fill:#ffd93d
@@ -132,6 +122,7 @@ graph TB
 ```
 
 **Description:**
+
 1. Context Manager starts and detects context tier from context size
 2. Gets current operational mode (defaults to Developer)
 3. Combines tier + mode to create lookup key (e.g., "tier3-developer")
@@ -166,19 +157,19 @@ graph LR
         T3P[Planning<br/>Comprehensive]
         T3A[Assistant<br/>N/A]
         T3X[Debugger<br/>Comprehensive]
-    end     
+    end
     subgraph "T2: Basic (8K) ~500 tokens"
         T2D[Developer<br/>Detailed]
         T2P[Planning<br/>Detailed]
         T2A[Assistant<br/>N/A]
         T2X[Debugger<br/>Detailed]
-    end   
+    end
     subgraph "T1: Minimal (2K, 4K) ~200 tokens"
         T1D[Developer<br/>Essential]
         T1P[Planning<br/>Essential]
         T1A[Assistant<br/>N/A]
         T1X[Debugger<br/>Essential]
-    end    
+    end
     style T3D fill:#6bcf7f
     style T3P fill:#6bcf7f
     style T3X fill:#6bcf7f
@@ -188,6 +179,7 @@ graph LR
 ```
 
 **Description:**
+
 - Each cell represents a unique prompt template
 - Tier determines prompt complexity and token budget
 - Mode determines focus and guidance style
@@ -215,18 +207,19 @@ sequenceDiagram
     participant VRAM as VRAM Monitor
     participant Pool as Context Pool
     participant Manager as Context Manager
-    
+
     Start->>VRAM: Get VRAM info
     VRAM->>Pool: Available VRAM, Model Size
     Pool->>Pool: calculateOptimalSize()<br/>Account for:<br/>- Model in VRAM<br/>- KV cache<br/>- Safety buffer
     Pool->>Manager: Optimal context size
     Manager->>Manager: Map to Context Tier
     Manager->>Manager: Select system prompt
-    
+
     Note over Manager: Context size FIXED for session<br/>System prompt LOCKED
 ```
 
 **What It Considers:**
+
 - Model size already loaded in VRAM
 - Available VRAM after model is loaded
 - KV cache quantization type (f16, q8_0, q4_0)
@@ -240,30 +233,30 @@ sequenceDiagram
 ```mermaid
 graph TB
     Start[Session Start] --> Mode{Sizing Mode?}
-    
+
     Mode -->|Auto| Auto[Auto-Sizing]
     Mode -->|Manual| Manual[User Selection]
-    
+
     Auto --> CheckVRAM[Check VRAM]
     CheckVRAM --> CalcOptimal[Calculate Optimal Size]
     CalcOptimal --> PickTier[Pick One Tier Below Max]
     PickTier --> Lock[LOCK for Session]
-    
+
     Manual --> UserPick[User Picks Size]
     UserPick --> Lock
-    
+
     Lock --> SelectPrompt[Select System Prompt]
     SelectPrompt --> Fixed[Context FIXED]
-    
+
     Fixed --> LowMem{Low Memory<br/>During Session?}
     LowMem -->|Yes| Warn[Show Warning]
     LowMem -->|No| Continue[Continue]
-    
+
     Warn --> NoResize[Do NOT Resize]
     NoResize --> Continue
-    
+
     Continue --> End[Session Continues]
-    
+
     style Lock fill:#6bcf7f
     style Fixed fill:#6bcf7f
     style NoResize fill:#ffd93d
@@ -324,13 +317,13 @@ Result: Realistic sizing for hardware capability
 
 ### Benefits of Fixed Context
 
-| Benefit | Description |
-|---------|-------------|
-| **Prompt Stability** | System prompt never changes mid-conversation |
-| **No LLM Confusion** | Consistent behavior throughout session |
-| **Predictable Performance** | User knows exactly what to expect |
-| **Clear Warnings** | Low memory warnings instead of silent resizing |
-| **User Control** | Explicit sizing decisions |
+| Benefit                     | Description                                    |
+| --------------------------- | ---------------------------------------------- |
+| **Prompt Stability**        | System prompt never changes mid-conversation   |
+| **No LLM Confusion**        | Consistent behavior throughout session         |
+| **Predictable Performance** | User knows exactly what to expect              |
+| **Clear Warnings**          | Low memory warnings instead of silent resizing |
+| **User Control**            | Explicit sizing decisions                      |
 
 ---
 
@@ -345,30 +338,31 @@ sequenceDiagram
     participant Detector as Tier Detector
     participant Selector as Prompt Selector
     participant LLM
-    
+
     Note over User,LLM: Initial State: 8K Model, Developer Mode
-    
+
     User->>Manager: Switch to 16K model
     Manager->>Detector: Detect new tier
     Detector->>Detector: contextSize = 16384
     Detector->>Manager: Tier 3 (Standard)
-    
+
     Manager->>Manager: Tier changed: 2 → 3
     Manager->>Selector: Get prompt for Tier 3 + Developer
     Selector->>Selector: Load "developer/tier3.txt"
     Selector->>Manager: Return ~1000 token prompt
-    
+
     Manager->>Manager: Update system prompt
     Manager->>Manager: Recalculate context budget
     Manager->>LLM: Apply new prompt
-    
+
     Manager->>User: Emit 'tier-changed' event
     Manager->>User: Emit 'system-prompt-updated' event
-    
+
     Note over User,LLM: Current State: 16K Model, Developer Mode<br/>Prompt: 1000 tokens (Tier 3)
 ```
 
 **Description:**
+
 1. User switches from 8K to 16K model
 2. Context Manager detects tier change (Tier 2 → Tier 3)
 3. Prompt Selector retrieves appropriate prompt
@@ -392,30 +386,31 @@ sequenceDiagram
     participant Profile as Mode Profile
     participant Selector as Prompt Selector
     participant LLM
-    
+
     Note over User,LLM: Initial State: Tier 3, Developer Mode
-    
+
     User->>Manager: setMode(PLANNING)
     Manager->>Profile: Load Planning profile
     Profile->>Manager: Return profile config
-    
+
     Manager->>Manager: Mode changed: Developer → Planning
     Manager->>Selector: Get prompt for Tier 3 + Planning
     Selector->>Selector: Lookup "tier3-planning"
     Selector->>Manager: Return ~1000 token prompt
-    
+
     Manager->>Manager: Update system prompt
     Manager->>Manager: Update preservation rules
     Manager->>Manager: Update extraction patterns
     Manager->>LLM: Apply new prompt
-    
+
     Manager->>User: Emit 'mode-changed' event
     Manager->>User: Emit 'system-prompt-updated' event
-    
+
     Note over User,LLM: Current State: Tier 3, Planning Mode<br/>Prompt focus: Tasks and dependencies
 ```
 
 **Description:**
+
 1. User explicitly switches mode to Planning
 2. Context Manager loads Planning mode profile
 3. Prompt Selector retrieves planning-focused prompt
@@ -438,34 +433,35 @@ sequenceDiagram
     participant Profile as Mode Profile
     participant Selector as Prompt Selector
     participant LLM
-    
+
     Note over User,LLM: Initial: 8K Model, Developer Mode<br/>Prompt: tier1-developer (~200 tokens)
-    
+
     User->>Manager: Switch to 32K model
     Manager->>Detector: Detect tier
     Detector->>Manager: Tier 3 (8-32K)
-    
+
     User->>Manager: setMode(PLANNING)
     Manager->>Profile: Load Planning profile
     Profile->>Manager: Return profile
-    
+
     Manager->>Manager: Both tier and mode changed
     Manager->>Selector: Get prompt for Tier 3 + Planning
     Selector->>Selector: Lookup "tier3-planning"
     Selector->>Manager: Return ~1000 token prompt
-    
+
     Manager->>Manager: Update system prompt
     Manager->>Manager: Update all configurations
     Manager->>LLM: Apply new prompt
-    
+
     Manager->>User: Emit 'tier-changed' event
     Manager->>User: Emit 'mode-changed' event
     Manager->>User: Emit 'system-prompt-updated' event
-    
+
     Note over User,LLM: Final: 32K Model, Planning Mode<br/>Prompt: tier3-planning (~1000 tokens)<br/>Focus: Code → Tasks, Size: 200 → 1000 tokens
 ```
 
 **Description:**
+
 1. User switches both model (8K → 32K) and mode (Developer → Planning)
 2. Tier detection runs (Tier 1 → Tier 3)
 3. Mode profile loads (Developer → Planning)
@@ -483,36 +479,36 @@ sequenceDiagram
 ```mermaid
 graph TD
     Start[Prompt Selection Needed] --> Reason{Reason?}
-    
+
     Reason -->|Initialization| Init[Initial Setup]
     Reason -->|Tier Change| TierChange[Tier Changed]
     Reason -->|Mode Change| ModeChange[Mode Changed]
     Reason -->|Manual Update| Manual[Manual Trigger]
-    
+
     Init --> GetTier[Get Current Tier]
     TierChange --> GetTier
     ModeChange --> GetTier
     Manual --> GetTier
-    
+
     GetTier --> GetMode[Get Current Mode]
-    
+
     GetMode --> BuildKey[Build Lookup Key]
     BuildKey --> Key["key = 'tier' + tierNum + '-' + mode"]
-    
+
     Key --> Lookup{Template Exists?}
-    
+
     Lookup -->|Yes| Found[Use Template]
     Lookup -->|No| Fallback[Use Fallback]
-    
+
     Fallback --> Default["Default: tier3-developer"]
-    
+
     Found --> Validate[Validate Token Budget]
     Default --> Validate
-    
+
     Validate --> Apply[Apply System Prompt]
     Apply --> Emit[Emit Events]
     Emit --> Done[Complete]
-    
+
     style GetTier fill:#ffd93d
     style GetMode fill:#ffd93d
     style Found fill:#6bcf7f
@@ -521,6 +517,7 @@ graph TD
 ```
 
 **Description:**
+
 1. **Trigger:** Initialization, tier change, mode change, or manual update
 2. **Detection:** Get current tier and mode
 3. **Key Building:** Combine into lookup key (e.g., "tier3-developer")
@@ -542,38 +539,39 @@ graph LR
         T1[~400 tokens<br/>10.0% overhead]
         T1W[3,600 tokens<br/>work space]
     end
-    
+
     subgraph "Tier 2: 8K Context"
         T2[~800 tokens<br/>10.0% overhead]
         T2W[7,200 tokens<br/>work space]
     end
-    
+
     subgraph "Tier 3: 16K Context ⭐"
         T3[~1300 tokens<br/>8.1% overhead]
         T3W[14,700 tokens<br/>work space]
     end
-    
+
     subgraph "Tier 4: 32K Context"
         T4[~1800 tokens<br/>5.6% overhead]
         T4W[30,200 tokens<br/>work space]
     end
-    
+
     subgraph "Tier 5: 128K Context"
         T5[~1800 tokens<br/>1.4% overhead]
         T5W[126,200 tokens<br/>work space]
     end
-    
+
     T1 --> T1W
     T2 --> T2W
     T3 --> T3W
     T4 --> T4W
     T5 --> T5W
-    
+
     style T3 fill:#6bcf7f
     style T3W fill:#6bcf7f
 ```
 
 **Description:**
+
 - **Tier 1:** Minimal prompt (400 tokens total) to maximize work space
 - **Tier 2:** Detailed prompt (800 tokens total) with examples
 - **Tier 3:** Comprehensive prompt (1300 tokens total) with frameworks ⭐
@@ -583,6 +581,7 @@ graph LR
 - **Work Space:** Increases with context size
 
 **Token Budget Breakdown:**
+
 - Core Mandates: ~200 tokens (all tiers)
 - Sanity Checks: ~100 tokens (tier 2+)
 - Mode Template: 200-1500 tokens (tier-dependent)
@@ -602,53 +601,53 @@ graph TB
         D3[Examples: SOLID, Patterns]
         D4[Guardrails: Type Safety]
     end
-    
+
     subgraph "Planning Mode"
         P1[Core: Task Breakdown]
         P2[Focus: Dependencies]
         P3[Examples: Estimation]
         P4[Guardrails: Clear Criteria]
     end
-    
+
     subgraph "Assistant Mode"
         A1[Core: Communication]
         A2[Focus: User Needs]
         A3[Examples: Explanations]
         A4[Guardrails: Clarity]
     end
-    
+
     subgraph "Debugger Mode"
         X1[Core: Root Cause]
         X2[Focus: Reproduction]
         X3[Examples: Debugging Steps]
         X4[Guardrails: Systematic]
     end
-    
+
     Mode[Operational Mode] --> Developer
     Mode --> Planning
     Mode --> Assistant
     Mode --> Debugger
-    
+
     Developer --> D1
     Developer --> D2
     Developer --> D3
     Developer --> D4
-    
+
     Planning --> P1
     Planning --> P2
     Planning --> P3
     Planning --> P4
-    
+
     Assistant --> A1
     Assistant --> A2
     Assistant --> A3
     Assistant --> A4
-    
+
     Debugger --> X1
     Debugger --> X2
     Debugger --> X3
     Debugger --> X4
-    
+
     style Developer fill:#61dafb
     style Planning fill:#ffd93d
     style Assistant fill:#6bcf7f
@@ -656,6 +655,7 @@ graph TB
 ```
 
 **Description:**
+
 - **Developer:** Focus on code quality, architecture, patterns
 - **Planning:** Focus on task breakdown, dependencies, estimation
 - **Assistant:** Focus on clear communication, user needs
@@ -671,35 +671,35 @@ graph TB
 ```mermaid
 stateDiagram-v2
     [*] --> Initialized: Context Manager Start
-    
+
     Initialized --> Active: Initial Prompt Applied
-    
+
     Active --> DetectingTier: Context Size Changed
     DetectingTier --> UpdatingPrompt: Tier Changed
-    
+
     Active --> ChangingMode: User Changes Mode
     ChangingMode --> UpdatingPrompt: Mode Changed
-    
+
     Active --> ManualUpdate: Manual Trigger
     ManualUpdate --> UpdatingPrompt: Update Requested
-    
+
     UpdatingPrompt --> Validating: Prompt Selected
     Validating --> Applying: Validation Passed
     Applying --> NotifyingUI: Prompt Applied
     NotifyingUI --> Active: Events Emitted
-    
+
     Validating --> Error: Validation Failed
     Error --> Fallback: Use Default
     Fallback --> Applying: Fallback Selected
-    
+
     Active --> [*]: Context Manager Stop
-    
+
     note right of UpdatingPrompt
         Combines tier + mode
         Looks up template
         Validates token budget
     end note
-    
+
     note right of NotifyingUI
         Emits events:
         - tier-changed
@@ -709,6 +709,7 @@ stateDiagram-v2
 ```
 
 **Description:**
+
 1. **Initialized:** Context Manager starts with default prompt
 2. **Active:** Normal operation with current prompt
 3. **Triggers:** Tier change, mode change, or manual update
@@ -730,30 +731,31 @@ sequenceDiagram
     participant Provider as Context Provider
     participant Status as Context Status UI
     participant User
-    
+
     Note over Manager,User: Prompt Update Triggered
-    
+
     Manager->>Manager: Update system prompt
     Manager->>Provider: Emit 'system-prompt-updated'
-    
+
     Provider->>Provider: Update state
     Provider->>Status: Re-render with new data
-    
+
     Status->>Status: Show tier indicator
     Status->>Status: Show mode indicator
     Status->>Status: Show prompt size
     Status->>Status: Animate change
-    
+
     Status->>User: Display visual feedback
-    
+
     Note over Status,User: Brief highlight/animation<br/>Checkmark appears<br/>Color change
-    
+
     Status->>Status: Clear animation after 1s
-    
+
     Note over Manager,User: UI Updated, Ready for Input
 ```
 
 **Description:**
+
 1. Context Manager updates system prompt
 2. Emits 'system-prompt-updated' event
 3. Context Provider updates React state
@@ -772,44 +774,45 @@ sequenceDiagram
 ```mermaid
 graph TB
     Root[packages/core/src/prompts/templates/]
-    
+
     Root --> Dev[developer/]
     Root --> Plan[planning/]
     Root --> Debug[debugger/]
     Root --> Assist[assistant/]
     Root --> Core[Core Components]
-    
+
     Dev --> D1[tier1.txt ~200 tokens]
     Dev --> D2[tier2.txt ~500 tokens]
     Dev --> D3[tier3.txt ~1000 tokens]
     Dev --> D4[tier4.txt ~1500 tokens]
     Dev --> D5[tier5.txt ~1500 tokens]
-    
+
     Plan --> P1[tier1.txt ~200 tokens]
     Plan --> P2[tier2.txt ~500 tokens]
     Plan --> P3[tier3.txt ~1000 tokens]
     Plan --> P4[tier4.txt ~1500 tokens]
     Plan --> P5[tier5.txt ~1500 tokens]
-    
+
     Debug --> X1[tier1.txt ~200 tokens]
     Debug --> X2[tier2.txt ~500 tokens]
     Debug --> X3[tier3.txt ~1000 tokens]
     Debug --> X4[tier4.txt ~1500 tokens]
     Debug --> X5[tier5.txt ~1500 tokens]
-    
+
     Assist --> A4[tier4.txt ~1500 tokens]
     Assist --> A5[tier5.txt ~1500 tokens]
-    
+
     Core --> C1[identity.ts]
     Core --> C2[mandates.ts]
     Core --> C3[sanity.ts]
-    
+
     style D3 fill:#6bcf7f
     style P3 fill:#6bcf7f
     style X3 fill:#6bcf7f
 ```
 
 **Description:**
+
 - Prompts stored in separate text files for maintainability
 - Organized by mode (developer/, planning/, debugger/, assistant/)
 - Each mode has tier-specific prompts (tier1.txt through tier5.txt)
@@ -819,6 +822,7 @@ graph TB
 - Easy to edit and version control
 
 **File Locations:**
+
 - `packages/core/src/prompts/templates/developer/tier{1-5}.txt`
 - `packages/core/src/prompts/templates/planning/tier{1-5}.txt`
 - `packages/core/src/prompts/templates/debugger/tier{1-5}.txt`
@@ -841,7 +845,7 @@ graph LR
         F3 --> F4[Return Cached]
         F4 --> F5[< 1ms]
     end
-    
+
     subgraph "Slow Path (Cache Miss)"
         S1[Request Prompt] --> S2[Check Cache]
         S2 --> S3[Cache Miss]
@@ -851,12 +855,13 @@ graph LR
         S6 --> S7[Return Prompt]
         S7 --> S8[< 10ms]
     end
-    
+
     style F3 fill:#6bcf7f
     style S3 fill:#ffd93d
 ```
 
 **Description:**
+
 - **Fast Path:** Prompts cached in memory after first load (< 1ms)
 - **Slow Path:** First load reads from disk (< 10ms)
 - **Cache Key:** `tier{num}-{mode}` (e.g., "tier3-developer")
@@ -873,30 +878,30 @@ graph LR
 ```mermaid
 graph TD
     Start[Prompt Selection] --> Lookup[Lookup Template]
-    
+
     Lookup --> Exists{Exists?}
-    
+
     Exists -->|Yes| Validate[Validate Token Budget]
     Exists -->|No| Fallback1[Try Tier 3 Same Mode]
-    
+
     Fallback1 --> Exists2{Exists?}
     Exists2 -->|Yes| Validate
     Exists2 -->|No| Fallback2[Try Tier 3 Developer]
-    
+
     Fallback2 --> Exists3{Exists?}
     Exists3 -->|Yes| Validate
     Exists3 -->|No| Error[Log Error]
-    
+
     Validate --> Budget{Budget OK?}
     Budget -->|Yes| Success[Use Prompt]
     Budget -->|No| Warn[Log Warning]
     Warn --> Success
-    
+
     Error --> Emergency[Use Core Mandates Only]
     Emergency --> Success
-    
+
     Success --> Done[Prompt Applied]
-    
+
     style Success fill:#6bcf7f
     style Fallback1 fill:#ffd93d
     style Fallback2 fill:#ffd93d
@@ -904,6 +909,7 @@ graph TD
 ```
 
 **Description:**
+
 1. **Primary:** Try requested tier + mode
 2. **Fallback 1:** Try Tier 3 (Standard) with same mode
 3. **Fallback 2:** Try Tier 3 Developer (most common default)
@@ -930,7 +936,7 @@ graph TB
         U5[Test fallback logic]
         U6[Test token validation]
     end
-    
+
     subgraph "Integration Tests"
         I1[Test tier switching]
         I2[Test mode switching]
@@ -938,36 +944,36 @@ graph TB
         I4[Test UI updates]
         I5[Test event emission]
     end
-    
+
     subgraph "E2E Tests"
         E1[Test full conversation]
         E2[Test model switching]
         E3[Test mode switching]
         E4[Test prompt quality]
     end
-    
+
     Tests[Test Suite] --> Unit
     Tests --> Integration
     Tests --> E2E
-    
+
     Unit --> U1
     Unit --> U2
     Unit --> U3
     Unit --> U4
     Unit --> U5
     Unit --> U6
-    
+
     Integration --> I1
     Integration --> I2
     Integration --> I3
     Integration --> I4
     Integration --> I5
-    
+
     E2E --> E1
     E2E --> E2
     E2E --> E3
     E2E --> E4
-    
+
     style Tests fill:#4d96ff
     style Unit fill:#6bcf7f
     style Integration fill:#ffd93d
@@ -975,6 +981,7 @@ graph TB
 ```
 
 **Description:**
+
 - **Unit Tests:** Test individual functions (tier detection, lookup, etc.)
 - **Integration Tests:** Test component interactions (switching, events)
 - **E2E Tests:** Test full user workflows (conversations, model changes)

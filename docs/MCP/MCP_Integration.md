@@ -119,28 +119,28 @@ The agent will use the `github_create_issue` tool automatically.
 mcp:
   # Enable/disable MCP integration
   enabled: true
-  
+
   # Connection timeout in milliseconds
   connectionTimeout: 10000
-  
+
   # MCP servers configuration
   servers:
     # Server name (can be anything)
     server-name:
       # Command to start the server
       command: 'node'
-      
+
       # Command arguments
       args: ['path/to/server.js']
-      
+
       # Environment variables
       env:
         API_KEY: '${API_KEY}'
         DEBUG: 'true'
-      
+
       # Transport type: stdio, sse, or http
       transport: 'stdio'
-      
+
       # Optional: Connection timeout override
       timeout: 15000
 ```
@@ -160,11 +160,13 @@ servers:
 ```
 
 **Pros:**
+
 - Fast and efficient
 - No network overhead
 - Easy to debug
 
 **Cons:**
+
 - Only works for local servers
 - Requires server executable
 
@@ -182,11 +184,13 @@ servers:
 ```
 
 **Pros:**
+
 - Works with remote servers
 - Real-time updates
 - Efficient for streaming
 
 **Cons:**
+
 - Requires server support
 - Network dependent
 
@@ -204,11 +208,13 @@ servers:
 ```
 
 **Pros:**
+
 - Simple and universal
 - Works with any HTTP server
 - Easy to implement
 
 **Cons:**
+
 - Higher latency
 - No streaming support
 - More network overhead
@@ -223,10 +229,11 @@ servers:
     env:
       GITHUB_TOKEN: '${GITHUB_TOKEN}'
       GITHUB_ORG: '${GITHUB_ORG}'
-      DEBUG: 'true'  # Literal value
+      DEBUG: 'true' # Literal value
 ```
 
 **Rules:**
+
 - Variables are substituted from parent process environment
 - Missing variables log a warning and use empty string
 - Literal values don't need substitution syntax
@@ -248,6 +255,7 @@ Use the `/mcp` command to list servers and tools:
 ```
 
 **Output:**
+
 ```
 3 tool(s) from 'github':
 
@@ -284,7 +292,7 @@ You can also invoke tools manually (advanced):
 const result = await mcpClient.callTool('github', 'github_create_issue', {
   repo: 'owner/repo',
   title: 'Fix login bug',
-  body: 'Description of the bug'
+  body: 'Description of the bug',
 });
 ```
 
@@ -298,7 +306,7 @@ mcp:
     slow-server:
       command: 'node'
       args: ['server.js']
-      timeout: 60000  # 60 seconds
+      timeout: 60000 # 60 seconds
 ```
 
 ---
@@ -349,6 +357,7 @@ If using an extension:
 ```
 
 **What Happens:**
+
 1. Browser opens to authorization page
 2. You authorize the application
 3. Token is stored securely
@@ -359,11 +368,13 @@ If using an extension:
 Tokens are stored securely:
 
 **Primary:** Platform keychain
+
 - Windows: Credential Manager
 - macOS: Keychain
 - Linux: Secret Service API
 
 **Fallback:** Encrypted file
+
 - Location: `~/.ollm/oauth-tokens.json`
 - Encryption: AES-256-GCM
 - Permissions: User-only read/write
@@ -374,7 +385,8 @@ Tokens are automatically refreshed before expiration:
 
 ```typescript
 // Automatic refresh (no user action needed)
-if (token.expiresAt < Date.now() + 300000) {  // 5 minutes before expiry
+if (token.expiresAt < Date.now() + 300000) {
+  // 5 minutes before expiry
   await oauthProvider.refreshToken(serverName);
 }
 ```
@@ -396,6 +408,7 @@ if (token.expiresAt < Date.now() + 300000) {  // 5 minutes before expiry
 **Problem:** Browser doesn't open
 
 **Solution:**
+
 ```bash
 # Manually open the URL shown in the terminal
 # Copy the authorization code from the callback URL
@@ -404,6 +417,7 @@ if (token.expiresAt < Date.now() + 300000) {  // 5 minutes before expiry
 **Problem:** Token expired
 
 **Solution:**
+
 ```bash
 # Tokens refresh automatically
 # If refresh fails, re-authenticate:
@@ -413,6 +427,7 @@ if (token.expiresAt < Date.now() + 300000) {  // 5 minutes before expiry
 **Problem:** Permission denied
 
 **Solution:**
+
 ```bash
 # Check required scopes in manifest
 # Re-authenticate with correct scopes:
@@ -466,7 +481,7 @@ OLLM CLI automatically monitors MCP server health:
 ```yaml
 mcpHealth:
   enabled: true
-  checkInterval: 30000      # 30 seconds
+  checkInterval: 30000 # 30 seconds
   maxRestartAttempts: 3
   autoRestart: true
 ```
@@ -490,6 +505,7 @@ You can listen to health events via hooks:
 ```
 
 **Hook Input:**
+
 ```json
 {
   "event": "notification",
@@ -511,12 +527,14 @@ You can listen to health events via hooks:
 #### 1. Server Won't Start
 
 **Symptoms:**
+
 ```
 ❌ Failed to start MCP server 'github'
 Error: Command not found: npx
 ```
 
 **Solutions:**
+
 - Verify command is in PATH: `which npx`
 - Install required package: `npm install -g npx`
 - Use absolute path: `command: '/usr/local/bin/npx'`
@@ -525,15 +543,17 @@ Error: Command not found: npx
 #### 2. Connection Timeout
 
 **Symptoms:**
+
 ```
 ❌ MCP server 'github' connection timeout
 ```
 
 **Solutions:**
+
 - Increase timeout in configuration:
   ```yaml
   mcp:
-    connectionTimeout: 30000  # 30 seconds
+    connectionTimeout: 30000 # 30 seconds
   ```
 - Check server logs for errors
 - Verify network connectivity (for remote servers)
@@ -542,10 +562,12 @@ Error: Command not found: npx
 #### 3. Tools Not Appearing
 
 **Symptoms:**
+
 - Server starts successfully
 - No tools available in `/mcp tools`
 
 **Solutions:**
+
 - Check server status: `/mcp status github`
 - Verify server implements `tools/list`
 - Check server logs for errors
@@ -554,12 +576,14 @@ Error: Command not found: npx
 #### 4. OAuth Failures
 
 **Symptoms:**
+
 ```
 ❌ OAuth authentication failed
 Error: Invalid client credentials
 ```
 
 **Solutions:**
+
 - Verify OAuth configuration in manifest
 - Check client ID and secret
 - Ensure redirect URI is correct
@@ -569,12 +593,14 @@ Error: Invalid client credentials
 #### 5. Permission Denied
 
 **Symptoms:**
+
 ```
 ❌ Permission denied: filesystem access
 Path: /path/to/file
 ```
 
 **Solutions:**
+
 - Check extension permissions in manifest
 - Grant permission when prompted
 - Verify file/directory exists
@@ -625,12 +651,14 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### 1. Configuration Management
 
 **✅ Do:**
+
 - Use environment variables for secrets
 - Keep configuration in version control (without secrets)
 - Document required environment variables
 - Use workspace-specific configuration for projects
 
 **❌ Don't:**
+
 - Hardcode API keys in configuration
 - Commit secrets to version control
 - Use same configuration for all projects
@@ -638,12 +666,14 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### 2. Error Handling
 
 **✅ Do:**
+
 - Enable health monitoring
 - Set appropriate timeouts
 - Handle tool failures gracefully
 - Log errors for debugging
 
 **❌ Don't:**
+
 - Ignore connection failures
 - Use infinite timeouts
 - Crash on tool errors
@@ -651,12 +681,14 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### 3. Security
 
 **✅ Do:**
+
 - Use OAuth for authenticated servers
 - Store tokens securely (keychain)
 - Revoke tokens when no longer needed
 - Review extension permissions
 
 **❌ Don't:**
+
 - Share OAuth tokens
 - Store tokens in plain text
 - Grant unnecessary permissions
@@ -665,12 +697,14 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### 4. Performance
 
 **✅ Do:**
+
 - Use stdio transport for local servers
 - Enable connection pooling
 - Set reasonable timeouts
 - Monitor server health
 
 **❌ Don't:**
+
 - Use HTTP for local servers
 - Create new connections for each call
 - Use very long timeouts
@@ -679,12 +713,14 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### 5. Development
 
 **✅ Do:**
+
 - Test servers independently first
 - Use debug mode during development
 - Enable hot-reload for extensions
 - Write comprehensive error messages
 
 **❌ Don't:**
+
 - Test only in production
 - Ignore debug output
 - Restart CLI for every change
@@ -697,6 +733,7 @@ echo '{"method":"tools/list"}' | npx -y @modelcontextprotocol/server-github
 ### Example 1: GitHub Integration
 
 **Configuration:**
+
 ```yaml
 mcp:
   enabled: true
@@ -710,6 +747,7 @@ mcp:
 ```
 
 **Usage:**
+
 ```
 > List issues in my repo
 
@@ -723,6 +761,7 @@ Agent uses github_create_issue tool
 ### Example 2: Custom API Server
 
 **Configuration:**
+
 ```yaml
 mcp:
   enabled: true
@@ -735,6 +774,7 @@ mcp:
 ```
 
 **Usage:**
+
 ```
 > Query customer data for ID 12345
 
@@ -744,6 +784,7 @@ Agent uses my-api tools
 ### Example 3: Local Python Server
 
 **Configuration:**
+
 ```yaml
 mcp:
   enabled: true
@@ -757,6 +798,7 @@ mcp:
 ```
 
 **Server (mcp-server.py):**
+
 ```python
 import sys
 import json

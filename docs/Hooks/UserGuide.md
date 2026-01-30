@@ -19,6 +19,7 @@ This guide covers everything you need to know about using hooks for workflow aut
 9. [Troubleshooting](#troubleshooting)
 
 **See Also:**
+
 - [Hook System Overview](3%20projects/OLLM%20CLI/Hooks/README.md) - Hook system introduction
 - [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md) - Creating custom hooks
 - [Hook Protocol](protocol.md) - Technical protocol specification
@@ -29,6 +30,7 @@ This guide covers everything you need to know about using hooks for workflow aut
 ## Introduction
 
 Hooks are executables that run in response to events during LLM execution. They enable:
+
 - **Workflow Automation** - Automate repetitive tasks
 - **Safety Gates** - Validate operations before execution
 - **Custom Logic** - Add custom behavior to OLLM CLI
@@ -37,6 +39,7 @@ Hooks are executables that run in response to events during LLM execution. They 
 ### When to Use Hooks
 
 **Use hooks when you want to:**
+
 - Run commands before/after LLM execution
 - Validate tool calls before execution
 - Format code automatically on save
@@ -45,6 +48,7 @@ Hooks are executables that run in response to events during LLM execution. They 
 - Add custom approval logic
 
 **Don't use hooks when:**
+
 - Simple configuration would work
 - Performance is critical (hooks add overhead)
 - You need real-time interaction
@@ -56,6 +60,7 @@ Hooks are executables that run in response to events during LLM execution. They 
 ### What is a Hook?
 
 A hook is an executable (script, binary, etc.) that:
+
 1. Receives event data via **stdin** (JSON)
 2. Processes the event
 3. Returns a response via **stdout** (JSON)
@@ -85,11 +90,13 @@ Continue Execution
 ### Hook Response
 
 Hooks return JSON with:
+
 - `allow` (boolean) - Whether to allow the operation
 - `message` (string) - Message to display
 - `metadata` (object) - Optional metadata
 
 **Example:**
+
 ```json
 {
   "allow": true,
@@ -134,6 +141,7 @@ The Hooks Panel uses a two-column layout:
 ```
 
 **Left Column (30%):**
+
 - Exit item at the top
 - Hooks organized by category with icons
 - Visual indicators for enabled (●) and disabled (○) hooks
@@ -141,6 +149,7 @@ The Hooks Panel uses a two-column layout:
 - Scroll indicators (▲/▼) when list is longer than window
 
 **Right Column (70%):**
+
 - Detailed information for the selected hook
 - Command and arguments
 - Source and extension information
@@ -149,31 +158,35 @@ The Hooks Panel uses a two-column layout:
 ### Keyboard Shortcuts
 
 #### Navigation
-| Key | Action |
-|-----|--------|
-| **↑** | Move up to previous hook |
-| **↓** | Move down to next hook |
-| **Tab** | Enter Hooks Panel from main navigation |
-| **Esc** or **0** | Exit to main navigation |
+
+| Key              | Action                                 |
+| ---------------- | -------------------------------------- |
+| **↑**            | Move up to previous hook               |
+| **↓**            | Move down to next hook                 |
+| **Tab**          | Enter Hooks Panel from main navigation |
+| **Esc** or **0** | Exit to main navigation                |
 
 #### Hook Actions
-| Key | Action |
-|-----|--------|
+
+| Key                         | Action                       |
+| --------------------------- | ---------------------------- |
 | **Enter** or **←** or **→** | Toggle hook enabled/disabled |
-| **A** | Add new hook |
-| **E** | Edit selected hook |
-| **D** | Delete selected hook |
-| **T** | Test selected hook |
+| **A**                       | Add new hook                 |
+| **E**                       | Edit selected hook           |
+| **D**                       | Delete selected hook         |
+| **T**                       | Test selected hook           |
 
 ### Visual Indicators
 
 #### Hook Status
+
 - **● Green** - Hook is enabled
 - **○ Gray** - Hook is disabled
 - **Yellow highlight** - Currently selected hook (when panel has focus)
 - **Cyan border** - Panel has focus
 
 #### Category Icons
+
 - **📝** File Events - Hooks triggered by file changes
 - **💬** Prompt Events - Hooks triggered by prompt submission
 - **👤** User Triggered - Manually triggered hooks
@@ -185,6 +198,7 @@ The Hooks Panel uses a two-column layout:
 - **🔔** Notifications - Hooks for notifications
 
 #### Action Icons
+
 - **➕** Add new hook
 - **✏️** Edit hook
 - **🗑️** Delete hook
@@ -374,6 +388,7 @@ Simple one-line commands:
 More complex logic in scripts:
 
 **Bash Script:**
+
 ```bash
 #!/bin/bash
 # save as: hooks/format-on-save.sh
@@ -392,6 +407,7 @@ echo '{"allow": true, "message": "File formatted"}'
 ```
 
 **Create hook:**
+
 ```bash
 /hooks create on-file-change ./hooks/format-on-save.sh
 ```
@@ -472,121 +488,145 @@ Compiled binaries or any executable:
 OLLM CLI supports 12 hook events:
 
 #### 1. pre-execution
+
 **When:** Before LLM execution starts  
 **Use Cases:** Validate prompts, add context, check permissions  
 **Context:** `{ prompt, session, user }`
 
 **Example:**
+
 ```bash
 /hooks create pre-execution "./validate-prompt.sh"
 ```
 
 #### 2. post-execution
+
 **When:** After LLM execution completes  
 **Use Cases:** Save results, trigger actions, log execution  
 **Context:** `{ prompt, response, session, duration }`
 
 **Example:**
+
 ```bash
 /hooks create post-execution "./save-session.sh"
 ```
 
 #### 3. pre-tool-call
+
 **When:** Before a tool is executed  
 **Use Cases:** Safety checks, validation, approval  
 **Context:** `{ tool, args, session }`
 
 **Example:**
+
 ```bash
 /hooks create pre-tool-call "./safety-check.sh"
 ```
 
 #### 4. post-tool-call
+
 **When:** After a tool is executed  
 **Use Cases:** Logging, cleanup, notifications  
 **Context:** `{ tool, args, result, duration }`
 
 **Example:**
+
 ```bash
 /hooks create post-tool-call "./log-tool.sh"
 ```
 
 #### 5. on-error
+
 **When:** When an error occurs  
 **Use Cases:** Error handling, notifications, recovery  
 **Context:** `{ error, stack, session }`
 
 **Example:**
+
 ```bash
 /hooks create on-error "./notify-error.sh"
 ```
 
 #### 6. on-file-change
+
 **When:** When a file is modified  
 **Use Cases:** Format code, run linters, update docs  
 **Context:** `{ file, changes, session }`
 
 **Example:**
+
 ```bash
 /hooks create on-file-change "prettier --write {file}"
 ```
 
 #### 7. on-git-commit
+
 **When:** Before a git commit  
 **Use Cases:** Run tests, validate code, check style  
 **Context:** `{ files, message, session }`
 
 **Example:**
+
 ```bash
 /hooks create on-git-commit "npm test"
 ```
 
 #### 8. on-session-start
+
 **When:** When a session starts  
 **Use Cases:** Initialize, load context, setup  
 **Context:** `{ session, user }`
 
 **Example:**
+
 ```bash
 /hooks create on-session-start "./load-context.sh"
 ```
 
 #### 9. on-session-end
+
 **When:** When a session ends  
 **Use Cases:** Cleanup, save state, backup  
 **Context:** `{ session, duration, messageCount }`
 
 **Example:**
+
 ```bash
 /hooks create on-session-end "./save-state.sh"
 ```
 
 #### 10. on-context-overflow
+
 **When:** When context is full  
 **Use Cases:** Compress, summarize, archive  
 **Context:** `{ session, contextSize, maxSize }`
 
 **Example:**
+
 ```bash
 /hooks create on-context-overflow "./compress-context.sh"
 ```
 
 #### 11. on-approval-request
+
 **When:** When approval is needed  
 **Use Cases:** Custom approval logic, notifications  
 **Context:** `{ operation, details, session }`
 
 **Example:**
+
 ```bash
 /hooks create on-approval-request "./custom-approval.sh"
 ```
 
 #### 12. custom
+
 **When:** Custom events triggered by extensions  
 **Use Cases:** Any custom automation  
 **Context:** `{ eventName, data, session }`
 
 **Example:**
+
 ```bash
 /hooks create custom "./custom-handler.sh"
 ```
@@ -600,18 +640,21 @@ OLLM CLI supports 12 hook events:
 Hooks have three trust levels:
 
 #### 1. Trusted Hooks
+
 - **Source:** System hooks, built-in
 - **Approval:** Never required
 - **Privilege:** Full access
 - **Use Case:** Core functionality
 
 #### 2. Workspace Hooks
+
 - **Source:** Project-specific hooks
 - **Approval:** Required first time
 - **Privilege:** Limited to workspace
 - **Use Case:** Project automation
 
 #### 3. Downloaded Hooks
+
 - **Source:** Extensions, external
 - **Approval:** Required each time
 - **Privilege:** Sandboxed
@@ -634,6 +677,7 @@ Hooks have three trust levels:
 ### Security Best Practices
 
 **Do:**
+
 - ✅ Review hook code before trusting
 - ✅ Use workspace hooks for project-specific automation
 - ✅ Keep hooks simple and focused
@@ -641,6 +685,7 @@ Hooks have three trust levels:
 - ✅ Use version control for hooks
 
 **Don't:**
+
 - ❌ Trust hooks from unknown sources
 - ❌ Give hooks unnecessary permissions
 - ❌ Run hooks with sensitive data without review
@@ -654,6 +699,7 @@ Hooks have three trust levels:
 ### Quick Start with Hooks Panel
 
 **First Time Setup:**
+
 1. Press **Tab** to navigate to Hooks tab
 2. Press **Enter** to open Hooks Panel
 3. Browse available hooks with **↑** and **↓**
@@ -686,6 +732,7 @@ Hooks have three trust levels:
    - Press **A** from Hooks Panel
 
 2. **Enter Hook Details:**
+
    ```
    Name: lint-on-save
    Command: eslint
@@ -822,16 +869,19 @@ Hooks have three trust levels:
 #### Panel Not Showing
 
 **Check if Hooks tab is available:**
+
 ```bash
 # Press Tab to cycle through tabs
 # Look for "Hooks" in the navigation bar
 ```
 
 **Verify installation:**
+
 - Hooks Panel UI is available in OLLM CLI v0.1.0+
 - Check version: `ollm --version`
 
 **Restart CLI:**
+
 ```bash
 # Exit and restart OLLM CLI
 # Press Ctrl+C to exit
@@ -841,10 +891,12 @@ Hooks have three trust levels:
 #### Hooks Not Loading
 
 **Check for error messages:**
+
 - Look for error banner at top of panel
 - Check for corrupted hooks warning
 
 **Verify hook files:**
+
 ```bash
 # Check user hooks directory
 ls ~/.ollm/hooks/
@@ -854,6 +906,7 @@ cat ~/.ollm/hooks/my-hook.json | jq .
 ```
 
 **Check permissions:**
+
 ```bash
 # Ensure hooks directory is readable
 chmod 755 ~/.ollm/hooks/
@@ -863,27 +916,32 @@ chmod 644 ~/.ollm/hooks/*.json
 #### Navigation Not Working
 
 **Ensure panel has focus:**
+
 - Panel border should be cyan when focused
 - Selected hook should be highlighted in yellow
 - Press **Tab** to give focus to Hooks Panel
 
 **Check keyboard input:**
+
 - Try pressing **↑** and **↓** keys
 - Ensure terminal supports arrow keys
 - Try alternative keys: **Esc** or **0** to exit
 
 **Restart panel:**
+
 - Press **Esc** to exit panel
 - Press **Tab** to re-enter panel
 
 #### Toggle Not Working
 
 **Check hook editability:**
+
 - Built-in hooks can be toggled
 - User hooks can be toggled
 - Extension hooks can be toggled
 
 **Verify settings file:**
+
 ```bash
 # Check settings file exists
 cat ~/.ollm/settings.json
@@ -893,6 +951,7 @@ cat ~/.ollm/settings.json | jq .hooks
 ```
 
 **Check file permissions:**
+
 ```bash
 # Ensure settings file is writable
 chmod 644 ~/.ollm/settings.json
@@ -901,49 +960,58 @@ chmod 644 ~/.ollm/settings.json
 #### Dialogs Not Appearing
 
 **Check terminal size:**
+
 - Dialogs require minimum terminal size
 - Resize terminal if too small
 - Recommended: 80x24 or larger
 
 **Verify dialog trigger:**
+
 - Press **A** for Add dialog
 - Press **E** for Edit dialog (on user hook)
 - Press **D** for Delete dialog (on user hook)
 - Press **T** for Test dialog
 
 **Close existing dialogs:**
+
 - Press **Esc** or **C** to close any open dialog
 - Try opening dialog again
 
 #### Scroll Indicators Not Showing
 
 **Check hook count:**
+
 - Scroll indicators only appear with > 15 hooks
 - Add more hooks to test scrolling
 
 **Verify window size:**
+
 - Default window size is 15 items
 - Scroll indicators appear when list exceeds window
 
 **Navigate to trigger scroll:**
+
 - Use **↑** and **↓** to navigate
 - Scroll indicators appear automatically
 
 ### Hook Not Executing
 
 **Check if hook is enabled:**
+
 ```bash
 /hooks list
 # Look for "enabled: true"
 ```
 
 **Check trust level:**
+
 ```bash
 /hooks info my-hook
 # If "workspace" or "downloaded", may need approval
 ```
 
 **Enable debug mode:**
+
 ```bash
 /hooks debug on
 # Shows detailed execution logs
@@ -952,18 +1020,21 @@ chmod 644 ~/.ollm/settings.json
 ### Hook Failing
 
 **Test hook manually:**
+
 ```bash
 # Test with sample input
 echo '{"event":"test","context":{}}' | ./my-hook.sh
 ```
 
 **Check hook output:**
+
 ```bash
 # Hook must output valid JSON
 # Check for syntax errors
 ```
 
 **Check permissions:**
+
 ```bash
 # Make sure hook is executable
 chmod +x ./my-hook.sh
@@ -972,17 +1043,20 @@ chmod +x ./my-hook.sh
 ### Hook Approval Issues
 
 **Trust the hook:**
+
 ```bash
 /hooks trust my-hook
 ```
 
 **Check trust level:**
+
 ```bash
 /hooks info my-hook
 # Shows current trust level
 ```
 
 **Review approval settings:**
+
 ```bash
 # Check if approval is required
 # Workspace hooks need approval first time
@@ -992,16 +1066,19 @@ chmod +x ./my-hook.sh
 ### Performance Issues
 
 **Disable slow hooks:**
+
 ```bash
 /hooks disable slow-hook
 ```
 
 **Optimize hook code:**
+
 - Reduce processing time
 - Cache results
 - Use async operations
 
 **Limit hook execution:**
+
 - Only run on specific events
 - Add conditions in hook code
 - Use event filtering
@@ -1053,6 +1130,7 @@ Hooks receive context variables:
 - `{session}` - Session ID (all events)
 
 **Example:**
+
 ```bash
 /hooks create on-file-change "echo 'File changed: {file}'"
 ```
@@ -1064,24 +1142,28 @@ Hooks receive context variables:
 ### Hooks Panel UI Best Practices
 
 **Organizing Hooks:**
+
 - Keep related hooks in the same category
 - Use descriptive names for easy identification
 - Disable hooks you're not currently using
 - Test hooks before enabling them
 
 **Navigation Efficiency:**
+
 - Use **↑** from first hook to quickly reach Exit
 - Remember keyboard shortcuts (A/E/D/T)
 - Use **Esc** for quick exit to main navigation
 - Navigate by category to find hooks faster
 
 **Hook Management:**
+
 - Review enabled hooks regularly
 - Test hooks after editing
 - Delete unused custom hooks
 - Keep hook list under 50 for best performance
 
 **Safety:**
+
 - Always test hooks before enabling
 - Review hook details before toggling
 - Be cautious with built-in hooks
@@ -1090,17 +1172,20 @@ Hooks receive context variables:
 ### Hook Design
 
 **Keep hooks simple:**
+
 - One responsibility per hook
 - Fast execution (< 1 second)
 - Clear error messages
 - Idempotent operations
 
 **Use appropriate events:**
+
 - `pre-*` for validation
 - `post-*` for logging
 - `on-*` for automation
 
 **Handle errors gracefully:**
+
 - Return proper JSON even on error
 - Include helpful error messages
 - Don't crash on invalid input
@@ -1108,6 +1193,7 @@ Hooks receive context variables:
 ### Hook Organization
 
 **Project structure:**
+
 ```
 project/
 ├── .ollm/
@@ -1120,11 +1206,13 @@ project/
 ```
 
 **Document your hooks:**
+
 - Add comments to hook code
 - Create README for hook directory
 - Document required dependencies
 
 **Version control:**
+
 - Commit hooks to repository
 - Share with team
 - Track changes
@@ -1140,6 +1228,7 @@ project/
 **Scenario:** You want to temporarily disable formatting while debugging.
 
 **Steps:**
+
 1. Press **Tab** to navigate to Hooks
 2. Press **Enter** to open Hooks Panel
 3. Navigate to "format-on-save" hook with **↓**
@@ -1155,6 +1244,7 @@ project/
 **Scenario:** You want to run tests before every commit.
 
 **Steps:**
+
 1. Open Hooks Panel (**Tab** → **Enter**)
 2. Press **A** to open Add dialog
 3. Enter details:
@@ -1175,6 +1265,7 @@ project/
 **Scenario:** You want to see what hooks are currently active.
 
 **Steps:**
+
 1. Open Hooks Panel
 2. Navigate through each category with **↓**
 3. Look for ● (enabled) indicators
@@ -1188,6 +1279,7 @@ project/
 **Scenario:** You have too many hooks and want to clean up.
 
 **Steps:**
+
 1. Open Hooks Panel
 2. Navigate through all hooks
 3. For each unused hook:
@@ -1202,6 +1294,7 @@ project/
 **Scenario:** You edited a hook file manually and want to verify it works.
 
 **Steps:**
+
 1. Open Hooks Panel
 2. Navigate to the edited hook
 3. Press **T** to test
@@ -1233,6 +1326,7 @@ fi
 ```
 
 **Create hook:**
+
 ```bash
 /hooks create on-file-change ./.ollm/hooks/format-on-save.sh
 /hooks trust on-file-change
@@ -1258,6 +1352,7 @@ echo '{"allow": true, "message": "Operation approved"}'
 ```
 
 **Create hook:**
+
 ```bash
 /hooks create pre-tool-call ./.ollm/hooks/safety-check.sh
 /hooks trust pre-tool-call
@@ -1280,6 +1375,7 @@ fi
 ```
 
 **Create hook:**
+
 ```bash
 /hooks create on-git-commit ./.ollm/hooks/test-pre-commit.sh
 /hooks trust on-git-commit
@@ -1361,17 +1457,20 @@ A: Enable debug mode with `/hooks debug on`, then check the debug output with `/
 ## Further Reading
 
 ### Documentation
+
 - [Hook System Overview](3%20projects/OLLM%20CLI/Hooks/README.md) - Introduction to hooks
 - [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md) - Creating custom hooks
 - [Hook Protocol](protocol.md) - Technical specification
 - [MCP Commands](MCP_commands.md) - Hook commands
 
 ### Related Features
+
 - [Extensions](../extensions/) - Extensions can include hooks
 - [MCP Servers](../servers/) - MCP servers for tools
 - [API Reference](hook-system.md) - Hook system API
 
 ### External Resources
+
 - Bash Scripting Guide (https://www.gnu.org/software/bash/manual/)
 - jq Manual (https://stedolan.github.io/jq/manual/)
 - JSON Specification (https://www.json.org/)

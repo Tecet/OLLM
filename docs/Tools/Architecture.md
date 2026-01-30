@@ -16,6 +16,7 @@
 8. [Security Model](#security-model)
 
 **See Also:**
+
 - [Tool User Guide](UserGuide.md) - Using tools
 - [MCP Architecture](../MCP/MCP_Architecture.md) - MCP tool integration
 - [Hook Architecture](../Hooks/Architecture.md) - Hook system integration
@@ -50,7 +51,7 @@ graph TB
         Dynamic["Dynamic Tools"]
         Extension["Extension Tools"]
     end
-    
+
     subgraph ToolSystem["Tool System"]
         Registry["Tool Registry"]
         Validator["Parameter Validator"]
@@ -58,12 +59,12 @@ graph TB
         Executor["Tool Executor"]
         Formatter["Result Formatter"]
     end
-    
+
     subgraph LLM["LLM Integration"]
         Provider["Provider"]
         Agent["Agent"]
     end
-    
+
     Sources --> Registry
     Registry --> Validator
     Validator --> Policy
@@ -71,7 +72,7 @@ graph TB
     Executor --> Formatter
     Formatter --> Provider
     Provider --> Agent
-    
+
     style ToolSystem fill:#f9f,stroke:#333,stroke-width:2px
     style Sources fill:#bbf,stroke:#333,stroke-width:2px
     style LLM fill:#bfb,stroke:#333,stroke-width:2px
@@ -87,7 +88,7 @@ flowchart LR
     Policy --> Execute[Execute Tool]
     Execute --> Format[Format Result]
     Format --> Return[Return to LLM]
-    
+
     style LLM fill:#e1f5ff
     style Policy fill:#fff4e1
     style Execute fill:#e8f5e9
@@ -103,12 +104,14 @@ flowchart LR
 **Location:** `packages/core/src/tools/tool-registry.ts`
 
 **Responsibilities:**
+
 - Register and store tool definitions
 - Provide tool list to LLM
 - Route tool execution requests
 - Manage tool lifecycle
 
 **Key Methods:**
+
 ```typescript
 interface ToolRegistry {
   registerTool(definition: ToolDefinition): void;
@@ -120,6 +123,7 @@ interface ToolRegistry {
 ```
 
 **Tool Definition:**
+
 ```typescript
 interface ToolDefinition {
   name: string;
@@ -138,6 +142,7 @@ interface ToolDefinition {
 **Location:** `packages/core/src/tools/validation.ts`
 
 **Responsibilities:**
+
 - Validate parameters against schema
 - Type checking
 - Required field verification
@@ -150,17 +155,17 @@ flowchart TD
     Start[Tool Call] --> CheckExists{Tool Exists?}
     CheckExists -->|No| ErrorNotFound[Error: Tool Not Found]
     CheckExists -->|Yes| ValidateSchema[Validate Against Schema]
-    
+
     ValidateSchema --> CheckRequired{All Required?}
     CheckRequired -->|No| ErrorRequired[Error: Missing Required]
     CheckRequired -->|Yes| CheckTypes{Types Match?}
-    
+
     CheckTypes -->|No| ErrorType[Error: Type Mismatch]
     CheckTypes -->|Yes| CheckValues{Values Valid?}
-    
+
     CheckValues -->|No| ErrorValue[Error: Invalid Value]
     CheckValues -->|Yes| Success[Validation Success]
-    
+
     style Start fill:#e1f5ff
     style Success fill:#e8f5e9
     style ErrorNotFound fill:#ffe1e1
@@ -174,6 +179,7 @@ flowchart TD
 **Location:** `packages/core/src/policy/policyEngine.ts`
 
 **Responsibilities:**
+
 - Check tool permissions
 - Request user approval
 - Evaluate risk levels
@@ -184,27 +190,28 @@ flowchart TD
 ```mermaid
 graph TD
     ToolCall[Tool Call] --> CheckMode{Approval Mode}
-    
+
     CheckMode -->|YOLO| AutoApprove[Auto-Approve All]
     CheckMode -->|AUTO| CheckRisk{Check Risk Level}
     CheckMode -->|ASK| RequestApproval[Request Approval]
-    
+
     CheckRisk -->|Low| AutoApprove
     CheckRisk -->|Medium| RequestApproval
     CheckRisk -->|High| RequestApproval
-    
+
     RequestApproval --> UserDecision{User Approves?}
     UserDecision -->|Yes| Execute[Execute Tool]
     UserDecision -->|No| Block[Block Execution]
-    
+
     AutoApprove --> Execute
-    
+
     style AutoApprove fill:#e8f5e9
     style Execute fill:#e1f5ff
     style Block fill:#ffe1e1
 ```
 
 **Risk Levels:**
+
 - **Low** - Read-only operations (glob, ls, grep, read_file)
 - **Medium** - Write operations (write_file, edit_file)
 - **High** - Dangerous operations (shell, delete)
@@ -214,6 +221,7 @@ graph TD
 **Location:** `packages/core/src/tools/tool-registry.ts`
 
 **Responsibilities:**
+
 - Execute tool function
 - Handle errors gracefully
 - Capture results
@@ -226,22 +234,22 @@ flowchart TD
     Start[Start Execution] --> Validate[Validate Parameters]
     Validate --> CheckPermission[Check Permission]
     CheckPermission --> Approved{Approved?}
-    
+
     Approved -->|No| Block[Block Execution]
     Approved -->|Yes| Execute[Execute Tool Function]
-    
+
     Execute --> Timeout{Timeout?}
     Timeout -->|Yes| Error[Return Timeout Error]
     Timeout -->|No| Success{Success?}
-    
+
     Success -->|No| CatchError[Catch Error]
     Success -->|Yes| FormatResult[Format Result]
-    
+
     CatchError --> Error
     FormatResult --> Return[Return Result]
-    
+
     Block --> Error
-    
+
     style Start fill:#e1f5ff
     style Execute fill:#e8f5e9
     style Return fill:#f3e5f5
@@ -253,6 +261,7 @@ flowchart TD
 **Location:** `packages/core/src/tools/output-helpers.ts`
 
 **Responsibilities:**
+
 - Format results for LLM
 - Truncate large outputs
 - Add metadata
@@ -260,12 +269,12 @@ flowchart TD
 
 **Truncation Strategy:**
 
-| Output Type | Size Limit | Strategy |
-|-------------|------------|----------|
-| File contents | 10KB | Show first 5KB + "... [truncated]" |
-| Directory listings | 1000 items | Show first 500 + count |
-| Search results | 100 matches | Show first 50 + count |
-| Shell output | 10KB | Show last 5KB (most recent) |
+| Output Type        | Size Limit  | Strategy                           |
+| ------------------ | ----------- | ---------------------------------- |
+| File contents      | 10KB        | Show first 5KB + "... [truncated]" |
+| Directory listings | 1000 items  | Show first 500 + count             |
+| Search results     | 100 matches | Show first 50 + count              |
+| Shell output       | 10KB        | Show last 5KB (most recent)        |
 
 ---
 
@@ -275,11 +284,11 @@ flowchart TD
 
 **Purpose:** Find and locate files
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `glob` | Find files by pattern | Low |
-| `ls` | List directory contents | Low |
-| `grep` | Search file contents | Low |
+| Tool   | Description             | Risk Level |
+| ------ | ----------------------- | ---------- |
+| `glob` | Find files by pattern   | Low        |
+| `ls`   | List directory contents | Low        |
+| `grep` | Search file contents    | Low        |
 
 **Auto-Approve:** ✅ Yes (in AUTO mode)
 
@@ -287,14 +296,15 @@ flowchart TD
 
 **Purpose:** Read and write files
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `read_file` | Read single file | Low |
-| `read_many_files` | Read multiple files | Low |
-| `edit_file` | Edit file sections | Medium |
-| `write_file` | Create/overwrite files | Medium |
+| Tool              | Description            | Risk Level |
+| ----------------- | ---------------------- | ---------- |
+| `read_file`       | Read single file       | Low        |
+| `read_many_files` | Read multiple files    | Low        |
+| `edit_file`       | Edit file sections     | Medium     |
+| `write_file`      | Create/overwrite files | Medium     |
 
-**Auto-Approve:** 
+**Auto-Approve:**
+
 - Read: ✅ Yes (in AUTO mode)
 - Write: ❌ No (requires approval)
 
@@ -302,10 +312,10 @@ flowchart TD
 
 **Purpose:** Access web resources
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `web_search` | Search internet | Low |
-| `web_fetch` | Fetch URL content | Low |
+| Tool         | Description       | Risk Level |
+| ------------ | ----------------- | ---------- |
+| `web_search` | Search internet   | Low        |
+| `web_fetch`  | Fetch URL content | Low        |
 
 **Auto-Approve:** ✅ Yes (in AUTO mode)
 
@@ -313,9 +323,9 @@ flowchart TD
 
 **Purpose:** Execute shell commands
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `shell` | Execute commands | High |
+| Tool    | Description      | Risk Level |
+| ------- | ---------------- | ---------- |
+| `shell` | Execute commands | High       |
 
 **Auto-Approve:** ❌ No (always requires approval unless YOLO)
 
@@ -325,12 +335,12 @@ flowchart TD
 
 **Purpose:** Manage memory and context
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `memory` | Persistent memory | Low |
-| `remember` | Simplified memory | Low |
-| `write_memory_dump` | Context snapshot | Low |
-| `read_reasoning` | Review past reasoning | Low |
+| Tool                | Description           | Risk Level |
+| ------------------- | --------------------- | ---------- |
+| `memory`            | Persistent memory     | Low        |
+| `remember`          | Simplified memory     | Low        |
+| `write_memory_dump` | Context snapshot      | Low        |
+| `read_reasoning`    | Review past reasoning | Low        |
 
 **Auto-Approve:** ✅ Yes (in AUTO mode)
 
@@ -338,13 +348,13 @@ flowchart TD
 
 **Purpose:** Manage goals and decisions
 
-| Tool | Description | Risk Level |
-|------|-------------|------------|
-| `create_goal` | Create new goal | Low |
-| `switch_goal` | Switch active goal | Low |
-| `complete_goal` | Mark goal complete | Low |
-| `create_checkpoint` | Create checkpoint | Low |
-| `record_decision` | Record decision | Low |
+| Tool                | Description        | Risk Level |
+| ------------------- | ------------------ | ---------- |
+| `create_goal`       | Create new goal    | Low        |
+| `switch_goal`       | Switch active goal | Low        |
+| `complete_goal`     | Mark goal complete | Low        |
+| `create_checkpoint` | Create checkpoint  | Low        |
+| `record_decision`   | Record decision    | Low        |
 
 **Auto-Approve:** ✅ Yes (in AUTO mode)
 
@@ -360,33 +370,33 @@ flowchart TD
 flowchart TD
     Start[Application Startup] --> InitRegistry[Initialize Tool Registry]
     InitRegistry --> RegisterBuiltIn[Register Built-in Tools]
-    
+
     RegisterBuiltIn --> FileTools[File Tools]
     RegisterBuiltIn --> WebTools[Web Tools]
     RegisterBuiltIn --> ShellTool[Shell Tool]
     RegisterBuiltIn --> MemoryTools[Memory Tools]
     RegisterBuiltIn --> GoalTools[Goal Tools]
-    
+
     FileTools --> RegisterMCP[Register MCP Tools]
     WebTools --> RegisterMCP
     ShellTool --> RegisterMCP
     MemoryTools --> RegisterMCP
     GoalTools --> RegisterMCP
-    
+
     RegisterMCP --> ConnectServers[Connect to MCP Servers]
     ConnectServers --> DiscoverTools[Discover Tools]
     DiscoverTools --> ConvertSchemas[Convert Schemas]
     ConvertSchemas --> WrapTools[Wrap with MCPToolWrapper]
-    
+
     WrapTools --> RegisterDynamic[Register Dynamic Tools]
     RegisterDynamic --> MemoryDump[write_memory_dump]
     RegisterDynamic --> HotSwap[trigger_hot_swap]
     RegisterDynamic --> ExtensionTools[Extension Tools]
-    
+
     MemoryDump --> Ready[Tools Available to LLM]
     HotSwap --> Ready
     ExtensionTools --> Ready
-    
+
     style Start fill:#e1f5ff
     style Ready fill:#e8f5e9
 ```
@@ -397,34 +407,34 @@ flowchart TD
 flowchart TD
     LLM[LLM Requests Tool] --> Lookup[Tool Registry Lookup]
     Lookup --> Exists{Tool Exists?}
-    
+
     Exists -->|No| ErrorNotFound[Error: Tool Not Found]
     Exists -->|Yes| Validate[Validate Parameters]
-    
+
     Validate --> Valid{Valid?}
     Valid -->|No| ErrorInvalid[Error: Invalid Parameters]
     Valid -->|Yes| CheckPermission[Check Permission]
-    
+
     CheckPermission --> Policy[Policy Engine]
     Policy --> Approved{Approved?}
-    
+
     Approved -->|No| ErrorDenied[Error: Permission Denied]
     Approved -->|Yes| Execute[Execute Tool Function]
-    
+
     Execute --> Success{Success?}
     Success -->|No| CatchError[Catch Error]
     Success -->|Yes| FormatResult[Format Result]
-    
+
     CatchError --> ErrorExecution[Error: Execution Failed]
     FormatResult --> Truncate[Truncate if Needed]
     Truncate --> AddMetadata[Add Metadata]
     AddMetadata --> Return[Return to LLM]
-    
+
     ErrorNotFound --> Return
     ErrorInvalid --> Return
     ErrorDenied --> Return
     ErrorExecution --> Return
-    
+
     style LLM fill:#e1f5ff
     style Execute fill:#e8f5e9
     style Return fill:#f3e5f5
@@ -443,23 +453,23 @@ flowchart TD
     Wrapper --> ValidateParams[Validate Parameters]
     ValidateParams --> CheckPermission[Check Permission]
     CheckPermission --> MCPClient[MCP Client]
-    
+
     MCPClient --> Transport[MCP Transport]
     Transport --> Stdio[Stdio: Write to stdin]
     Transport --> SSE[SSE: POST to endpoint]
     Transport --> HTTP[HTTP: POST request]
-    
+
     Stdio --> Server[MCP Server]
     SSE --> Server
     HTTP --> Server
-    
+
     Server --> Process[Process Request]
     Process --> Response[Send Response]
     Response --> Receive[MCP Transport Receives]
     Receive --> ConvertResult[Convert Result]
     ConvertResult --> Format[Format for LLM]
     Format --> Return[Return to LLM]
-    
+
     style LLM fill:#e1f5ff
     style Server fill:#e8f5e9
     style Return fill:#f3e5f5
@@ -476,8 +486,8 @@ Tools are passed to the provider alongside the system prompt:
 ```typescript
 const turnOptions: ChatOptions = {
   systemPrompt: systemPromptWithContext,
-  tools: tools,  // All registered tools
-  ...options
+  tools: tools, // All registered tools
+  ...options,
 };
 
 const response = await provider.chat(messages, turnOptions);
@@ -496,7 +506,7 @@ sequenceDiagram
     participant Wrapper as Tool Wrapper
     participant Registry as Tool Registry
     participant LLM as LLM
-    
+
     MCP->>MCP: Connect to Server
     MCP->>MCP: Discover Tools
     MCP->>Converter: Convert Schema
@@ -530,10 +540,12 @@ Services can register tools at runtime:
 toolRegistry.registerTool({
   name: 'write_memory_dump',
   description: 'Create context snapshot',
-  inputSchema: { /* ... */ },
+  inputSchema: {
+    /* ... */
+  },
   execute: async (args) => {
     return await chatContext.createMemoryDump(args);
-  }
+  },
 });
 ```
 
@@ -546,12 +558,14 @@ toolRegistry.registerTool({
 **Decision:** Single registry for all tool types
 
 **Rationale:**
+
 - Consistent interface for LLM
 - Simplified tool management
 - Easier to add new tool sources
 - Unified permission checking
 
 **Trade-offs:**
+
 - ✅ Consistency
 - ✅ Simplicity
 - ❌ Less flexibility per tool type
@@ -562,12 +576,14 @@ toolRegistry.registerTool({
 **Decision:** Use JSON Schema for parameter validation
 
 **Rationale:**
+
 - Standard format
 - Type safety
 - Clear documentation
 - Tool compatibility
 
 **Trade-offs:**
+
 - ✅ Type safety
 - ✅ Clear contracts
 - ❌ Verbose schemas
@@ -578,12 +594,14 @@ toolRegistry.registerTool({
 **Decision:** Three approval modes (YOLO, AUTO, ASK)
 
 **Rationale:**
+
 - Balance safety and speed
 - User control
 - Risk-based decisions
 - Flexible workflow
 
 **Modes:**
+
 - **YOLO** - Maximum speed, minimum safety
 - **AUTO** - Balanced (recommended)
 - **ASK** - Maximum safety, slower workflow
@@ -593,12 +611,14 @@ toolRegistry.registerTool({
 **Decision:** Truncate large outputs automatically
 
 **Rationale:**
+
 - Prevent context overflow
 - Keep relevant information
 - LLM can request more if needed
 - Better performance
 
 **Strategy:**
+
 - File contents: First 5KB
 - Directory listings: First 500 items
 - Search results: First 50 matches
@@ -609,12 +629,14 @@ toolRegistry.registerTool({
 **Decision:** Allow runtime tool registration
 
 **Rationale:**
+
 - Flexibility
 - Service integration
 - Extension support
 - Hot-reload capability
 
 **Use Cases:**
+
 - Memory dump tool (ChatContext)
 - Hot swap tool (HotSwapService)
 - Extension tools
@@ -629,24 +651,26 @@ toolRegistry.registerTool({
 **Threat:** Unauthorized tool execution
 
 **Mitigation:**
+
 - Policy engine evaluation
 - User approval workflow
 - Risk-based decisions
 - Approval persistence
 
 **Implementation:**
+
 ```typescript
 async function checkPermission(tool: string, args: any): Promise<boolean> {
   const riskLevel = evaluateRisk(tool, args);
-  
+
   if (approvalMode === 'YOLO') {
     return true;
   }
-  
+
   if (approvalMode === 'AUTO' && riskLevel === 'low') {
     return true;
   }
-  
+
   return await requestUserApproval(tool, args);
 }
 ```
@@ -656,23 +680,25 @@ async function checkPermission(tool: string, args: any): Promise<boolean> {
 **Threat:** Malicious or malformed parameters
 
 **Mitigation:**
+
 - Schema validation
 - Type checking
 - Value range validation
 - Required field verification
 
 **Implementation:**
+
 ```typescript
 function validateParameters(tool: ToolDefinition, args: any): void {
   const schema = tool.inputSchema;
-  
+
   // Check required fields
   for (const field of schema.required) {
     if (!(field in args)) {
       throw new Error(`Missing required field: ${field}`);
     }
   }
-  
+
   // Check types
   for (const [field, value] of Object.entries(args)) {
     const fieldSchema = schema.properties[field];
@@ -688,12 +714,14 @@ function validateParameters(tool: ToolDefinition, args: any): void {
 **Threat:** Tool errors affecting system
 
 **Mitigation:**
+
 - Try-catch blocks
 - Error formatting
 - Graceful degradation
 - Error logging
 
 **Implementation:**
+
 ```typescript
 async function executeTool(name: string, args: any): Promise<any> {
   try {
@@ -705,7 +733,7 @@ async function executeTool(name: string, args: any): Promise<any> {
     return {
       error: error.message,
       tool: name,
-      args: args
+      args: args,
     };
   }
 }
@@ -716,6 +744,7 @@ async function executeTool(name: string, args: any): Promise<any> {
 **Threat:** Malicious output affecting LLM
 
 **Mitigation:**
+
 - Output truncation
 - Special character escaping
 - Size limits
@@ -730,6 +759,7 @@ async function executeTool(name: string, args: any): Promise<any> {
 **Optimization:** Cache tool definitions
 
 **Implementation:**
+
 - Store tool definitions in memory
 - Lazy load tool implementations
 - Cache validation results
@@ -760,6 +790,7 @@ async function executeTool(name: string, args: any): Promise<any> {
 **Location:** `packages/core/src/core/chatClient.ts` line ~370
 
 **Current Code (BROKEN):**
+
 ```typescript
 const turnOptions: ChatOptions = {
   ...options,
@@ -769,18 +800,19 @@ const turnOptions: ChatOptions = {
 ```
 
 **Fix:**
+
 ```typescript
 // Get all registered tools
-const tools = this.toolRegistry.getAllTools().map(tool => ({
+const tools = this.toolRegistry.getAllTools().map((tool) => ({
   name: tool.name,
   description: tool.description,
-  parameters: tool.inputSchema
+  parameters: tool.inputSchema,
 }));
 
 const turnOptions: ChatOptions = {
   ...options,
   systemPrompt: systemPromptWithContext,
-  tools: tools,  // ✅ Add tools here
+  tools: tools, // ✅ Add tools here
 };
 ```
 
@@ -790,18 +822,19 @@ const turnOptions: ChatOptions = {
 
 ## File Locations
 
-| File | Purpose |
-|------|---------|
-| `packages/core/src/tools/tool-registry.ts` | Tool registration and execution |
-| `packages/core/src/tools/types.ts` | Tool type definitions |
-| `packages/core/src/tools/validation.ts` | Parameter validation |
-| `packages/core/src/tools/output-helpers.ts` | Result formatting |
-| `packages/core/src/policy/policyEngine.ts` | Permission checking |
-| `packages/core/src/policy/policyRules.ts` | Risk evaluation rules |
-| `packages/core/src/mcp/mcpToolWrapper.ts` | MCP tool wrapper |
-| `packages/core/src/mcp/mcpClient.ts` | MCP client |
+| File                                        | Purpose                         |
+| ------------------------------------------- | ------------------------------- |
+| `packages/core/src/tools/tool-registry.ts`  | Tool registration and execution |
+| `packages/core/src/tools/types.ts`          | Tool type definitions           |
+| `packages/core/src/tools/validation.ts`     | Parameter validation            |
+| `packages/core/src/tools/output-helpers.ts` | Result formatting               |
+| `packages/core/src/policy/policyEngine.ts`  | Permission checking             |
+| `packages/core/src/policy/policyRules.ts`   | Risk evaluation rules           |
+| `packages/core/src/mcp/mcpToolWrapper.ts`   | MCP tool wrapper                |
+| `packages/core/src/mcp/mcpClient.ts`        | MCP client                      |
 
 **Built-in Tools:**
+
 - `packages/core/src/tools/glob.ts` - File pattern search
 - `packages/core/src/tools/ls.ts` - Directory listing
 - `packages/core/src/tools/grep.ts` - Content search
@@ -819,6 +852,7 @@ const turnOptions: ChatOptions = {
 - `packages/core/src/tools/read-reasoning.ts` - Reasoning retrieval
 
 **Dynamic Tools:**
+
 - `packages/core/src/tools/MemoryDumpTool.ts` - Memory dump tool
 - `packages/core/src/tools/HotSwapTool.ts` - Hot swap tool
 
@@ -827,16 +861,19 @@ const turnOptions: ChatOptions = {
 ## Further Reading
 
 ### Documentation
+
 - [Tool User Guide](UserGuide.md) - Using tools
 - [MCP Architecture](../MCP/MCP_Architecture.md) - MCP tool integration
 - [Hook Architecture](../Hooks/Architecture.md) - Hook system integration
 
 ### Related Systems
+
 - [Goal Management](dev_PromptSystem.md) - Goal system architecture
 - [Context Compression](dev_ContextCompression.md) - Goal system integration
 - [Provider System](dev_ProviderSystem.md) - Provider integration
 
 ### External References
+
 - JSON Schema (https://json-schema.org/)
 - Tool Use Patterns (https://docs.anthropic.com/claude/docs/tool-use)
 
@@ -845,4 +882,3 @@ const turnOptions: ChatOptions = {
 **Document Version:** 1.0  
 **Last Updated:** 2026-01-26  
 **Status:** ✅ Complete
-

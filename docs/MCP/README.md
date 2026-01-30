@@ -9,6 +9,7 @@ Welcome to the Model Context Protocol (MCP) documentation for OLLM CLI. This sec
 ## 📚 Documentation Overview
 
 ### Core Documentation
+
 - **[MCP Index](MCP_Index.md)** - Complete documentation index
 - **[Getting Started](MCP_GettingStarted.md)** - Quick start guide
 - **[Architecture](MCP_Architecture.md)** - System architecture and design
@@ -23,7 +24,9 @@ Welcome to the Model Context Protocol (MCP) documentation for OLLM CLI. This sec
 The **Model Context Protocol (MCP)** is an open standard that enables LLMs to securely access external tools and data sources. OLLM CLI implements MCP to provide:
 
 ### 1. **External Tool Integration**
+
 Connect to MCP servers that provide tools:
+
 - File system operations
 - Database queries
 - API integrations
@@ -31,7 +34,9 @@ Connect to MCP servers that provide tools:
 - Custom tools
 
 ### 2. **Resource Access**
+
 Access external resources:
+
 - Documentation
 - Code repositories
 - Databases
@@ -39,13 +44,17 @@ Access external resources:
 - File systems
 
 ### 3. **Prompt Templates**
+
 Use server-provided prompts:
+
 - Pre-configured workflows
 - Domain-specific templates
 - Best practice patterns
 
 ### 4. **OAuth Authentication**
+
 Secure authentication for services:
+
 - GitHub, Google, Slack, etc.
 - Token management
 - Automatic refresh
@@ -71,14 +80,17 @@ docs/MCP/
 ## 🎓 Key Concepts
 
 ### MCP Servers
+
 External processes that provide tools to LLMs:
 
 **Server Types:**
+
 - **Official Servers** - Maintained by MCP team
 - **Community Servers** - Third-party servers
 - **Custom Servers** - Your own servers
 
 **Communication:**
+
 - **stdio** - Standard input/output (most common)
 - **SSE** - Server-Sent Events (HTTP streaming)
 - **HTTP** - REST API (planned)
@@ -86,15 +98,18 @@ External processes that provide tools to LLMs:
 **See:** [Getting Started](MCP_GettingStarted.md#mcp-servers)
 
 ### MCP Tools
+
 Functions provided by MCP servers:
 
 **Tool Discovery:**
+
 1. Connect to MCP server
 2. Server lists available tools
 3. Tools registered in tool registry
 4. LLM can call tools
 
 **Tool Execution:**
+
 1. LLM requests tool call
 2. OLLM CLI validates parameters
 3. Request sent to MCP server
@@ -104,9 +119,11 @@ Functions provided by MCP servers:
 **See:** [Architecture](MCP_Architecture.md#tool-execution)
 
 ### OAuth Integration
+
 Secure authentication for MCP servers:
 
 **Supported Providers:**
+
 - GitHub
 - Google
 - Slack
@@ -114,6 +131,7 @@ Secure authentication for MCP servers:
 - Custom OAuth providers
 
 **Flow:**
+
 1. Server requests OAuth
 2. User authorizes in browser
 3. Token stored securely
@@ -122,9 +140,11 @@ Secure authentication for MCP servers:
 **See:** [Integration](MCP_Integration.md#oauth-setup)
 
 ### MCP Marketplace
+
 Discover and install MCP servers:
 
 **Features:**
+
 - Browse available servers
 - Search by category
 - Install with one command
@@ -138,6 +158,7 @@ Discover and install MCP servers:
 ## 💡 Common Use Cases
 
 ### File System Operations
+
 ```bash
 # Install filesystem server
 /mcp install @modelcontextprotocol/server-filesystem
@@ -150,6 +171,7 @@ Discover and install MCP servers:
 ```
 
 ### GitHub Integration
+
 ```bash
 # Install GitHub server
 /mcp install @modelcontextprotocol/server-github
@@ -163,6 +185,7 @@ Discover and install MCP servers:
 ```
 
 ### Database Queries
+
 ```bash
 # Install database server
 /mcp install @modelcontextprotocol/server-postgres
@@ -182,6 +205,7 @@ Discover and install MCP servers:
 ## 🛠️ Configuration
 
 ### MCP Server Configuration
+
 ```json
 {
   "mcpServers": {
@@ -202,6 +226,7 @@ Discover and install MCP servers:
 ```
 
 ### OAuth Configuration
+
 ```json
 {
   "oauth": {
@@ -223,34 +248,39 @@ Discover and install MCP servers:
 ### Common Issues
 
 **MCP server not starting:**
+
 - Check server installed: `/mcp list`
 - Verify command path
 - Check environment variables
 - View logs: `/mcp logs <server>`
 
 **Tools not available:**
+
 - Check server running: `/mcp status`
 - Restart server: `/mcp restart <server>`
 - Check tool registration: `/tools list`
 
 **OAuth authentication fails:**
+
 - Check OAuth configured: `/mcp oauth status`
 - Re-authenticate: `/mcp oauth login <provider>`
 - Check token expiry: `/mcp oauth status <provider>`
 
 **Server crashes:**
+
 - Check logs: `/mcp logs <server>`
 - Verify dependencies installed
 - Check server version compatibility
 - Report issue to server maintainer
 
-**See:** [Troubleshooting Guide](../troubleshooting.md)
+**See:** [Troubleshooting Guide](../Troubleshooting.md)
 
 ---
 
 ## 📊 Implementation Status
 
 ### Current (v0.1.0)
+
 - ✅ MCP Client Implementation
 - ✅ stdio Transport
 - ✅ Tool Discovery and Registration
@@ -260,6 +290,7 @@ Discover and install MCP servers:
 - ✅ Health Monitoring
 
 ### Planned (v0.2.0)
+
 - ⏳ SSE Transport
 - ⏳ HTTP Transport
 - ⏳ Resource Support
@@ -267,6 +298,7 @@ Discover and install MCP servers:
 - ⏳ Advanced OAuth Features
 
 ### Planned (v0.3.0)
+
 - ⏳ MCP Marketplace UI
 - ⏳ Server Analytics
 - ⏳ Performance Monitoring
@@ -276,15 +308,18 @@ Discover and install MCP servers:
 ## 🤝 Related Documentation
 
 ### Core Systems
+
 - [Tools System](../Tools/README.md) - Tool execution
 - [Hooks System](../Hooks/README.md) - Event automation
 - [User Interface](../UI&Settings/README.md) - UI documentation
 
 ### Commands
+
 - [MCP Commands](MCP_Commands.md) - All MCP commands
 - [OAuth Commands](MCP_Commands.md#oauth-commands) - OAuth management
 
 ### Developer Resources
+
 - Knowledge DB: `dev_MCPIntegration.md` - MCP architecture
 - MCP Specification: https://modelcontextprotocol.io
 
@@ -295,11 +330,13 @@ Discover and install MCP servers:
 ### For New Users
 
 1. **List Available Servers**
+
    ```bash
    /mcp marketplace
    ```
 
 2. **Install Your First Server**
+
    ```bash
    /mcp install @modelcontextprotocol/server-filesystem
    ```
@@ -312,11 +349,13 @@ Discover and install MCP servers:
 ### For Advanced Users
 
 1. **Configure Custom Server**
+
    ```bash
    /mcp add my-server --command node --args server.js
    ```
 
 2. **Set Up OAuth**
+
    ```bash
    /mcp oauth login github
    ```
@@ -358,11 +397,13 @@ Discover and install MCP servers:
 ## 🌐 External Resources
 
 ### Official MCP Resources
+
 - **MCP Specification:** https://modelcontextprotocol.io
 - **MCP SDK:** https://github.com/modelcontextprotocol/sdk
 - **Official Servers:** https://github.com/modelcontextprotocol/servers
 
 ### Community
+
 - **Discord:** Join MCP community
 - **GitHub Discussions:** Ask questions
 - **Server Registry:** Browse community servers

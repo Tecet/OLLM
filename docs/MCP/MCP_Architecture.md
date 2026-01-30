@@ -48,30 +48,30 @@ graph TB
         HookSystem["Hook System"]
         ExtManager["Extension Manager"]
         MCPClient["MCP Client"]
-        
+
         MessageBus["MessageBus"]
         ManifestParser["Manifest Parser"]
         ToolWrapper["Tool Wrapper"]
-        
+
         TrustModel["Trust Model"]
         SettingsInt["Settings Integration"]
         HealthMonitor["Health Monitor"]
-        
+
         ExtManager --> HookSystem
         ExtManager --> MCPClient
-        
+
         HookSystem --> MessageBus
         ExtManager --> ManifestParser
         MCPClient --> ToolWrapper
-        
+
         MessageBus --> TrustModel
         ManifestParser --> SettingsInt
         ToolWrapper --> HealthMonitor
     end
-    
+
     OLLM_CLI --> ToolRegistry["Tool Registry"]
     ToolRegistry --> Agent["Agent/Model"]
-    
+
     style OLLM_CLI fill:#f9f,stroke:#333,stroke-width:2px
     style ToolRegistry fill:#bbf,stroke:#333,stroke-width:2px
     style Agent fill:#bfb,stroke:#333,stroke-width:2px
@@ -88,11 +88,11 @@ flowchart LR
     VS --> HR[Hook Registry]
     VS --> MC[MCP Client]
     VS --> TR[Tool Registry]
-    
+
     HR -.register hooks.-> HR
     MC -.start servers.-> MC
     TR -.register tools.-> TR
-    
+
     style EM fill:#e1f5ff
     style VS fill:#fff4e1
     style HR fill:#e8f5e9
@@ -115,7 +115,7 @@ flowchart TD
     HT --> PO[Parse Output]
     PO --> SYS[System]
     SYS --> PR[Process Results]
-    
+
     style ET fill:#e1f5ff
     style MB fill:#fff4e1
     style TM fill:#ffe1e1
@@ -135,7 +135,7 @@ flowchart LR
     MC --> TW
     TW --> FR[Format Response]
     FR --> A
-    
+
     style A fill:#e1f5ff
     style TR fill:#fff4e1
     style MC fill:#f3e5f5
@@ -151,6 +151,7 @@ flowchart LR
 **Location:** `packages/core/src/mcp/mcpClient.ts`
 
 **Responsibilities:**
+
 - Manage MCP server lifecycle (start, stop, status)
 - Handle multiple servers simultaneously
 - Discover tools, resources, and prompts
@@ -158,6 +159,7 @@ flowchart LR
 - Handle connection timeouts and failures
 
 **Key Methods:**
+
 ```typescript
 interface MCPClient {
   startServer(name: string, config: MCPServerConfig): Promise<void>;
@@ -172,6 +174,7 @@ interface MCPClient {
 ```
 
 **Features:**
+
 - Connection timeout handling (default: 10 seconds)
 - Automatic retry with exponential backoff
 - Multi-server management
@@ -182,6 +185,7 @@ interface MCPClient {
 **Location:** `packages/core/src/mcp/mcpTransport.ts`
 
 **Responsibilities:**
+
 - Handle communication with MCP servers
 - Support multiple transport types
 - Manage connection lifecycle
@@ -190,6 +194,7 @@ interface MCPClient {
 **Transport Types:**
 
 #### Stdio Transport
+
 - Communicates via stdin/stdout
 - Primary transport for local MCP servers
 - Process spawning and management
@@ -203,6 +208,7 @@ interface MCPClient {
 ```
 
 #### SSE Transport
+
 - Server-Sent Events over HTTP
 - Suitable for remote servers
 - Long-lived connections
@@ -215,6 +221,7 @@ interface MCPClient {
 ```
 
 #### HTTP Transport
+
 - Standard HTTP requests
 - Stateless communication
 - Simple integration
@@ -231,12 +238,14 @@ interface MCPClient {
 **Location:** `packages/core/src/mcp/mcpSchemaConverter.ts`
 
 **Responsibilities:**
+
 - Convert MCP tool schemas to internal format
 - Map parameter types correctly
 - Preserve descriptions and constraints
 - Handle optional and required parameters
 
 **Type Mapping:**
+
 ```typescript
 MCP Type → Internal Type
 string   → string
@@ -251,6 +260,7 @@ array    → array
 **Location:** `packages/core/src/mcp/mcpToolWrapper.ts`
 
 **Responsibilities:**
+
 - Wrap MCP tools as internal tools
 - Convert arguments to MCP format
 - Convert results from MCP format
@@ -258,6 +268,7 @@ array    → array
 - Format responses for display
 
 **Workflow:**
+
 1. Agent selects tool from registry
 2. Wrapper converts arguments to MCP format
 3. Wrapper sends request to MCP client
@@ -271,6 +282,7 @@ array    → array
 **Location:** `packages/core/src/mcp/mcpHealthMonitor.ts`
 
 **Responsibilities:**
+
 - Periodic health checks (default: 30 seconds)
 - Detect server failures
 - Automatic restart with exponential backoff
@@ -278,12 +290,14 @@ array    → array
 - Emit health events
 
 **Health States:**
+
 - `healthy` - Server responding normally
 - `degraded` - Server slow or intermittent
 - `failed` - Server not responding
 - `restarting` - Attempting to restart
 
 **Features:**
+
 - Configurable check interval
 - Configurable max restart attempts
 - Event emission for monitoring
@@ -295,6 +309,7 @@ array    → array
 **Location:** `packages/core/src/mcp/mcpOAuth.ts`
 
 **Responsibilities:**
+
 - OAuth 2.0 authentication with PKCE
 - Secure token storage (keychain + encrypted file)
 - Automatic token refresh
@@ -302,6 +317,7 @@ array    → array
 - Token revocation
 
 **OAuth Flow:**
+
 1. Discover OAuth endpoints from server
 2. Generate PKCE code verifier and challenge
 3. Open browser for user authorization
@@ -312,6 +328,7 @@ array    → array
 8. Refresh token before expiration
 
 **Token Storage:**
+
 - **Primary:** Platform keychain (via keytar)
 - **Fallback:** Encrypted file storage
 - **Encryption:** AES-256-GCM
@@ -322,6 +339,7 @@ array    → array
 **Location:** `packages/core/src/hooks/`
 
 **Components:**
+
 - **HookRegistry**: Registration and storage
 - **HookPlanner**: Execution strategy planning
 - **HookRunner**: Execution with timeout
@@ -330,6 +348,7 @@ array    → array
 - **MessageBus**: Event-driven architecture
 
 **Hook Events (12 types):**
+
 1. `session_start` - Session initialization
 2. `session_end` - Session cleanup
 3. `before_agent` - Before agent processes request
@@ -344,6 +363,7 @@ array    → array
 12. `notification` - System notifications
 
 **Execution Strategies:**
+
 - **Sequential**: Execute hooks one after another
 - **Parallel**: Execute hooks concurrently
 - **Optimized**: Smart parallel detection
@@ -354,6 +374,7 @@ array    → array
 **Location:** `packages/core/src/extensions/extensionManager.ts`
 
 **Responsibilities:**
+
 - Discover extensions from directories
 - Parse and validate manifests
 - Enable/disable extensions
@@ -362,11 +383,13 @@ array    → array
 - Hot-reload during development
 
 **Extension Discovery:**
+
 - User directory: `~/.ollm/extensions/`
 - Workspace directory: `.ollm/extensions/`
 - Recursive scanning for `manifest.json`
 
 **Extension Lifecycle:**
+
 1. Discovery (scan directories)
 2. Parsing (validate manifest)
 3. Registration (hooks, servers, settings)
@@ -379,6 +402,7 @@ array    → array
 **Location:** `packages/core/src/extensions/extensionRegistry.ts`
 
 **Responsibilities:**
+
 - Extension marketplace integration
 - Search and discovery
 - Installation from remote URLs
@@ -387,6 +411,7 @@ array    → array
 - Update checking
 
 **Features:**
+
 - Full-text search with relevance scoring
 - Registry caching (5-minute expiry)
 - Integrity verification
@@ -397,12 +422,14 @@ array    → array
 **Location:** `packages/core/src/extensions/extensionSandbox.ts`
 
 **Responsibilities:**
+
 - Permission-based access control
 - Runtime enforcement
 - User approval prompts
 - Dynamic permission management
 
 **Permission Types:**
+
 1. **filesystem**: File system access (path-based)
 2. **network**: Network access (domain-based)
 3. **env**: Environment variable access
@@ -421,24 +448,24 @@ flowchart TD
     Init --> Scan[Scan Extension Directories]
     Scan --> UserDir["~/.ollm/extensions/"]
     Scan --> WorkDir[".ollm/extensions/"]
-    
+
     UserDir --> ForEach[For Each Extension Directory]
     WorkDir --> ForEach
-    
+
     ForEach --> FindManifest[Find manifest.json]
     FindManifest --> Parse[Parse and Validate Manifest]
     Parse --> CheckEnabled{Check Enabled State}
-    
+
     CheckEnabled -->|Enabled| RegHooks[Register Hooks]
     CheckEnabled -->|Disabled| Skip[Skip Extension]
-    
+
     RegHooks --> StartServers[Start MCP Servers]
     StartServers --> RegTools[Register Tools]
     RegTools --> MergeSettings[Merge Settings]
-    
+
     MergeSettings --> Ready[Extension System Ready]
     Skip --> Ready
-    
+
     style Start fill:#e1f5ff
     style Ready fill:#e8f5e9
     style CheckEnabled fill:#fff4e1
@@ -451,31 +478,31 @@ flowchart TD
     Event[Event Occurs] --> MB[MessageBus Emits Event]
     MB --> Handler[Hook Event Handler Receives Event]
     Handler --> Planner[Hook Planner Plans Execution]
-    
+
     Planner --> Identify[Identify Registered Hooks]
     Planner --> Strategy[Determine Execution Strategy]
     Planner --> Plan[Create Execution Plan]
-    
+
     Plan --> ForEach[For Each Hook]
     ForEach --> Trust{Trust Model Checks Approval}
-    
+
     Trust -->|Approved| Execute[Hook Runner Executes Hook]
     Trust -->|Not Approved| RequestApproval[Request User Approval]
-    
+
     Execute --> Translate[Hook Translator Converts I/O]
     Translate --> Capture[Capture Output]
-    
+
     Capture --> Process[Process Hook Outputs]
     RequestApproval --> Process
-    
+
     Process --> CheckContinue{Check continue Flag}
     Process --> AddMessages[Add systemMessages to Context]
     Process --> PassData[Pass Data to Next Hook]
-    
+
     CheckContinue --> Return[Return Aggregated Results]
     AddMessages --> Return
     PassData --> Return
-    
+
     style Event fill:#e1f5ff
     style Trust fill:#ffe1e1
     style Execute fill:#e8f5e9
@@ -491,20 +518,20 @@ flowchart TD
     Wrapper --> Convert[Convert Arguments to MCP Format]
     Convert --> Route[MCP Client Routes to Server]
     Route --> Transport[MCP Transport Sends Request]
-    
+
     Transport --> Stdio[Stdio: Write to stdin]
     Transport --> SSE[SSE: POST to endpoint]
     Transport --> HTTP[HTTP: POST request]
-    
+
     Stdio --> Server[MCP Server Processes Request]
     SSE --> Server
     HTTP --> Server
-    
+
     Server --> Receive[MCP Transport Receives Response]
     Receive --> ConvertResult[Tool Wrapper Converts Result]
     ConvertResult --> Format[Format for Display]
     Format --> Return[Return to Agent]
-    
+
     style Agent fill:#e1f5ff
     style Server fill:#e8f5e9
     style Return fill:#f3e5f5
@@ -515,10 +542,10 @@ flowchart TD
 ```mermaid
 flowchart TD
     Start[Extension Requires OAuth Server] --> Check{MCP Client Checks for Token}
-    
+
     Check -->|No Token| Discover[OAuth Provider Discovers Endpoints]
     Check -->|Token Exists| CheckExp{Check Expiration}
-    
+
     Discover --> PKCE[Generate PKCE Challenge]
     PKCE --> Browser[Open Browser for Authorization]
     Browser --> Callback[Start Local Callback Server]
@@ -526,16 +553,16 @@ flowchart TD
     UserAuth --> ReceiveCode[Receive Authorization Code]
     ReceiveCode --> Exchange[Exchange Code for Token]
     Exchange --> Store[Store Token Securely]
-    
+
     Store --> AddToken[Add Token to Request Headers]
-    
+
     CheckExp -->|Expired| Refresh[Refresh Token]
     CheckExp -->|Valid| AddToken
-    
+
     Refresh --> AddToken
     AddToken --> Validate[MCP Server Validates Token]
     Validate --> Process[Process Request]
-    
+
     style Start fill:#e1f5ff
     style Check fill:#fff4e1
     style UserAuth fill:#ffe1e1
@@ -552,6 +579,7 @@ flowchart TD
 **Purpose:** Make MCP tools available to the agent
 
 **Flow:**
+
 ```typescript
 // Extension loads MCP server
 extensionManager.loadExtension(extension);
@@ -563,7 +591,7 @@ mcpClient.startServer('github', config);
 const tools = await mcpClient.getTools('github');
 
 // Wrap and register each tool
-tools.forEach(tool => {
+tools.forEach((tool) => {
   const wrappedTool = mcpToolWrapper.wrapTool('github', tool);
   toolRegistry.register(wrappedTool);
 });
@@ -577,6 +605,7 @@ const result = await agent.useTool('github_create_issue', args);
 **Purpose:** Allow extensions to customize behavior
 
 **Flow:**
+
 ```typescript
 // Extension declares hooks in manifest
 {
@@ -614,6 +643,7 @@ if (output.systemMessage) {
 **Purpose:** Allow extensions to declare configuration
 
 **Flow:**
+
 ```typescript
 // Extension declares settings in manifest
 {
@@ -642,13 +672,14 @@ logger.info('Token: [REDACTED]');
 **Purpose:** Centralized service management
 
 **Flow:**
+
 ```typescript
 // Service container manages all services
 const serviceContainer = new ServiceContainer({
   provider,
   config,
   workspacePath,
-  userHome
+  userHome,
 });
 
 // Services available via getters
@@ -671,12 +702,14 @@ await serviceContainer.shutdown();
 **Decision:** Custom implementation initially, SDK migration deferred
 
 **Rationale:**
+
 - Custom implementation provides full control
 - Meets all current requirements
 - SDK can be integrated later if needed
 - No breaking changes to API
 
 **Trade-offs:**
+
 - ✅ Full control over implementation
 - ✅ No external dependencies
 - ❌ Must maintain compatibility manually
@@ -687,12 +720,14 @@ await serviceContainer.shutdown();
 **Decision:** Implement MessageBus for hook system
 
 **Rationale:**
+
 - Decouples components
 - Enables parallel execution
 - Supports complex workflows
 - Easy to extend
 
 **Benefits:**
+
 - ✅ Loose coupling
 - ✅ Testability
 - ✅ Extensibility
@@ -703,12 +738,14 @@ await serviceContainer.shutdown();
 **Decision:** Require approval for untrusted hooks
 
 **Rationale:**
+
 - Security first approach
 - Prevent malicious code execution
 - User control over extensions
 - Hash verification for changes
 
 **Trust Levels:**
+
 1. **Built-in**: Always trusted
 2. **User**: Trusted by default
 3. **Workspace**: Requires approval
@@ -719,12 +756,14 @@ await serviceContainer.shutdown();
 **Decision:** Implement OAuth 2.0 with PKCE flow
 
 **Rationale:**
+
 - Industry standard for secure authentication
 - PKCE prevents authorization code interception
 - Supports refresh tokens
 - Works with major providers (GitHub, Google, etc.)
 
 **Security Features:**
+
 - ✅ PKCE code challenge
 - ✅ Secure token storage
 - ✅ Automatic refresh
@@ -735,12 +774,14 @@ await serviceContainer.shutdown();
 **Decision:** Implement automatic health checks and restart
 
 **Rationale:**
+
 - Improve reliability
 - Reduce manual intervention
 - Better user experience
 - Detect failures early
 
 **Configuration:**
+
 - Check interval: 30 seconds (configurable)
 - Max restart attempts: 3 (configurable)
 - Exponential backoff: 1s, 2s, 4s
@@ -751,12 +792,14 @@ await serviceContainer.shutdown();
 **Decision:** Implement permission-based sandboxing
 
 **Rationale:**
+
 - Security and safety
 - User control
 - Prevent malicious extensions
 - Granular permissions
 
 **Permission Model:**
+
 - Declared in manifest
 - Runtime enforcement
 - User approval prompts
@@ -771,12 +814,14 @@ await serviceContainer.shutdown();
 **Threat:** Malicious hooks executing arbitrary code
 
 **Mitigation:**
+
 - Approval required for untrusted hooks
 - Hash verification for changes
 - Source tracking (user/workspace/downloaded)
 - Persistent approval storage
 
 **Implementation:**
+
 ```typescript
 // Check if hook is trusted
 const trusted = await trustedHooks.isTrusted(hook);
@@ -784,7 +829,7 @@ const trusted = await trustedHooks.isTrusted(hook);
 if (!trusted) {
   // Request user approval
   const approved = await trustedHooks.requestApproval(hook);
-  
+
   if (approved) {
     // Compute and store hash
     const hash = await trustedHooks.computeHash(hook);
@@ -804,6 +849,7 @@ await hookRunner.executeHook(hook, input);
 **Threat:** Token theft or exposure
 
 **Mitigation:**
+
 - Secure storage (keychain + encrypted file)
 - AES-256-GCM encryption
 - Per-server token isolation
@@ -811,6 +857,7 @@ await hookRunner.executeHook(hook, input);
 - Token revocation support
 
 **Storage Hierarchy:**
+
 1. **Primary:** Platform keychain (keytar)
    - Windows: Credential Manager
    - macOS: Keychain
@@ -825,28 +872,22 @@ await hookRunner.executeHook(hook, input);
 **Threat:** Malicious extensions accessing sensitive resources
 
 **Mitigation:**
+
 - Permission-based access control
 - Runtime enforcement
 - User approval prompts
 - Granular permissions
 
 **Permission Enforcement:**
+
 ```typescript
 // Check permission before access
-const allowed = await sandbox.checkPermission(
-  extensionName,
-  'filesystem',
-  '/path/to/file'
-);
+const allowed = await sandbox.checkPermission(extensionName, 'filesystem', '/path/to/file');
 
 if (!allowed) {
   // Request user approval
-  const granted = await sandbox.requestPermission(
-    extensionName,
-    'filesystem',
-    '/path/to/file'
-  );
-  
+  const granted = await sandbox.requestPermission(extensionName, 'filesystem', '/path/to/file');
+
   if (!granted) {
     throw new Error('Permission denied');
   }
@@ -861,6 +902,7 @@ fs.readFileSync('/path/to/file');
 **Threat:** MCP server compromise affecting CLI
 
 **Mitigation:**
+
 - Process isolation (separate processes)
 - Error isolation (catch and log)
 - Timeout enforcement
@@ -868,6 +910,7 @@ fs.readFileSync('/path/to/file');
 - Automatic restart
 
 **Error Handling:**
+
 ```typescript
 try {
   const result = await mcpClient.callTool(server, tool, args);
@@ -875,10 +918,10 @@ try {
 } catch (error) {
   // Log error
   logger.error(`MCP tool call failed: ${error.message}`);
-  
+
   // Mark server as unhealthy
   healthMonitor.markUnhealthy(server);
-  
+
   // Return error to agent (don't crash CLI)
   return { error: error.message };
 }
@@ -889,12 +932,14 @@ try {
 **Threat:** Sensitive data exposure in logs
 
 **Mitigation:**
+
 - Sensitive setting redaction
 - Environment variable filtering
 - Secure substitution
 - Warning for missing variables
 
 **Redaction:**
+
 ```typescript
 // Mark setting as sensitive
 {
@@ -916,15 +961,14 @@ logger.info(`API Key: ${redact(apiKey)}`); // "API Key: [REDACTED]"
 **Optimization:** Execute independent hooks in parallel
 
 **Implementation:**
+
 ```typescript
 // Determine if hooks can run in parallel
 const canParallel = hookPlanner.canExecuteInParallel(hooks, event);
 
 if (canParallel) {
   // Execute in parallel
-  const results = await Promise.all(
-    hooks.map(hook => hookRunner.executeHook(hook, input))
-  );
+  const results = await Promise.all(hooks.map((hook) => hookRunner.executeHook(hook, input)));
 } else {
   // Execute sequentially
   const results = [];
@@ -940,6 +984,7 @@ if (canParallel) {
 **Optimization:** Reuse connections to MCP servers
 
 **Implementation:**
+
 - Keep connections alive
 - Reuse for multiple tool calls
 - Close on idle timeout
@@ -950,15 +995,16 @@ if (canParallel) {
 **Optimization:** Reload without full restart
 
 **Implementation:**
+
 ```typescript
 // Watch for file changes
 watcher.on('change', async (path) => {
   // Debounce changes
   await debounce(1000);
-  
+
   // Gracefully unload extension
   await extensionManager.disableExtension(name);
-  
+
   // Reload extension
   await extensionManager.enableExtension(name);
 });
@@ -969,6 +1015,7 @@ watcher.on('change', async (path) => {
 **Optimization:** Cache extension registry
 
 **Implementation:**
+
 - Cache duration: 5 minutes
 - Automatic refresh on expiry
 - Manual refresh available
@@ -1014,17 +1061,20 @@ watcher.on('change', async (path) => {
 ## References
 
 ### Internal Documentation
+
 - [MCP Integration Guide](MCP_integration.md)
 - [MCP Commands Reference](MCP_commands.md)
 - [Hook System Guide](3%20projects/OLLM%20CLI/Hooks/README.md)
 - [Extension Development Guide](3%20projects/OLLM%20CLI/Extensions/README.md)
 
 ### Specifications
+
 - Requirements (.kiro/specs/stage-05-hooks-extensions-mcp/requirements.md)
 - Design (.kiro/specs/stage-05-hooks-extensions-mcp/design.md)
 - Tasks (.kiro/specs/stage-05-hooks-extensions-mcp/tasks.md)
 
 ### External References
+
 - MCP Specification (https://spec.modelcontextprotocol.io/)
 - OAuth 2.0 RFC 6749 (https://tools.ietf.org/html/rfc6749)
 - PKCE RFC 7636 (https://tools.ietf.org/html/rfc7636)

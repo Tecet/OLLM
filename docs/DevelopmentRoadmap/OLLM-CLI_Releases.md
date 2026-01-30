@@ -1,202 +1,419 @@
+# OLLM CLI Release Notes
 
-# OLLM CLI v0.1.0
-Released 30 January 2026
+**Version History and Changelog**
 
+This document tracks all OLLM CLI releases with detailed notes on features, changes, fixes, and breaking changes.
 
-Description:
+---
 
+## v0.1.0 - Foundation Release
 
-# ✨ Features  
+**Released:** January 30, 2026  
+**Status:** ✅ Released
 
-### 🎨 Interactive Terminal UI
+### Overview
 
-- **React + Ink powered interface** with streaming responses and real-time updates
-- **Syntax highlighting** for code blocks with language detection
-- **Status bar** showing model, context usage, and VRAM metrics
-- **Tool execution preview** with diff visualization for file changes
+The foundation release of OLLM CLI establishes the core architecture and essential features for a local-first, provider-agnostic LLM interface.
 
-### 🧠 Smart Context Management
+### ✨ Features Added
 
-- **Adaptive context sizing** based on available VRAM
-- **Automatic compression** when approaching context limits
-- **Snapshot and rollover** support for long conversations
-- **Real-time monitoring** of token usage and memory consumption
+#### 🎨 Interactive Terminal UI
 
-### 🛠️ Powerful Tool System
+- React + Ink powered interface with streaming responses
+- Syntax highlighting for code blocks with language detection
+- Status bar showing model, context usage, and VRAM metrics
+- Tool execution preview with diff visualization
+- Real-time updates and responsive layout
 
-- **Built-in tools**: File operations, shell execution, web fetch, search, memory
-- **Policy-based confirmation**: ASK, AUTO, and YOLO approval modes
-- **Diff preview** for file edits before applying changes
-- **Output truncation** and streaming for long-running operations
+#### 🧠 Smart Context Management
 
-### 🔌 Extensibility
+- Adaptive context sizing based on available VRAM
+- Automatic compression when approaching context limits
+- Snapshot and rollover support for long conversations
+- Real-time monitoring of token usage and memory consumption
+- Memory safety guards to prevent OOM errors
 
-- **Hook system** for event-driven automation and safety gates
-- **Extension system** with manifest-based configuration
-- **MCP integration** (Model Context Protocol) for external tools
-- **Provider-agnostic** architecture supporting multiple LLM backends
+#### 🛠️ Powerful Tool System
 
-### 💾 Session Management
+- Built-in tools: File operations, shell execution, web fetch, search, memory
+- Policy-based confirmation: ASK, AUTO, and YOLO approval modes
+- Diff preview for file edits before applying changes
+- Output truncation and streaming for long-running operations
+- Tool registry with schema validation
 
-- **Record and resume** conversations with full context
-- **Automatic compression** to manage context limits
-- **Loop detection** to prevent runaway tool calls
-- **Session history** with searchable archives  
+#### 🔌 Extensibility (Pre-Alpha)
 
-### 🌐 Offline First
-- **Works without internet** when models are installed locally
-- **No telemetry** - all data stays on your machine
-- **Local model management** - pull, list, and remove models
+- Hook system for event-driven automation and safety gates
+- Extension system with manifest-based configuration
+- MCP integration (Model Context Protocol) for external tools
+- Provider-agnostic architecture supporting multiple LLM backends
 
+#### 💾 Session Management
 
-## Completed Features (v0.1.0)  
+- Record and resume conversations with full context
+- Automatic compression to manage context limits
+- Loop detection to prevent runaway tool calls
+- Session history with searchable archives
 
-### ✅ Core Features  
+#### 🌐 Offline First
 
-The foundation of OLLM CLI has been successfully implemented:  
+- Works without internet when models are installed locally
+- No telemetry - all data stays on your machine
+- Local model management - pull, list, and remove models
 
-- **Interactive TUI and Non-Interactive Modes** - Full-featured terminal UI (React + Ink) plus headless execution
-- **Provider-Agnostic Architecture** - Flexible adapter system supporting multiple LLM backends
-- **Comprehensive Tool System** - Built-in tools for file operations, shell, web fetch/search, memory
-- **Policy Engine** - Configurable approval modes (ASK, AUTO, YOLO) with diff preview
-- **Context Management** - Dynamic sizing with VRAM monitoring, compression, memory safety
-- **Session Recording** - Full session capture with resume and compression
-- **Testing Infrastructure** - Comprehensive test suite with property-based testing
+### 📦 Technical Details
 
-#### Pre-Alpha features:
-- **Hook System** pre-alpha - Event-driven automation with safety gates
-- **MCP Integration** pre-alpha - Model Context Protocol support for external tools
-- **Extension System** pre-alpha- Manifest-based extensions for custom functionality
+- **Architecture:** Provider-agnostic with adapter pattern
+- **UI Framework:** React + Ink for terminal rendering
+- **Testing:** Comprehensive test suite with property-based testing
+- **Platform:** Node.js 20+, TypeScript with strict mode
 
+---
 
+## v0.2.0 - File Explorer & Enhanced MCP
 
+**Status:** 📋 Planned  
+**Target:** Q2 2026
 
-# PLANED DEVELOPMENT ROADMAP
+### Planned Features
 
-## v0.3.0 The Hooks, Extensions, and MCP
+#### 📁 File Explorer
 
-The Hooks, Extensions, and MCP system provides a comprehensive extensibility framework for OLLM CLI. It consists of three interconnected subsystems:
-  
-1. **Hook System**: Event-driven execution of custom scripts at specific lifecycle points
-2. **Extension System**: Manifest-based packaging of hooks, MCP servers, settings, and skills
-3. **MCP Integration**: Client for communicating with Model Context Protocol servers to provide external tools  
+- Tree-based file browser with keyboard navigation
+- File operations (create, delete, rename, move)
+- Multi-file selection and batch operations
+- Search and filter capabilities
+- Git status integration
+- File preview pane
 
-The design prioritizes security through a trust model, reliability through error isolation, and developer experience through clear protocols and conventions.
+#### 🔌 Enhanced MCP
 
-#### Tools Overview
-  
-This design defines the tool system that enables LLMs to interact with the file system, execute shell commands, fetch web content, and perform other operations through a secure, policy-controlled interface. The system consists of four main layers:
-  
-1. **Tool Registry Layer**: Central registration and discovery of tools with schema exposure
-2. **Tool Invocation Layer**: Declarative tool definitions with parameter validation and execution
-3. **Policy Engine Layer**: Rule-based confirmation system for controlling tool execution
-4. **Built-in Tools Layer**: File operations, shell execution, web tools, and persistent storage  
+- MCP Marketplace integration
+- Server health monitoring
+- OAuth configuration support
+- Tool auto-approval management
+- Server logs viewer
+- Performance optimizations
 
-The design prioritizes safety (policy-controlled execution), extensibility (easy addition of new tools), and usability (clear error messages and streaming output).
+### Configuration Example
 
+```yaml
+fileExplorer:
+  enabled: true
+  showHidden: false
+  gitIntegration: true
+  previewPane: true
 
-## v0.4.0 Intelligence Layer - RAG Vector DB
+mcp:
+  marketplace:
+    enabled: true
+    autoUpdate: false
+  healthCheck:
+    interval: 60
+```
 
-The intelligence layer brings advanced AI capabilities including codebase indexing with semantic search that's RAG for your local code structured JSON output with schema enforcement, a sandboxed code execution environment for testing snippets, and vision support for analyzing screenshots and images. Combined with cost tracking and prompt templates, this transforms OLLM from a chat interface into a true coding agent.
+---
 
-RAG Vector DB Functionality
+## v0.3.0 - Advanced File Explorer & MCP Polish
 
+**Status:** 📋 Planned  
+**Target:** Q2 2026
 
-# v0.5.0  Release Kraken !
-*Planed release end of February 2026*
+### Planned Features
 
-When local models hit their limits on complex tasks, "Release Kraken" lets you seamlessly escalate to cloud powerhouses. With a single /kraken command, you can invoke Gemini CLI, Claude Code, or Codex CLI directly from O.L.L.M. It also supports API providers like OpenAI and Anthropic. The system handles context transfer, tracks costs, and returns control to your local model when done.
+#### 🔍 Advanced File Explorer
 
-Think of it as having a "phone a friend" option built into your local AI,, call in the big guns for architecture decisions or complex refactoring, then return to fast, private local inference.
+- Multi-file selection with checkboxes
+- Drag-and-drop file operations
+- Advanced search with regex support
+- File type filtering
+- Custom file actions
+- Workspace management
+
+#### ⚡ MCP Polish
+
+- Performance optimizations
+- Enhanced error handling
+- Improved server lifecycle management
+- Better tool schema validation
+- Connection pooling
+- Caching layer
+
+---
+
+## v0.4.0 - Code Editor
+
+**Status:** 📋 Planned  
+**Target:** Q3 2026
 
-Full policy control ensures you approve every escalation, with budget limits and detailed usage tracking.
+### Planned Features
 
-### The Kraken Integration
+#### ✏️ Terminal Code Editor
 
-The Kraken Integration feature extends OLLM CLI's provider system to support external LLM providers, enabling users to access powerful cloud-based models and CLI-based coding agents when local models need assistance. This design implements a unified provider adapter pattern that seamlessly integrates with the existing architecture while adding new capabilities for subprocess execution, API communication, context transfer, and cost tracking.
+- Built-in terminal-based code editor
+- Syntax highlighting for multiple languages
+- Line numbers and cursor positioning
+- Search and replace functionality
+- Multiple file tabs
+- Integration with LLM for code suggestions
+- Format on save
+- Undo/redo support
 
-The Kraken system integrates with existing OLLM CLI components:  
+### Configuration Example
 
-1. **Provider Registry**: Extended to support Kraken provider types
-2. **Policy Engine**: Extended with Kraken-specific confirmation policies
-3. **Hook System**: New hook events for Kraken lifecycle
-4. **CLI Commands**: New `/kraken` slash command
-5. **Status Bar**: Kraken availability indicator
-6. **Configuration**: New `kraken` section in config.yaml
-  
-#### The system introduces two new provider types:
+```yaml
+editor:
+  enabled: true
+  theme: monokai
+  tabSize: 2
+  formatOnSave: true
+  tabs:
+    maxOpen: 10
+```
+
+---
+
+## v0.5.0 - Release Kraken
 
-- **CLI Bridge Providers**: Execute terminal-based coding agents (Gemini CLI, Claude Code, Codex CLI) via subprocess enabling users to bring in subscription / CLI based agents to OLLM CLI
+**Status:** 📋 Planned  
+**Target:** Q3 2026
 
-- **API Providers**: Connect to cloud LLM APIs (Open AI, Anthropic, Google AI) via HTTPS
+### Planned Features
 
-  Both provider types implement the existing `ProviderAdapter` interface, ensuring consistency with the local Ollama provider and enabling transparent switching between local and external models.
+#### 🦑 External LLM Provider Access
 
-Benchmarks and fine tuning of LLM behaviours and context management
-Cross platform development prep works
-  
+Access powerful cloud models when local models need assistance.
 
-# v0.5.0  GitHub Integration
-*Planed release end of March - mid April 2026*
+**CLI-Based Providers:**
 
+- Gemini CLI integration
+- Claude Code integration
+- Codex CLI integration
+- Subprocess execution bridge
 
-The Developer Productivity Tools system adds three high-impact features that enable Aider-like developer workflows: Git integration for version control operations, @-mentions for explicit context loading, and diff review mode for interactive change approval. These features work together to provide developers with fine-grained control over context, changes, and version history while maintaining the conversational interface of OLLM CLI.
+**API-Based Providers:**
 
-#### Component Responsibilities  
+- OpenAI API integration
+- Anthropic API integration
+- Google AI API integration
+- Streaming response handling
 
-**Git Tool**: Provides Git operations as a declarative tool (status, diff, commit, log, undo, stash, branch), validates repository state, formats output for LLM consumption, and integrates with policy engine for confirmations.  
+**Management:**
+
+- Provider discovery and health checks
+- Intelligent provider selection
+- Context transfer between providers
+- Cost tracking and budget enforcement
+- Auto-escalation on local model failure
+- Confirmation dialogs for external requests
 
-**Git Service**: Wraps simple-git library, manages repository operations, tracks AI-made changes for undo, generates semantic commit messages, handles auto-commit workflows, and respects .gitignore patterns. 
+### Configuration Example
 
-**Mention Parser**: Parses @-mentions from user input using regex patterns, identifies mention types (file, glob, symbol, URL, directory), resolves mentions to paths/content, and handles special Git mentions (@git:status, @git:diff, @git:log:N). 
+```yaml
+kraken:
+  enabled: true
+  confirmBeforeRelease: true
+  autoEscalation:
+    enabled: false
+    triggers:
+      - contextOverflow
+      - localModelError
+  sessionBudget: 10.00 # USD
+  providers:
+    geminiCli:
+      enabled: true
+      executable: gemini
+      defaultModel: gemini-2.0-flash-exp
+    claudeCode:
+      enabled: true
+      executable: claude-code
+    openai:
+      enabled: true
+      apiKey: ${OPENAI_API_KEY}
+      model: gpt-4
+      maxTokens: 8192
+```
 
-**Context Loader**: Loads file content with metadata, resolves glob patterns to file lists, fetches URL content, provides symbol lookup (when AST parsing available), enforces token limits, and caches loaded content.  
+---
 
-**Diff Reviewer**: Generates unified diffs for file changes, parses diffs into hunks, manages pending review queue, applies approved changes, rejects unwanted changes, and integrates with auto-commit.  
+## v0.6.0 - RAG Integration
 
-**Configuration Manager**: Manages settings for Git integration (auto-commit, message style), mention parsing (token limits, file limits), and review mode (enabled, auto-approve rules, context lines).  
+**Status:** 📋 Planned  
+**Target:** Q3 2026
 
-**UI Components**: Displays diff review panels with syntax highlighting, handles keyboard shortcuts for approval/rejection, shows status bar indicators for Git state and pending reviews, and provides visual feedback for mentions.
+### Planned Features
 
+#### 🔍 Semantic Search & Codebase Understanding
 
-#### Additional Tools and Hooks:
+Find relevant code with semantic search.
 
-##### Tools
-- Additional set of finetuned Tools
-- Allowing User tools and edits thru UI Manager
-##### Hooks
-- additional set of fine tuned hooks
-- Allowing User Hooks and edits thru UI Manager
+**Key Features:**
 
+- Codebase indexing with embeddings
+- Semantic code search
+- Context-aware file discovery
+- Symbol and definition search
+- Documentation search
+- Vector database integration (LanceDB)
+- Incremental indexing
+- Search result ranking
 
-# Beta 0.6.0 - 0.9.0
-Planed release March - April 2026
+### Configuration Example
 
+```yaml
+codebaseIndex:
+  enabled: true
+  autoIndex: true
+  extensions: ['.ts', '.js', '.py', '.java', '.go']
+  excludePatterns: ['node_modules', 'dist', '.git']
+  maxFileSize: 1048576 # 1MB
+  vectorDatabase: 'lancedb'
+```
 
-Cross-Platform Support 🖥️  
+---
 
-**Windows, macOS, Linux Compatibility** 
+## v0.7.0 - GitHub Integration
 
-Consistent behavior across all major operating systems.
+**Status:** 📋 Planned  
+**Target:** Q3 2026
 
-**Key Capabilities:**
+### Planned Features
 
-- Platform-appropriate config locations
-- Cross-platform GPU monitoring
+#### 🐙 GitHub Workflow Integration
+
+**Key Features:**
+
+- GitHub API integration
+- Issue and PR management
+- Code review workflows
+- Commit and push operations
+- Branch management
+- GitHub Actions integration
+
+### Configuration Example
+
+```yaml
+github:
+  enabled: true
+  token: ${GITHUB_TOKEN}
+  defaultRepo: owner/repo
+  autoLink: true # Auto-link issues/PRs in chat
+  features:
+    issues: true
+    pullRequests: true
+    codeReview: true
+```
+
+---
+
+## v0.8.0 - Cross-Platform Support
+
+**Status:** 📋 Planned  
+**Target:** Q4 2026
+
+### Planned Features
+
+#### 🖥️ Enhanced Windows, macOS, Linux Compatibility
+
+**Key Features:**
+
+- Platform detection and defaults
+- Cross-platform GPU monitoring (NVIDIA, AMD, Apple Silicon)
 - Terminal capability detection
 - Path normalization
+- Platform-specific optimizations
 
+### Configuration Example
 
-- ## v0.6.0 - 
+```yaml
+platform:
+  autoDetect: true
+  gpu:
+    monitoring: true
+    vendor: auto # nvidia, amd, apple, or auto
+  terminal:
+    colorSupport: auto
+    unicodeSupport: auto
+```
 
-## v0.7.0 -
+---
 
-## v0.8.0 -
+## v0.9.0 - vLLM & Open Source Providers
 
-## v0.9.0 -
+**Status:** 📋 Planned  
+**Target:** Q4 2026
 
+### Planned Features
 
+#### 🔌 High-Performance Inference Engines
 
-OLLM CLI v 1.0.0
+**Key Features:**
 
-Planed Release - 2nd Quarter 2026
+- vLLM provider integration
+- OpenAI-compatible API support
+- High-throughput inference
+- Batching and caching
+- Multi-GPU support
+- Custom model loading
+
+### Configuration Example
+
+```yaml
+providers:
+  vllm:
+    enabled: true
+    host: http://localhost:8000
+    apiKey: ${VLLM_API_KEY}
+    timeout: 30
+  openaiCompatible:
+    enabled: true
+    host: http://localhost:1234
+    apiKey: ${OPENAI_COMPATIBLE_API_KEY}
+```
+
+---
+
+## v1.0.0 - Beta Release
+
+**Status:** 🔮 Future  
+**Target:** Q4 2026
+
+### Planned Features
+
+- Production-ready stability
+- Performance optimizations
+- Enterprise features
+- Advanced security features
+- Comprehensive documentation
+- Migration tools
+
+---
+
+## Version Comparison
+
+| Version | Release Date | Status      | Key Features                               |
+| ------- | ------------ | ----------- | ------------------------------------------ |
+| v0.1.0  | Jan 2026     | ✅ Released | Foundation, TUI, Tools, Context Management |
+| v0.2.0  | Q2 2026      | 📋 Planned  | File Explorer, Enhanced MCP                |
+| v0.3.0  | Q2 2026      | 📋 Planned  | Advanced Explorer, MCP Polish              |
+| v0.4.0  | Q3 2026      | 📋 Planned  | Code Editor                                |
+| v0.5.0  | Q3 2026      | 📋 Planned  | Release Kraken (External Providers)        |
+| v0.6.0  | Q3 2026      | 📋 Planned  | RAG Integration                            |
+| v0.7.0  | Q3 2026      | 📋 Planned  | GitHub Integration                         |
+| v0.8.0  | Q4 2026      | 📋 Planned  | Cross-Platform Support                     |
+| v0.9.0  | Q4 2026      | 📋 Planned  | vLLM & Open Source Providers               |
+| v1.0.0  | Q4 2026      | 🔮 Future   | Beta Release                               |
+
+---
+
+## Related Documentation
+
+- [Roadmap](Roadmap.md) - Detailed development roadmap
+- [Roadmap Visual](RoadmapVisual.md) - Visual timeline and diagrams
+- [Planned Features](PlanedFeatures.md) - Feature reference guide
+- [README](README.md) - Roadmap overview
+
+---
+
+**Last Updated:** January 28, 2026  
+**Current Version:** v0.1.0

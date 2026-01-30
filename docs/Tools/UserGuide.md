@@ -18,6 +18,7 @@ This guide covers everything you need to know about using tools for LLM-powered 
 8. [Best Practices](#best-practices)
 
 **See Also:**
+
 - [Tool Architecture](Architecture.md) - Technical architecture
 - [MCP Integration](../MCP/MCP_Integration.md) - MCP tool integration
 - [Extension System](GettingStarted.md) - Extension tools
@@ -29,6 +30,7 @@ This guide covers everything you need to know about using tools for LLM-powered 
 ### What are Tools?
 
 Tools are functions that the LLM can call to perform actions:
+
 - **File Operations** - Read, write, edit files
 - **Web Access** - Search internet, fetch URLs
 - **Shell Commands** - Execute system commands
@@ -38,6 +40,7 @@ Tools are functions that the LLM can call to perform actions:
 ### Why Use Tools?
 
 **Benefits:**
+
 - 🚀 Automation - LLM can perform actions automatically
 - 🔍 Information Access - Access files, web, and data
 - 💾 Persistence - Store information across sessions
@@ -71,11 +74,13 @@ LLM Responds to User
 ### Tool Execution
 
 **Automatic:**
+
 - LLM decides when to use tools
 - No explicit tool invocation needed
 - Natural language requests
 
 **Example:**
+
 ```
 User: "What's in the README file?"
 LLM: [Uses read_file tool]
@@ -85,6 +90,7 @@ LLM: "The README contains..."
 ### Tool Approval
 
 Tools require approval based on risk level:
+
 - **Low Risk** - Auto-approved (read operations)
 - **Medium Risk** - Requires approval (write operations)
 - **High Risk** - Always requires approval (shell commands)
@@ -95,52 +101,52 @@ Tools require approval based on risk level:
 
 ### File Discovery
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `glob` | Find files by pattern | "Find all TypeScript files" |
-| `ls` | List directory contents | "List files in src/" |
-| `grep` | Search file contents | "Search for 'TODO' in all files" |
+| Tool   | Description             | Example                          |
+| ------ | ----------------------- | -------------------------------- |
+| `glob` | Find files by pattern   | "Find all TypeScript files"      |
+| `ls`   | List directory contents | "List files in src/"             |
+| `grep` | Search file contents    | "Search for 'TODO' in all files" |
 
 ### File Operations
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `read_file` | Read single file | "Read README.md" |
-| `read_many_files` | Read multiple files | "Read all config files" |
-| `edit_file` | Edit file sections | "Update the version in package.json" |
-| `write_file` | Create/overwrite files | "Create a new test file" |
+| Tool              | Description            | Example                              |
+| ----------------- | ---------------------- | ------------------------------------ |
+| `read_file`       | Read single file       | "Read README.md"                     |
+| `read_many_files` | Read multiple files    | "Read all config files"              |
+| `edit_file`       | Edit file sections     | "Update the version in package.json" |
+| `write_file`      | Create/overwrite files | "Create a new test file"             |
 
 ### Web Tools
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `web_search` | Search internet | "Search for React hooks tutorial" |
-| `web_fetch` | Fetch URL content | "Fetch content from example.com" |
+| Tool         | Description       | Example                           |
+| ------------ | ----------------- | --------------------------------- |
+| `web_search` | Search internet   | "Search for React hooks tutorial" |
+| `web_fetch`  | Fetch URL content | "Fetch content from example.com"  |
 
 ### Shell Tool
 
-| Tool | Description | Example |
-|------|-------------|---------|
+| Tool    | Description      | Example        |
+| ------- | ---------------- | -------------- |
 | `shell` | Execute commands | "Run npm test" |
 
 ### Memory Tools
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `memory` | Persistent memory | "Remember my API key" |
-| `remember` | Simplified memory | "Remember this preference" |
-| `write_memory_dump` | Context snapshot | "Save current context" |
-| `read_reasoning` | Review past reasoning | "Show previous decisions" |
+| Tool                | Description           | Example                    |
+| ------------------- | --------------------- | -------------------------- |
+| `memory`            | Persistent memory     | "Remember my API key"      |
+| `remember`          | Simplified memory     | "Remember this preference" |
+| `write_memory_dump` | Context snapshot      | "Save current context"     |
+| `read_reasoning`    | Review past reasoning | "Show previous decisions"  |
 
 ### Goal Tools
 
-| Tool | Description | Example |
-|------|-------------|---------|
-| `create_goal` | Create new goal | "Create goal for refactoring" |
-| `switch_goal` | Switch active goal | "Switch to testing goal" |
-| `complete_goal` | Mark goal complete | "Complete refactoring goal" |
-| `create_checkpoint` | Create checkpoint | "Create checkpoint for progress" |
-| `record_decision` | Record decision | "Record decision to use React" |
+| Tool                | Description        | Example                          |
+| ------------------- | ------------------ | -------------------------------- |
+| `create_goal`       | Create new goal    | "Create goal for refactoring"    |
+| `switch_goal`       | Switch active goal | "Switch to testing goal"         |
+| `complete_goal`     | Mark goal complete | "Complete refactoring goal"      |
+| `create_checkpoint` | Create checkpoint  | "Create checkpoint for progress" |
+| `record_decision`   | Record decision    | "Record decision to use React"   |
 
 ---
 
@@ -151,6 +157,7 @@ Tools require approval based on risk level:
 Simply ask the LLM to perform actions:
 
 **File Operations:**
+
 ```
 "Read the package.json file"
 "Show me all TypeScript files in src/"
@@ -159,6 +166,7 @@ Simply ask the LLM to perform actions:
 ```
 
 **Web Access:**
+
 ```
 "Search for the latest React documentation"
 "Fetch the content from https://example.com/api"
@@ -166,6 +174,7 @@ Simply ask the LLM to perform actions:
 ```
 
 **Shell Commands:**
+
 ```
 "Run npm install"
 "Execute the test suite"
@@ -174,6 +183,7 @@ Simply ask the LLM to perform actions:
 ```
 
 **Memory:**
+
 ```
 "Remember that I prefer tabs over spaces"
 "What did I say about the API design?"
@@ -181,6 +191,7 @@ Simply ask the LLM to perform actions:
 ```
 
 **Goals:**
+
 ```
 "Create a goal to refactor the authentication system"
 "Switch to the testing goal"
@@ -201,6 +212,7 @@ Approve? (y/n)
 ```
 
 **Options:**
+
 - `y` - Approve this execution
 - `n` - Deny this execution
 - `a` - Approve all (switch to YOLO mode)
@@ -215,16 +227,19 @@ Approve? (y/n)
 **Description:** Auto-approve all tools
 
 **Use When:**
+
 - You trust the LLM completely
 - Working on non-critical tasks
 - Maximum speed needed
 
 **Risks:**
+
 - No safety checks
 - Potential for mistakes
 - Irreversible actions
 
 **Enable:**
+
 ```bash
 /config set approvalMode YOLO
 ```
@@ -234,15 +249,18 @@ Approve? (y/n)
 **Description:** Auto-approve safe tools, ask for dangerous ones
 
 **Use When:**
+
 - Normal development work
 - Balanced safety and speed
 - Most use cases
 
 **Behavior:**
+
 - ✅ Auto-approve: Read operations, web search
 - ❌ Require approval: Write operations, shell commands
 
 **Enable:**
+
 ```bash
 /config set approvalMode AUTO
 ```
@@ -252,14 +270,17 @@ Approve? (y/n)
 **Description:** Confirm every tool
 
 **Use When:**
+
 - Learning the system
 - Working with critical data
 - Maximum safety needed
 
 **Behavior:**
+
 - ❌ Require approval: All tools
 
 **Enable:**
+
 ```bash
 /config set approvalMode ASK
 ```
@@ -273,11 +294,13 @@ Approve? (y/n)
 **Purpose:** Find and locate files
 
 **Tools:**
+
 - `glob` - Pattern matching (wildcards, .gitignore aware)
 - `ls` - Directory listing (recursive, sizes, permissions)
 - `grep` - Content search (regex, case-sensitive/insensitive)
 
 **Examples:**
+
 ```
 "Find all JavaScript files"
 "List files in the src directory"
@@ -293,12 +316,14 @@ Approve? (y/n)
 **Purpose:** Read and write files
 
 **Tools:**
+
 - `read_file` - Read single file (line ranges, large file handling)
 - `read_many_files` - Read multiple files (batch reading)
 - `edit_file` - Edit file sections (search-replace, diff preview)
 - `write_file` - Create/overwrite files (creates directories)
 
 **Examples:**
+
 ```
 "Read the README file"
 "Show me the first 10 lines of app.ts"
@@ -306,11 +331,13 @@ Approve? (y/n)
 "Create a new component file"
 ```
 
-**Risk Level:** 
+**Risk Level:**
+
 - Read: Low
 - Write: Medium
 
 **Auto-Approve:**
+
 - Read: ✅ Yes (in AUTO mode)
 - Write: ❌ No (requires approval)
 
@@ -319,10 +346,12 @@ Approve? (y/n)
 **Purpose:** Access web resources
 
 **Tools:**
+
 - `web_search` - Search internet (multiple results, snippets)
 - `web_fetch` - Fetch URL content (various content types, redirects)
 
 **Examples:**
+
 ```
 "Search for React hooks documentation"
 "Fetch the content from example.com/api"
@@ -338,9 +367,11 @@ Approve? (y/n)
 **Purpose:** Execute shell commands
 
 **Tool:**
+
 - `shell` - Execute commands (streams output, env vars)
 
 **Examples:**
+
 ```
 "Run npm test"
 "Execute git status"
@@ -358,12 +389,14 @@ Approve? (y/n)
 **Purpose:** Store and retrieve information
 
 **Tools:**
+
 - `memory` - Persistent memory (survives sessions, searchable)
 - `remember` - Simplified memory (quick storage)
 - `write_memory_dump` - Context snapshot (debugging, backup)
 - `read_reasoning` - Review past reasoning (conversation history)
 
 **Examples:**
+
 ```
 "Remember that I prefer TypeScript over JavaScript"
 "What did I say about the database design?"
@@ -379,6 +412,7 @@ Approve? (y/n)
 **Purpose:** Manage goals and decisions
 
 **Tools:**
+
 - `create_goal` - Create new goal
 - `switch_goal` - Switch active goal
 - `complete_goal` - Mark goal complete
@@ -386,6 +420,7 @@ Approve? (y/n)
 - `record_decision` - Record decision with rationale
 
 **Examples:**
+
 ```
 "Create a goal to refactor the authentication system"
 "Switch to the testing goal"
@@ -408,6 +443,7 @@ Approve? (y/n)
 **Symptom:** LLM doesn't use tools, only provides advice
 
 **Possible Causes:**
+
 1. Tools not passed to provider (known issue)
 2. Approval mode blocking tools
 3. Tool not registered
@@ -415,12 +451,14 @@ Approve? (y/n)
 **Solutions:**
 
 **Check approval mode:**
+
 ```bash
 /config get approvalMode
 # Should be AUTO or YOLO for automatic tool use
 ```
 
 **Check if tools are registered:**
+
 ```bash
 /tools list
 # Should show available tools
@@ -434,6 +472,7 @@ Approve? (y/n)
 **Symptom:** Tool call returns error
 
 **Possible Causes:**
+
 1. Invalid parameters
 2. Permission denied
 3. File not found
@@ -442,12 +481,14 @@ Approve? (y/n)
 **Solutions:**
 
 **Check error message:**
+
 - Read the error carefully
 - Verify parameters are correct
 - Check file paths exist
 - Verify network connectivity
 
 **Try manual execution:**
+
 ```bash
 # Test the operation manually
 cat README.md  # Instead of read_file
@@ -455,6 +496,7 @@ ls src/        # Instead of ls tool
 ```
 
 **Check permissions:**
+
 ```bash
 # Verify file permissions
 ls -la file.txt
@@ -468,6 +510,7 @@ ls -la directory/
 **Symptom:** Tool execution blocked by policy engine
 
 **Possible Causes:**
+
 1. Approval mode is ASK
 2. Tool is high risk
 3. User denied approval
@@ -475,6 +518,7 @@ ls -la directory/
 **Solutions:**
 
 **Change approval mode:**
+
 ```bash
 # Switch to AUTO mode
 /config set approvalMode AUTO
@@ -484,10 +528,12 @@ ls -la directory/
 ```
 
 **Approve manually:**
+
 - When prompted, press `y` to approve
 - Or press `a` to approve all
 
 **Review tool risk:**
+
 - Read operations: Low risk
 - Write operations: Medium risk
 - Shell commands: High risk
@@ -499,6 +545,7 @@ ls -la directory/
 ### Tool Usage
 
 **Do:**
+
 - ✅ Use natural language requests
 - ✅ Let LLM choose appropriate tools
 - ✅ Review tool actions before approval
@@ -506,6 +553,7 @@ ls -la directory/
 - ✅ Check tool results
 
 **Don't:**
+
 - ❌ Manually invoke tools (let LLM decide)
 - ❌ Use YOLO mode on critical data
 - ❌ Ignore approval prompts
@@ -514,12 +562,14 @@ ls -la directory/
 ### Approval Management
 
 **Do:**
+
 - ✅ Use AUTO mode for most work
 - ✅ Use ASK mode when learning
 - ✅ Review dangerous operations
 - ✅ Switch modes as needed
 
 **Don't:**
+
 - ❌ Stay in YOLO mode permanently
 - ❌ Approve blindly
 - ❌ Ignore risk warnings
@@ -527,12 +577,14 @@ ls -la directory/
 ### File Operations
 
 **Do:**
+
 - ✅ Backup important files first
 - ✅ Review diffs before approval
 - ✅ Use version control
 - ✅ Test on non-critical files first
 
 **Don't:**
+
 - ❌ Modify critical files without backup
 - ❌ Approve large file changes without review
 - ❌ Work without version control
@@ -540,12 +592,14 @@ ls -la directory/
 ### Shell Commands
 
 **Do:**
+
 - ✅ Review commands before approval
 - ✅ Understand what commands do
 - ✅ Use safe commands when possible
 - ✅ Check command output
 
 **Don't:**
+
 - ❌ Approve dangerous commands (rm -rf)
 - ❌ Run commands you don't understand
 - ❌ Use YOLO mode with shell tool
@@ -696,16 +750,19 @@ LLM: "Here's a summary of React documentation..."
 ## Further Reading
 
 ### Documentation
+
 - [Tool Architecture](Architecture.md) - Technical architecture
 - [MCP Integration](../MCP/MCP_Integration.md) - MCP tool integration
 - [Extension System](GettingStarted.md) - Extension tools
 
 ### Related Features
+
 - [Hooks](../Hooks/UserGuide.md) - Hook system
 - [MCP Servers](../MCP/MCP_GettingStarted.md) - MCP servers
 - [Goals](dev_PromptSystem.md) - Goal management
 
 ### External Resources
+
 - Tool Use Patterns (https://docs.anthropic.com/claude/docs/tool-use)
 - JSON Schema (https://json-schema.org/)
 
@@ -714,4 +771,3 @@ LLM: "Here's a summary of React documentation..."
 **Last Updated:** 2026-01-26  
 **Version:** 0.1.0  
 **Next:** [Tool Architecture](Architecture.md)
-

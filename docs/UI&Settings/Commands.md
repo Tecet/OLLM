@@ -13,6 +13,7 @@ Complete reference for all slash commands available in OLLM CLI. Commands provid
 ```
 
 **Examples:**
+
 ```bash
 /help                    # Show help
 /model list              # List models
@@ -67,6 +68,7 @@ Manage chat sessions.
 **Usage:** `/session <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `save <name>` - Save current session
 - `list` - List saved sessions
 - `resume <name>` - Resume a saved session
@@ -74,6 +76,7 @@ Manage chat sessions.
 - `export <name> [format]` - Export session (json, markdown, html)
 
 **Examples:**
+
 ```bash
 /session save my-work
 /session list
@@ -92,6 +95,7 @@ Manage context settings and snapshots.
 **Usage:** `/context <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `size <tokens>` - Set context size
 - `auto` - Enable auto-sizing
 - `snapshot` - Create context snapshot
@@ -100,6 +104,7 @@ Manage context settings and snapshots.
 - `stats` - Show context statistics
 
 **Examples:**
+
 ```bash
 /context size 16384
 /context auto
@@ -116,6 +121,7 @@ Manage context snapshots.
 **Usage:** `/snapshot <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List all snapshots
 - `show <id>` - Show snapshot details
 - `restore <id>` - Restore from snapshot
@@ -123,6 +129,7 @@ Manage context snapshots.
 - `create [name]` - Create named snapshot
 
 **Examples:**
+
 ```bash
 /snapshot list
 /snapshot create before-refactor
@@ -141,6 +148,7 @@ Manage models and model selection.
 **Usage:** `/model <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List available models
 - `use <name>` - Switch to a model
 - `pull <name>` - Download a model
@@ -151,6 +159,7 @@ Manage models and model selection.
 - `help` - Show model help
 
 **Examples:**
+
 ```bash
 /model list
 /model use llama3:8b
@@ -170,6 +179,7 @@ Switch operational modes.
 **Usage:** `/mode <mode-name>`
 
 **Available Modes:**
+
 - `assist` - Assistant mode (general help)
 - `plan` - Planning mode (task planning)
 - `dev` - Developer mode (coding focus)
@@ -184,6 +194,7 @@ Switch operational modes.
 **Aliases:** `/m`
 
 **Examples:**
+
 ```bash
 /mode assist
 /mode dev
@@ -197,24 +208,29 @@ Switch operational modes.
 Quick shortcuts for common modes:
 
 **`/assist`** (alias: `/a`)
+
 - Switch to assistant mode
 - General-purpose help and guidance
 
 **`/plan`** (alias: `/p`)
+
 - Switch to planning mode
 - Task breakdown and planning
 
 **`/dev`** (alias: `/d`)
+
 - Switch to developer mode
 - Coding and development focus
 
 **`/debug`**
+
 - Debugger mode with subcommands:
   - `trace` - Analyze stack trace
   - `reproduce` - Reproduce error
   - `bisect` - Binary search for bug
 
 **Examples:**
+
 ```bash
 /assist
 /plan
@@ -233,10 +249,12 @@ Manage LLM providers.
 **Usage:** `/provider <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List available providers
 - `use <name>` - Switch to a provider
 
 **Examples:**
+
 ```bash
 /provider list
 /provider use ollama
@@ -253,12 +271,14 @@ View and manage configuration.
 **Usage:** `/config <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `show` - Show current configuration
 - `set <key> <value>` - Set configuration value
 - `get <key>` - Get configuration value
 - `reset` - Reset to defaults
 
 **Examples:**
+
 ```bash
 /config show
 /config set theme dark
@@ -276,6 +296,7 @@ Manage MCP servers and capabilities.
 **Usage:** `/mcp <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list [--tools|--resources|--prompts]` - List MCP servers or capabilities
 - `tools <server>` - List tools from a server
 - `resources <server>` - List resources from a server
@@ -289,6 +310,7 @@ Manage MCP servers and capabilities.
 - `health status` - Show monitoring status
 
 **Examples:**
+
 ```bash
 /mcp list
 /mcp list --tools
@@ -307,12 +329,14 @@ Manage OAuth authentication for MCP servers.
 **Usage:** `/mcp oauth <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `login <server>` - Authenticate with OAuth
 - `status <server>` - Check token status
 - `revoke <server>` - Revoke tokens
 - `list` - List all tokens
 
 **Examples:**
+
 ```bash
 /mcp oauth login github
 /mcp oauth status github
@@ -332,6 +356,7 @@ Manage extensions from the marketplace.
 **Aliases:** `/ext`
 
 **Subcommands:**
+
 - `search <query> [--limit <n>]` - Search marketplace
 - `install <name> [version]` - Install extension
 - `list [--all]` - List installed extensions
@@ -341,6 +366,7 @@ Manage extensions from the marketplace.
 - `reload` - Reload all extensions
 
 **Examples:**
+
 ```bash
 /extensions search github
 /extensions install github-integration
@@ -360,10 +386,12 @@ Manage automation hooks.
 **Usage:** `/hooks <subcommand>`
 
 **Subcommands:**
+
 - `debug on` - Enable hook debugging
 - `debug off` - Disable hook debugging
 
 **Examples:**
+
 ```bash
 /hooks debug on
 /hooks debug off
@@ -380,6 +408,7 @@ Git operations and version control.
 **Usage:** `/git <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `status` - Show git status
 - `diff` - Show git diff
 - `commit <message>` - Commit changes
@@ -388,6 +417,7 @@ Git operations and version control.
 - `checkout <branch>` - Switch branch
 
 **Examples:**
+
 ```bash
 /git status
 /git diff
@@ -406,11 +436,13 @@ Manage diff review mode.
 **Usage:** `/review <subcommand>`
 
 **Subcommands:**
+
 - `enable` - Enable diff review mode
 - `disable` - Disable diff review mode
 - `pending` - Show pending reviews
 
 **Examples:**
+
 ```bash
 /review enable
 /review pending
@@ -430,6 +462,7 @@ Manage multi-step workflows.
 **Aliases:** `/wf`
 
 **Subcommands:**
+
 - `start <name>` - Start a workflow
 - `status` - Show current workflow progress
 - `next` - Move to next step
@@ -441,6 +474,7 @@ Manage multi-step workflows.
 - `list` - List available workflows
 
 **Examples:**
+
 ```bash
 /workflow start refactor
 /workflow status
@@ -459,11 +493,13 @@ Manage prompt templates.
 **Usage:** `/template <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List available templates
 - `use <name>` - Use a template
 - `create <name>` - Create new template
 
 **Examples:**
+
 ```bash
 /template list
 /template use code-review
@@ -481,11 +517,13 @@ Manage UI themes.
 **Usage:** `/theme <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List available themes
 - `use <name>` - Switch to a theme
 - `preview <name>` - Preview a theme
 
 **Examples:**
+
 ```bash
 /theme list
 /theme use dark
@@ -505,6 +543,7 @@ Manage cross-session memory.
 **Usage:** `/memory <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `list` - List stored memories
 - `add <key> <value>` - Add memory
 - `get <key>` - Get memory value
@@ -512,6 +551,7 @@ Manage cross-session memory.
 - `clear` - Clear all memories
 
 **Examples:**
+
 ```bash
 /memory list
 /memory add project-name "My Project"
@@ -529,11 +569,13 @@ Manage project profiles.
 **Usage:** `/project <subcommand> [arguments]`
 
 **Subcommands:**
+
 - `detect` - Auto-detect project type
 - `use <profile>` - Use a project profile
 - `init` - Initialize project profile
 
 **Examples:**
+
 ```bash
 /project detect
 /project use react
@@ -551,11 +593,13 @@ Manage performance metrics display.
 **Usage:** `/metrics [subcommand]`
 
 **Subcommands:**
+
 - `toggle` - Toggle metrics display
 - `reset` - Reset metrics
 - (no args) - Show current metrics
 
 **Examples:**
+
 ```bash
 /metrics
 /metrics toggle
@@ -573,11 +617,13 @@ Manage reasoning display for models that support it.
 **Usage:** `/reasoning <subcommand>`
 
 **Subcommands:**
+
 - `toggle` - Toggle reasoning display
 - `expand` - Expand reasoning
 - `collapse` - Collapse reasoning
 
 **Examples:**
+
 ```bash
 /reasoning toggle
 /reasoning expand
@@ -596,6 +642,7 @@ Compare outputs from multiple models.
 **Description:** Sends the same prompt to multiple models and displays their responses side-by-side for comparison.
 
 **Examples:**
+
 ```bash
 /compare llama3:8b llama3:13b
 /compare llama3:8b mistral:7b codellama:7b
@@ -616,6 +663,7 @@ Show help information.
 **Description:** Displays general help or detailed help for a specific command.
 
 **Examples:**
+
 ```bash
 /help
 /help model
@@ -658,17 +706,17 @@ Dump current prompt/context details.
 
 ## Command Aliases Quick Reference
 
-| Command | Aliases |
-|---------|---------|
-| `/help` | `/?` |
-| `/exit` | `/quit`, `/q` |
-| `/clear` | `/cls` |
-| `/mode` | `/m` |
-| `/assist` | `/a` |
-| `/plan` | `/p` |
-| `/dev` | `/d` |
-| `/workflow` | `/wf` |
-| `/extensions` | `/ext` |
+| Command       | Aliases       |
+| ------------- | ------------- |
+| `/help`       | `/?`          |
+| `/exit`       | `/quit`, `/q` |
+| `/clear`      | `/cls`        |
+| `/mode`       | `/m`          |
+| `/assist`     | `/a`          |
+| `/plan`       | `/p`          |
+| `/dev`        | `/d`          |
+| `/workflow`   | `/wf`         |
+| `/extensions` | `/ext`        |
 
 ---
 

@@ -40,30 +40,36 @@
 ## Field Reference
 
 ### name (required)
+
 - **Type:** string
 - **Format:** kebab-case
 - **Example:** `"github-integration"`
 
 ### version (required)
+
 - **Type:** string
 - **Format:** Semantic versioning (X.Y.Z)
 - **Example:** `"1.2.0"`
 
 ### description (required)
+
 - **Type:** string
 - **Length:** 50-200 characters
 - **Example:** `"GitHub integration with MCP server and hooks"`
 
 ### author (required)
+
 - **Type:** string
 - **Format:** Name or Name <email>
 - **Example:** `"John Doe <john@example.com>"`
 
 ### components (optional)
+
 - **Type:** object
 - **Fields:** skills, settings, servers, hooks
 - **Values:** Array of glob patterns
 - **Example:**
+
 ```json
 {
   "skills": ["skills/*.md"],
@@ -72,9 +78,11 @@
 ```
 
 ### permissions (optional)
+
 - **Type:** object
 - **Fields:** filesystem, network, tools, hooks, settings
 - **Example:**
+
 ```json
 {
   "filesystem": ["read", "write"],

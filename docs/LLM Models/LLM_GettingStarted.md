@@ -19,6 +19,7 @@ This guide will help you get started with model management, routing, memory, tem
 9. [Next Steps](#next-steps)
 
 **See Also:**
+
 - [Model Management Overview](3%20projects/OLLM%20CLI/LLM%20Models/README.md)
 - [Model Commands](Models_commands.md)
 - [Configuration Guide](Models_configuration.md)
@@ -42,15 +43,18 @@ This guide covers the basics to get you started quickly.
 ## Prerequisites
 
 **Required:**
+
 - OLLM CLI installed and configured
 - Ollama (or compatible provider) running
 - At least one model installed
 
 **Optional:**
+
 - Project workspace for profile detection
 - Custom templates directory
 
 **Check your setup:**
+
 ```bash
 # Verify OLLM CLI is installed
 ollm --version
@@ -72,6 +76,7 @@ See what models you have installed:
 ```
 
 **Output:**
+
 ```
 Available Models:
   ● llama3.1:8b (loaded)     4.7 GB   Modified 2 days ago
@@ -88,6 +93,7 @@ Pull a new model from the registry:
 ```
 
 **Progress display:**
+
 ```
 Pulling llama3.1:8b...
 [████████████████████████] 100% 4.7 GB @ 12.3 MB/s
@@ -103,6 +109,7 @@ Get detailed information about a model:
 ```
 
 **Output:**
+
 ```
 Model: llama3.1:8b
 Size: 4.7 GB
@@ -137,6 +144,7 @@ View all available models with details:
 ```
 
 **Shows:**
+
 - Model name and version
 - Size on disk
 - Last modified date
@@ -155,6 +163,7 @@ Download models from the provider registry:
 ```
 
 **Features:**
+
 - Real-time progress display
 - Transfer rate monitoring
 - Cancellable with Ctrl+C
@@ -168,6 +177,7 @@ Remove models to free disk space:
 ```
 
 **Safety features:**
+
 - Confirmation prompt
 - Shows space to be freed
 - Automatic unload if currently loaded
@@ -185,6 +195,7 @@ Keep frequently-used models in memory for faster responses:
 ```
 
 **Benefits:**
+
 - Eliminates model load time (2-5 seconds)
 - Reduces latency for subsequent requests
 - Useful for interactive sessions
@@ -198,6 +209,7 @@ When you switch to a model that isn't in the system's database, OLLM CLI will pr
 ```
 
 **Prompt:**
+
 ```
 Unknown model detected: custom-model:latest
 Does this model support function calling (tools)?
@@ -225,6 +237,7 @@ Does this model support function calling (tools)?
 **Timeout:** If you don't respond within 30 seconds, the system defaults to tools disabled (safe default).
 
 **Why this matters:**
+
 - Sending tools to models that don't support them causes errors
 - Proper configuration ensures smooth operation
 - Your choice is remembered for future sessions
@@ -234,25 +247,30 @@ Does this model support function calling (tools)?
 When you choose auto-detect, here's what happens:
 
 **Process:**
+
 1. System sends a test request to the model with a minimal tool schema
 2. Monitors the response for tool-related errors
 3. Times out after 5 seconds if no response
 4. Saves the result to `~/.ollm/user_models.json`
 
 **Success indicators:**
+
 - Model accepts the request without tool-related errors
 - Tool support is enabled and saved
 
 **Failure indicators:**
+
 - Model returns errors like "unknown field: tools"
 - Model returns 400 status with tool-related error messages
 - Tool support is disabled and saved
 
 **Fallback:**
+
 - If auto-detect fails or times out, tools are disabled (safe default)
 - You can manually update the setting later
 
 **System messages:**
+
 ```
 Auto-detecting tool support for custom-model:latest...
 Tool support detected: Enabled
@@ -289,24 +307,28 @@ model:
 Four built-in profiles optimize for different use cases:
 
 **Fast Profile** - Quick responses with smaller models:
+
 ```yaml
 routing:
   defaultProfile: fast
 ```
 
 **General Profile** - Balanced performance for most tasks:
+
 ```yaml
 routing:
   defaultProfile: general
 ```
 
 **Code Profile** - Optimized for code generation:
+
 ```yaml
 routing:
   defaultProfile: code
 ```
 
 **Creative Profile** - Creative writing and storytelling:
+
 ```yaml
 routing:
   defaultProfile: creative
@@ -365,6 +387,7 @@ View all stored memories:
 ```
 
 **Output:**
+
 ```
 Stored Memories:
   user_name: Alice (preference)
@@ -426,6 +449,7 @@ View available templates:
 ```
 
 **Output:**
+
 ```
 Available Templates:
   code_review - Review code for quality and security
@@ -454,6 +478,7 @@ Create a new template:
 ```
 
 **Template format (YAML):**
+
 ```yaml
 name: code_review
 description: Review code for quality and security
@@ -464,7 +489,7 @@ variables:
     description: Programming language
   - name: focus
     required: false
-    default: "bugs and security"
+    default: 'bugs and security'
     description: Review focus areas
   - name: code
     required: true
@@ -474,6 +499,7 @@ variables:
 ### Template Locations
 
 Templates are loaded from:
+
 - User templates: `~/.ollm/templates/`
 - Workspace templates: `.ollm/templates/`
 
@@ -496,6 +522,7 @@ OLLM CLI detects project type from characteristic files:
 ```
 
 **Detected types:**
+
 - **TypeScript**: `package.json` with TypeScript dependencies
 - **Python**: `requirements.txt`, `pyproject.toml`, `setup.py`
 - **Rust**: `Cargo.toml`
@@ -543,24 +570,29 @@ options:
 ### Built-in Profiles
 
 **TypeScript Profile:**
+
 - Code-optimized model
 - Code routing profile
 - File and shell tools enabled
 
 **Python Profile:**
+
 - Code-optimized model
 - Code routing profile
 - Python-specific tools
 
 **Rust Profile:**
+
 - Code-optimized model
 - Emphasis on memory safety
 
 **Go Profile:**
+
 - Code-optimized model
 - Emphasis on concurrency
 
 **Documentation Profile:**
+
 - Writing-optimized model
 - Creative routing profile
 
@@ -577,6 +609,7 @@ Tools are functions that the LLM can call to perform actions like reading files,
 Access the Tools Panel to enable or disable individual tools:
 
 **Navigation:**
+
 - Switch to the Tools tab in the UI
 - Use keyboard shortcuts to navigate:
   - `↑/↓`: Navigate between tools
@@ -620,20 +653,24 @@ Access the Tools Panel to enable or disable individual tools:
 ### Enabling/Disabling Tools
 
 **Why disable tools?**
+
 - Reduce the number of tools sent to the LLM (improves focus)
 - Prevent certain actions (e.g., disable shell execution for safety)
 - Customize tool availability per project
 
 **How to disable:**
+
 1. Navigate to the Tools tab
 2. Use arrow keys to select a tool
 3. Press Enter or Left/Right to toggle
 
 **Visual indicators:**
+
 - `[✓]` Tool is enabled
 - `[ ]` Tool is disabled
 
 **Persistence:**
+
 - Tool settings are saved to `~/.ollm/settings.json`
 - Settings persist across sessions
 - Workspace-specific settings can override user settings
@@ -646,6 +683,7 @@ Tools are filtered in two stages:
 2. **User Preference Check**: Even if the model supports tools, you can disable specific tools via the Tools Panel
 
 **System message when tools are disabled:**
+
 ```
 Switched to gemma3:1b. Tools: Disabled
 ```
@@ -666,24 +704,29 @@ Some models don't support function calling. When you switch to such a model:
 ### Learn More
 
 **Model Management:**
+
 - [Model Commands Reference](Models_commands.md)
 - [Model Architecture](Models_architecture.md)
 - [Configuration Guide](Models_configuration.md)
 
 **Routing:**
+
 - [Routing User Guide](3%20projects/OLLM%20CLI/LLM%20Models/routing/user-guide.md)
 - [Routing Development Guide](3%20projects/OLLM%20CLI/LLM%20Models/routing/development-guide.md)
 - [Profiles Reference](profiles-reference.md)
 
 **Memory:**
+
 - [Memory User Guide](3%20projects/OLLM%20CLI/LLM%20Models/memory/user-guide.md)
 - [Memory API Reference](api-reference.md)
 
 **Templates:**
+
 - [Templates User Guide](3%20projects/OLLM%20CLI/LLM%20Models/templates/user-guide.md)
 - [Template Reference](template-reference.md)
 
 **Profiles:**
+
 - [Profiles User Guide](3%20projects/OLLM%20CLI/LLM%20Models/profiles/user-guide.md)
 - [Built-in Profiles](built-in-profiles.md)
 
@@ -695,7 +738,7 @@ Some models don't support function calling. When you switch to such a model:
 
 ### Get Help
 
-- [Troubleshooting Guide](../troubleshooting.md)
+- [Troubleshooting Guide](../Troubleshooting.md)
 - GitHub Issues (https://github.com/ollm/ollm-cli/issues)
 - [Community Forum](#)
 
@@ -703,4 +746,3 @@ Some models don't support function calling. When you switch to such a model:
 
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.0
-

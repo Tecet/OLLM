@@ -20,6 +20,7 @@ This index provides a comprehensive overview of all OLLM CLI documentation organ
 ## Getting Started
 
 ### [Introduction](Introduction.md)
+
 **What is OLLM CLI and why use it?**
 
 A friendly introduction to OLLM CLI written in natural language. Explains what OLLM CLI is, how it works, key features, and who it's for.
@@ -31,6 +32,7 @@ A friendly introduction to OLLM CLI written in natural language. Explains what O
 ---
 
 ### [Installation](Installation.md)
+
 **Install OLLM CLI on your computer**
 
 Step-by-step installation guide for all platforms. Includes prerequisites, installation steps, verification, and troubleshooting.
@@ -42,6 +44,7 @@ Step-by-step installation guide for all platforms. Includes prerequisites, insta
 ---
 
 ### [Quick Start](Quickstart.md)
+
 **Get up and running in 5 minutes**
 
 Hands-on guide to your first conversation with OLLM CLI. Covers basic usage, tools, commands, and common tasks.
@@ -53,6 +56,7 @@ Hands-on guide to your first conversation with OLLM CLI. Covers basic usage, too
 ---
 
 ### [Troubleshooting](Troubleshooting.md)
+
 **Common issues and solutions**
 
 Comprehensive troubleshooting guide covering connection issues, installation problems, tool execution, and more.
@@ -173,42 +177,49 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### By Component
 
 **User Interface**
+
 - [UI Guide](UI&Settings/UIGuide.md) - Interface layout
 - [UI Architecture](UI&Settings/Architecture.md) - Technical design
 - [Commands](UI&Settings/Commands.md) - All commands
 - [Keybinds](UI&Settings/Keybinds.md) - Keyboard shortcuts
 
 **Context System**
+
 - [Context Management](Context/ContextManagment.md) - Context sizing
 - [Context Architecture](Context/ContextArchitecture.md) - System design
 - [Context Compression](Context/ContextCompression.md) - Compression
 - [Checkpoint Flow](Context/CheckpointFlowDiagram.md) - Checkpoints
 
 **Model System**
+
 - [Model Management](LLM%20Models/README.md) - Model lifecycle
 - [Models List](LLM%20Models/LLM_ModelsList.md) - Available models
 - [Model Compatibility](LLM%20Models/LLM_ModelCompatibility.md) - Compatibility
 - [Memory System](LLM%20Models/LLM_MemorySystem.md) - Memory
 
 **Tool System**
+
 - [Tools User Guide](Tools/UserGuide.md) - Using tools
 - [Tools Architecture](Tools/Architecture.md) - System design
 - [Extension Tools](Tools/GettingStarted.md) - Extensions
 - [Manifest Reference](Tools/ManifestReference.md) - Manifest schema
 
 **Hook System**
+
 - [Hooks User Guide](Hooks/UserGuide.md) - Using hooks
 - [Hooks Architecture](Hooks/Architecture.md) - System design
 - [Hook Protocol](Hooks/Protocol.md) - Protocol spec
 - [Visual Guide](Hooks/VisualGuide.md) - Diagrams
 
 **MCP System**
+
 - [MCP Getting Started](MCP/MCP_GettingStarted.md) - Quick start
 - [MCP Architecture](MCP/MCP_Architecture.md) - System design
 - [MCP Integration](MCP/MCP_Integration.md) - Integration
 - [MCP Commands](MCP/MCP_Commands.md) - Commands
 
 **Prompts System**
+
 - [System Prompts](Prompts%20System/SystemPrompts.md) - Prompt construction
 - [Prompts Architecture](Prompts%20System/Architecture.md) - System design
 - [Prompt Templates](Prompts%20System/PromptsTemplates.md) - Templates
@@ -221,6 +232,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### System Architectures
 
 **[UI Architecture](UI&Settings/Architecture.md)**
+
 - React + Ink integration
 - Component hierarchy
 - State management
@@ -229,6 +241,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - Rendering optimization
 
 **[Context Architecture](Context/ContextArchitecture.md)**
+
 - VRAM monitoring
 - Context sizing
 - Compression service
@@ -236,6 +249,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - Component interactions
 
 **[Tools Architecture](Tools/Architecture.md)**
+
 - Tool registry
 - Execution engine
 - Approval system
@@ -243,6 +257,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - Security model
 
 **[Hooks Architecture](Hooks/Architecture.md)**
+
 - Hook registry
 - Event system
 - Execution engine
@@ -250,6 +265,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - Security and sandboxing
 
 **[MCP Architecture](MCP/MCP_Architecture.md)**
+
 - MCP client
 - Transport layer
 - Schema conversion
@@ -257,6 +273,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - OAuth system
 
 **[Prompts Architecture](Prompts%20System/Architecture.md)**
+
 - Prompt orchestrator
 - Template system
 - Goal management
@@ -286,6 +303,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### Command References
 
 **[Commands Reference](UI&Settings/Commands.md)**
+
 - Session management
 - Context and model commands
 - MCP and extension commands
@@ -293,6 +311,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - Configuration commands
 
 **[MCP Commands](MCP/MCP_Commands.md)**
+
 - MCP server commands
 - Health commands
 - OAuth commands
@@ -302,12 +321,14 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### Configuration References
 
 **[Configuration Guide](UI&Settings/Configuration.md)**
+
 - Layout settings
 - Display preferences
 - Theme configuration
 - Performance tuning
 
 **[Manifest Reference](Tools/ManifestReference.md)**
+
 - Extension manifest schema
 - Required fields
 - Optional fields
@@ -316,6 +337,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### Protocol References
 
 **[Hook Protocol](Hooks/Protocol.md)**
+
 - Hook file format
 - Event types and payloads
 - Action types
@@ -329,30 +351,27 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### For New Users
 
 **Start Here:**
+
 1. [Introduction](Introduction.md) - What is OLLM CLI?
 2. [Installation](Installation.md) - Install on your computer
 3. [Quick Start](Quickstart.md) - Get started in 5 minutes
 
-**Then Explore:**
-4. [UI Guide](UI&Settings/UIGuide.md) - Learn the interface
-5. [Commands](UI&Settings/Commands.md) - Learn commands
-6. [Tools User Guide](Tools/UserGuide.md) - Use tools
+**Then Explore:** 4. [UI Guide](UI&Settings/UIGuide.md) - Learn the interface 5. [Commands](UI&Settings/Commands.md) - Learn commands 6. [Tools User Guide](Tools/UserGuide.md) - Use tools
 
 ### For Regular Users
 
 **Configuration:**
+
 1. [Configuration Guide](UI&Settings/Configuration.md)
 2. [Themes Guide](UI&Settings/Themes.md)
 3. [Model Management](LLM%20Models/README.md)
 
-**Advanced Features:**
-4. [Context Management](Context/ContextManagment.md)
-5. [MCP Getting Started](MCP/MCP_GettingStarted.md)
-6. [Hooks User Guide](Hooks/UserGuide.md)
+**Advanced Features:** 4. [Context Management](Context/ContextManagment.md) 5. [MCP Getting Started](MCP/MCP_GettingStarted.md) 6. [Hooks User Guide](Hooks/UserGuide.md)
 
 ### For Developers
 
 **Architecture:**
+
 1. [UI Architecture](UI&Settings/Architecture.md)
 2. [Context Architecture](Context/ContextArchitecture.md)
 3. [Tools Architecture](Tools/Architecture.md)
@@ -360,22 +379,21 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 5. [MCP Architecture](MCP/MCP_Architecture.md)
 6. [Prompts Architecture](Prompts%20System/Architecture.md)
 
-**Development:**
-7. [Development Roadmap](DevelopmentRoadmap/Roadmap.md)
-8. [Extension Development](Tools/GettingStarted.md)
-9. [Hook Development](Hooks/UserGuide.md)
+**Development:** 7. [Development Roadmap](DevelopmentRoadmap/Roadmap.md) 8. [Extension Development](Tools/GettingStarted.md) 9. [Hook Development](Hooks/UserGuide.md)
 
 ---
 
 ## Documentation by Topic
 
 ### Installation & Setup
+
 - [Installation Guide](Installation.md)
 - [Quick Start](Quickstart.md)
 - [Configuration](UI&Settings/Configuration.md)
 - [Troubleshooting](Troubleshooting.md)
 
 ### User Interface
+
 - [UI Guide](UI&Settings/UIGuide.md)
 - [Commands Reference](UI&Settings/Commands.md)
 - [Keyboard Shortcuts](UI&Settings/Keybinds.md)
@@ -383,22 +401,26 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 - [Terminal](UI&Settings/Terminal.md)
 
 ### Context & Memory
+
 - [Context Management](Context/ContextManagment.md)
 - [Context Compression](Context/ContextCompression.md)
 - [Checkpoint System](Context/CheckpointFlowDiagram.md)
 - [Memory System](LLM%20Models/LLM_MemorySystem.md)
 
 ### Models & Providers
+
 - [Model Management](LLM%20Models/README.md)
 - [Models List](LLM%20Models/LLM_ModelsList.md)
 - [Model Compatibility](LLM%20Models/LLM_ModelCompatibility.md)
 
 ### Tools & Automation
+
 - [Tools System](Tools/README.md)
 - [Hooks System](Hooks/README.md)
 - [MCP Integration](MCP/README.md)
 
 ### Prompts & Modes
+
 - [System Prompts](Prompts%20System/SystemPrompts.md)
 - [Prompt Templates](Prompts%20System/PromptsTemplates.md)
 - [Prompt Routing](Prompts%20System/PromptsRouting.md)
@@ -409,42 +431,44 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 
 ### By Section
 
-| Section | Files | Status |
-|---------|-------|--------|
-| Getting Started | 4 | ✅ Complete |
-| UI & Settings | 9 | ✅ Complete |
-| Context Management | 6 | ✅ Complete |
-| Model Management | 6 | ✅ Complete |
-| Tools System | 6 | ✅ Complete |
-| Hooks System | 7 | ✅ Complete |
-| MCP Integration | 7 | ✅ Complete |
-| Prompts System | 6 | ✅ Complete |
-| Development Roadmap | 6 | ✅ Complete |
-| **Total** | **57** | **100%** |
+| Section             | Files  | Status      |
+| ------------------- | ------ | ----------- |
+| Getting Started     | 4      | ✅ Complete |
+| UI & Settings       | 9      | ✅ Complete |
+| Context Management  | 6      | ✅ Complete |
+| Model Management    | 6      | ✅ Complete |
+| Tools System        | 6      | ✅ Complete |
+| Hooks System        | 7      | ✅ Complete |
+| MCP Integration     | 7      | ✅ Complete |
+| Prompts System      | 6      | ✅ Complete |
+| Development Roadmap | 6      | ✅ Complete |
+| **Total**           | **57** | **100%**    |
 
 ### By Type
 
-| Type | Count |
-|------|-------|
-| Overview (README) | 9 |
-| Index | 9 |
-| User Guides | 12 |
-| Architecture | 6 |
-| Reference | 8 |
-| Getting Started | 4 |
-| Other | 9 |
-| **Total** | **57** |
+| Type              | Count  |
+| ----------------- | ------ |
+| Overview (README) | 9      |
+| Index             | 9      |
+| User Guides       | 12     |
+| Architecture      | 6      |
+| Reference         | 8      |
+| Getting Started   | 4      |
+| Other             | 9      |
+| **Total**         | **57** |
 
 ---
 
 ## External Resources
 
 ### Official Resources
+
 - **GitHub:** [github.com/tecet/ollm](https://github.com/tecet/ollm)
 - **Issues:** [github.com/tecet/ollm/issues](https://github.com/tecet/ollm/issues)
 - **Discussions:** [github.com/tecet/ollm/discussions](https://github.com/tecet/ollm/discussions)
 
 ### Related Projects
+
 - **Ollama:** [ollama.ai](https://ollama.ai)
 - **Model Context Protocol:** [modelcontextprotocol.io](https://modelcontextprotocol.io)
 - **Ink:** [github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink)
@@ -456,16 +480,19 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ### Finding Information
 
 **By Feature:**
+
 - Search for feature name in this index
 - Check the relevant section README
 - Look in the Index.md for that section
 
 **By Task:**
+
 - "How do I..." → Check User Guides
 - "What is..." → Check Overview/README files
 - "How does it work..." → Check Architecture files
 
 **By Problem:**
+
 - Check [Troubleshooting](Troubleshooting.md) first
 - Search for error message
 - Check relevant system documentation

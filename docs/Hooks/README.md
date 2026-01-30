@@ -9,6 +9,7 @@ Welcome to the Hook System documentation for OLLM CLI. This section covers the c
 ## 📚 Documentation Overview
 
 ### Core Documentation
+
 - **[Architecture](Architecture.md)** - Complete system architecture and design
 - **[User Guide](UserGuide.md)** - Using hooks for automation
 - **[Protocol](Protocol.md)** - Hook protocol specification
@@ -22,28 +23,36 @@ Welcome to the Hook System documentation for OLLM CLI. This section covers the c
 The **Hook System** enables event-driven automation and safety gates in OLLM CLI. Hooks are scripts that run automatically when specific events occur:
 
 ### 1. **Event-Driven Automation**
+
 Hooks respond to IDE and workflow events:
+
 - File operations (create, edit, delete, save)
 - Agent lifecycle (prompt submit, agent stop)
 - User triggers (manual execution)
 - Git operations (commit, push, pull)
 
 ### 2. **Safety Gates**
+
 Hooks can prevent dangerous operations:
+
 - Block dangerous shell commands
 - Validate file modifications
 - Enforce code quality standards
 - Require approval for sensitive operations
 
 ### 3. **Workflow Automation**
+
 Hooks automate repetitive tasks:
+
 - Auto-format code on save
 - Run tests before commit
 - Generate documentation
 - Update dependencies
 
 ### 4. **Trust Model**
+
 Three-tier trust system for security:
+
 - **Trusted** - System hooks, always allowed
 - **Workspace** - Project hooks, require approval
 - **Downloaded** - External hooks, require explicit trust
@@ -68,31 +77,38 @@ docs/Hooks/
 ## 🎓 Key Concepts
 
 ### Hook Events
+
 Hooks can respond to various events:
 
 **File Events:**
+
 - `fileEdited` - File saved/modified
 - `fileCreated` - New file created
 - `fileDeleted` - File deleted
 
 **Agent Events:**
+
 - `promptSubmit` - User sends message
 - `agentStop` - Agent completes execution
 
 **User Events:**
+
 - `userTriggered` - Manual hook execution
 
 **See:** [User Guide](UserGuide.md#hook-events)
 
 ### Hook Actions
+
 Hooks can perform two types of actions:
 
 **askAgent:**
+
 - Send prompt to agent
 - Agent processes and responds
 - Valid with all event types
 
 **runCommand:**
+
 - Execute shell command
 - Only valid with `promptSubmit` and `agentStop`
 - Not valid with file events
@@ -100,20 +116,23 @@ Hooks can perform two types of actions:
 **See:** [Protocol](Protocol.md#hook-actions)
 
 ### Trust Model
+
 Three trust levels for security:
 
-| Level | Description | Approval Required |
-|-------|-------------|-------------------|
-| **Trusted** | System hooks | ❌ No |
-| **Workspace** | Project hooks | ✅ Yes (first time) |
-| **Downloaded** | External hooks | ✅ Yes (explicit) |
+| Level          | Description    | Approval Required   |
+| -------------- | -------------- | ------------------- |
+| **Trusted**    | System hooks   | ❌ No               |
+| **Workspace**  | Project hooks  | ✅ Yes (first time) |
+| **Downloaded** | External hooks | ✅ Yes (explicit)   |
 
 **See:** [Architecture](Architecture.md#trust-model)
 
 ### Hook Protocol
+
 Hooks communicate via JSON stdin/stdout:
 
 **Input:**
+
 ```json
 {
   "event": "fileEdited",
@@ -124,6 +143,7 @@ Hooks communicate via JSON stdin/stdout:
 ```
 
 **Output:**
+
 ```json
 {
   "action": "askAgent",
@@ -139,6 +159,7 @@ Hooks communicate via JSON stdin/stdout:
 ## 💡 Common Use Cases
 
 ### Auto-Format on Save
+
 ```json
 {
   "name": "Auto-format on save",
@@ -155,6 +176,7 @@ Hooks communicate via JSON stdin/stdout:
 ```
 
 ### Run Tests Before Commit
+
 ```json
 {
   "name": "Test before commit",
@@ -170,6 +192,7 @@ Hooks communicate via JSON stdin/stdout:
 ```
 
 ### Block Dangerous Commands
+
 ```json
 {
   "name": "Block rm -rf",
@@ -191,22 +214,24 @@ Hooks communicate via JSON stdin/stdout:
 ## 🛠️ Configuration
 
 ### Hook Settings
+
 ```yaml
 hooks:
   # Enable hook system
   enabled: true
-  
+
   # Hook directories
   directories:
-    - .ollm/hooks/          # Workspace hooks
-    - ~/.ollm/hooks/        # User hooks
-  
+    - .ollm/hooks/ # Workspace hooks
+    - ~/.ollm/hooks/ # User hooks
+
   # Trust settings
-  trustWorkspaceHooks: false  # Require approval
+  trustWorkspaceHooks: false # Require approval
   trustDownloadedHooks: false # Require explicit trust
 ```
 
 ### Hook File Format
+
 ```json
 {
   "name": "Hook Name",
@@ -232,34 +257,39 @@ hooks:
 ### Common Issues
 
 **Hook not triggering:**
+
 - Check hook enabled: `/hooks list`
 - Verify event type matches
 - Check file patterns match
 - Enable hook: `/hooks enable <name>`
 
 **Hook fails to execute:**
+
 - Check hook syntax: `/hooks debug <name>`
 - Verify trust level: `/hooks trust <name>`
 - Check error logs
 - Test manually: `/hooks run <name>`
 
 **Permission denied:**
+
 - Check trust level: `/hooks list`
 - Trust hook: `/hooks trust <name>`
 - Verify hook in correct directory
 
 **Invalid action for event:**
+
 - `runCommand` only works with `promptSubmit` and `agentStop`
 - Use `askAgent` for file events
 - Check protocol documentation
 
-**See:** [Troubleshooting Guide](../troubleshooting.md)
+**See:** [Troubleshooting Guide](../Troubleshooting.md)
 
 ---
 
 ## 📊 Implementation Status
 
 ### Current (v0.1.0)
+
 - ✅ Hook Registry
 - ✅ Event System
 - ✅ Trust Model
@@ -270,11 +300,13 @@ hooks:
 - ✅ Hook Commands
 
 ### Planned (v0.2.0)
+
 - ⏳ Hook Marketplace
 - ⏳ Hook Templates
 - ⏳ Hook Analytics
 
 ### Planned (v0.3.0)
+
 - ⏳ Advanced Hook Chaining
 - ⏳ Conditional Hooks
 - ⏳ Hook Performance Monitoring
@@ -284,14 +316,17 @@ hooks:
 ## 🤝 Related Documentation
 
 ### Core Systems
+
 - [Tools System](../Tools/README.md) - Tool execution
 - [MCP Integration](../MCP/MCP_Index.md) - MCP servers
 - [User Interface](../UI&Settings/README.md) - UI documentation
 
 ### Commands
+
 - [Hook Commands](../UI&Settings/Commands.md#hook-management) - CLI commands
 
 ### Developer Resources
+
 - Knowledge DB: `dev_HookSystem.md` - Hook system architecture
 
 ---
@@ -301,11 +336,13 @@ hooks:
 ### For New Users
 
 1. **List Available Hooks**
+
    ```bash
    /hooks list
    ```
 
 2. **Enable a Hook**
+
    ```bash
    /hooks enable auto-format-on-save
    ```
@@ -318,11 +355,13 @@ hooks:
 ### For Advanced Users
 
 1. **Debug Hook Execution**
+
    ```bash
    /hooks debug <name>
    ```
 
 2. **Trust Workspace Hooks**
+
    ```bash
    /hooks trust <name>
    ```

@@ -22,8 +22,8 @@ Stages 1-9: Foundation Development                         [██████�
 ├─ Stage 4: Services & Sessions                            ✅ Complete
 ├─ Stage 5: Hooks, Extensions & MCP                        ✅ Complete
 ├─ Stage 6: CLI & UI                                       ✅ Complete
-├─ Stage 7: Model Management                               ✅ Complete
-├─ Stage 8: Testing & QA                                   ✅ Complete
+├─ Stage 7: Model Management                               🔄 In Progress
+├─ Stage 8: Testing & QA                                   🔄 In Progress
 └─ Stage 9: Documentation & Release                        ✅ Complete
 
 Result: v0.1.0 Alpha Release                               ✅ Released
@@ -39,25 +39,25 @@ v0.1.0: Foundation Release                                 [██████�
 ├─ Policy Engine (ASK/AUTO/YOLO)                           ✅ Complete
 ├─ Context Management + VRAM Monitoring                    ✅ Complete
 ├─ Session Recording & Compression                         ✅ Complete
-├─ Hook System                                             ✅ Complete
-├─ MCP Integration                                         ✅ Complete
-├─ Model Management                                        ✅ Complete
-└─ Testing Infrastructure                                  ✅ Complete
+├─ Hook System                                             🔄 In Progress
+├─ MCP Integration                                         🔄 In Progress
+├─ Model Management                                        🔄 In Progress
+└─ Testing Infrastructure                                  🔄 In Progress
 
 v0.2.0: File Explorer & Enhanced MCP                       [            ] 0%
 Priority: HIGH
-├─ Tree-based File Browser                                 📋 Planned
-├─ File Operations (open, edit, rename, delete)            📋 Planned
+├─ Tree-based File Browser                                 ✅ Complete
+├─ File Operations (open, edit, rename, delete)            🔄 In Progress
 ├─ Git Status Indicators                                   📋 Planned
 ├─ Quick File Search                                       📋 Planned
-├─ MCP OAuth Authentication                                📋 Planned
-├─ MCP Health Monitoring                                   📋 Planned
-└─ MCP Marketplace Integration                             📋 Planned
+├─ MCP OAuth Authentication                                🔄 In Progress
+├─ MCP Health Monitoring                                   🔄 In Progress
+└─ MCP Marketplace Integration                             🔄 In Progress
 
 v0.3.0: Advanced File Explorer & MCP Polish                [            ] 0%
 Priority: HIGH
 ├─ Multi-file Selection                                    📋 Planned
-├─ File Preview Panel                                      📋 Planned
+├─ File Preview Panel                                      🔄 In Progress
 ├─ Advanced Search & Filtering                             📋 Planned
 ├─ Bookmarks & Favorites                                   📋 Planned
 ├─ MCP Error Handling Improvements                         📋 Planned
@@ -73,16 +73,7 @@ Priority: HIGH
 ├─ Prettier Formatting                                     📋 Planned
 └─ Multiple File Tabs                                      📋 Planned
 
-v0.5.0: RAG Integration                                    [            ] 0%
-Priority: HIGH
-├─ Codebase Indexing with Embeddings                       📋 Planned
-├─ Semantic Code Search                                    📋 Planned
-├─ Context-aware File Discovery                            📋 Planned
-├─ Symbol & Definition Search                              📋 Planned
-├─ Vector Database Integration                             📋 Planned
-└─ Incremental Indexing                                    📋 Planned
-
-v0.6.0: Release Kraken                                     [            ] 0%
+v0.5.0: Release Kraken                                     [            ] 0%
 Priority: HIGH
 ├─ CLI Bridge (Gemini, Claude, Codex)                      📋 Planned
 ├─ API Providers (OpenAI, Anthropic, Google)               📋 Planned
@@ -90,6 +81,15 @@ Priority: HIGH
 ├─ Context Transfer & Session Management                   📋 Planned
 ├─ Cost Tracking & Budget Enforcement                      📋 Planned
 └─ Auto-Escalation on Local Model Failure                  📋 Planned
+
+v0.6.0: RAG Integration                                    [            ] 0%
+Priority: HIGH
+├─ Codebase Indexing with Embeddings                       📋 Planned
+├─ Semantic Code Search                                    📋 Planned
+├─ Context-aware File Discovery                            📋 Planned
+├─ Symbol & Definition Search                              📋 Planned
+├─ Vector Database Integration                             📋 Planned
+└─ Incremental Indexing                                    📋 Planned
 
 v0.7.0: GitHub Integration                                 [            ] 0%
 Priority: MEDIUM
@@ -147,7 +147,7 @@ Priority: CRITICAL
                 │              │              │
                 ▼              ▼              ▼
         ┌───────────┐  ┌───────────┐  ┌───────────┐
-        │  v0.2.0   │  │  v0.4.0   │  │  v0.5.0   │
+        │  v0.2.0   │  │  v0.4.0   │  │  v0.6.0   │
         │  File     │  │  Code     │  │  RAG      │
         │  Explorer │  │  Editor   │  │  Search   │
         └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
@@ -163,7 +163,7 @@ Priority: CRITICAL
                      │              │
                      ▼              ▼
              ┌───────────┐  ┌───────────┐
-             │  v0.6.0   │  │  v0.7.0   │
+             │  v0.5.0   │  │  v0.7.0   │
              │  Kraken   │  │  GitHub   │
              │  (LLMs)   │  │  Integr.  │
              └─────┬─────┘  └─────┬─────┘
@@ -201,11 +201,11 @@ Priority: CRITICAL
 
 High Priority
     │
-    │   v0.2.0            v0.4.0            v0.6.0
+    │   v0.2.0            v0.4.0            v0.5.0
     │   File Explorer     Code Editor       Kraken
     │   [Medium]          [Medium]          [High]
     │
-    │   v0.5.0            v0.7.0
+    │   v0.6.0            v0.7.0
     │   RAG Search        GitHub
     │   [High]            [Medium]
     │
@@ -229,19 +229,19 @@ Low Priority
 
 Q1 2026  │ ████████████ v0.1.0: Foundation (Released)
          │
-Q2 2026  │ ░░░░░░░░░░░░ v0.2.0: File Explorer & MCP (Planned)
+Q2 2026  │ █████████░░░ v0.2.0: File Explorer & MCP (Planned)
          │ ░░░░░░░░░░░░ v0.3.0: Advanced Explorer (Planned)
          │
 Q3 2026  │ ░░░░░░░░░░░░ v0.4.0: Code Editor (Planned)
-         │ ░░░░░░░░░░░░ v0.5.0: RAG Integration (Planned)
+         │ ░░░░░░░░░░░░ v0.5.0: Release Kraken (Planned)
          │
-Q4 2026  │ ░░░░░░░░░░░░ v0.6.0: Release Kraken (Planned)
+Q3 2026  │ ░░░░░░░░░░░░ v0.6.0: RAG Integration (Planned)
          │ ░░░░░░░░░░░░ v0.7.0: GitHub Integration (Planned)
          │
-Q1 2027  │ ░░░░░░░░░░░░ v0.8.0: Cross-Platform (Planned)
+Q4 2026  │ ░░░░░░░░░░░░ v0.8.0: Cross-Platform (Planned)
          │ ░░░░░░░░░░░░ v0.9.0: vLLM Providers (Planned)
          │
-Q2 2027  │ ░░░░░░░░░░░░ v1.0.0: Beta Release (Future)
+Q4 2026  │ ░░░░░░░░░░░░ v1.0.0: Beta Release (Future)
          │
 
 Legend:
@@ -276,15 +276,15 @@ Legend:
 ├─ Context Management                                      ✅ v0.1.0
 ├─ VRAM Monitoring                                         ✅ v0.1.0
 ├─ Session Compression                                     ✅ v0.1.0
-├─ Semantic Search (RAG)                                   📋 v0.5.0
-├─ Codebase Indexing                                       📋 v0.5.0
-└─ Vector Database                                         📋 v0.5.0
+├─ Semantic Search (RAG)                                   📋 v0.6.0
+├─ Codebase Indexing                                       📋 v0.6.0
+└─ Vector Database                                         📋 v0.6.0
 
 🔌 PROVIDERS
 ├─ Ollama (Local)                                          ✅ v0.1.0
-├─ External LLMs (Kraken)                                  📋 v0.6.0
-│  ├─ CLI Bridge (Gemini, Claude, Codex)                   📋 v0.6.0
-│  └─ API Providers (OpenAI, Anthropic, Google)            📋 v0.6.0
+├─ External LLMs (Kraken)                                  📋 v0.5.0
+│  ├─ CLI Bridge (Gemini, Claude, Codex)                   📋 v0.5.0
+│  └─ API Providers (OpenAI, Anthropic, Google)            📋 v0.5.0
 ├─ vLLM                                                    📋 v0.9.0
 ├─ LM Studio                                               📋 v0.9.0
 └─ Text Generation WebUI                                   📋 v0.9.0
@@ -305,14 +305,14 @@ Legend:
 
 💰 COST & TRACKING
 ├─ Basic Token Counting                                    ✅ v0.1.0
-├─ Cost Tracking                                           📋 v0.6.0
-└─ Budget Enforcement                                      📋 v0.6.0
+├─ Cost Tracking                                           📋 v0.5.0
+└─ Budget Enforcement                                      📋 v0.5.0
 
 🔍 SEARCH & DISCOVERY
 ├─ File Search                                             📋 v0.2.0
 ├─ Advanced Filtering                                      📋 v0.3.0
-├─ Semantic Code Search                                    📋 v0.5.0
-└─ Symbol Search                                           📋 v0.5.0
+├─ Semantic Code Search                                    📋 v0.6.0
+└─ Symbol Search                                           📋 v0.6.0
 
 ✏️ EDITING
 ├─ Basic File Operations                                   ✅ v0.1.0
@@ -347,8 +347,8 @@ Alpha Releases
 ├─ v0.2.0: File Explorer & Enhanced MCP                    📋 Planned
 ├─ v0.3.0: Advanced File Explorer & MCP Polish             📋 Planned
 ├─ v0.4.0: Code Editor                                     📋 Planned
-├─ v0.5.0: RAG Integration                                 📋 Planned
-├─ v0.6.0: Release Kraken                                  📋 Planned
+├─ v0.5.0: Release Kraken                                  📋 Planned
+├─ v0.6.0: RAG Integration                                 📋 Planned
 ├─ v0.7.0: GitHub Integration                              📋 Planned
 ├─ v0.8.0: Cross-Platform Support                          📋 Planned
 └─ v0.9.0: vLLM & Open Source Providers                    📋 Planned
@@ -359,24 +359,10 @@ Beta Release
 
 ## Quick Links
 
-- **[Roadmap Overview](roadmap.md)** - Main roadmap document
-- **[Future Development](future-development.md)** - Detailed feature plans
-- **[Future Features](future-features.md)** - Quick reference guide
+- **[Roadmap Overview](Roadmap.md)** - Main roadmap document
+- **[Planned Features](PlanedFeatures.md)** - Detailed feature plans
 - **[Contributing](future-development.md#contributing)** - How to contribute
 - **[Feedback](future-development.md#feedback)** - Share your thoughts
-
-## Specifications
-
-Each version has detailed specifications in `.kiro/specs/`:
-
-- **v0.2.0:** `.kiro/specs/v0.2.0 File Explorer/` & `.kiro/specs/v0.2.0 MCP Integration/`
-- **v0.3.0:** `.kiro/specs/v0.3.0 File Explorer/` & `.kiro/specs/v0.3.0 MCP Integration/`
-- **v0.4.0:** `.kiro/specs/v0.4.0 Code Editor/`
-- **v0.5.0:** `.kiro/specs/v0.5.0 RAG-integration/`
-- **v0.6.0:** `.kiro/specs/v0.6.0 Release Kraken/`
-- **v0.7.0:** `.kiro/specs/v0.7.0 GitHub-integration/`
-- **v0.8.0:** `.kiro/specs/v0.8.0 Cross Platform/`
-- **v0.9.0:** `.kiro/specs/v0.9.0 vLLM-LMS Providers/`
 
 ---
 

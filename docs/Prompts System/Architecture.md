@@ -64,16 +64,16 @@ graph TB
     PR[PromptRegistry]
     SPB[SystemPromptBuilder]
     GM[GoalManager]
-    
+
     CM -->|owns| PO
     PO -->|loads templates| TPS
     PO -->|gets core prompts| PR
     PO -->|builds prompt| SPB
     PO -->|gets active goal| GM
-    
+
     SPB -->|queries| PR
     SPB -->|formats| GM
-    
+
     style CM fill:#e1f5ff
     style PO fill:#fff4e1
     style TPS fill:#f0f0f0
@@ -93,6 +93,7 @@ graph TB
 **Role:** Coordinates prompt loading and system prompt construction
 
 **Responsibilities:**
+
 - Loads tiered prompt templates from filesystem
 - Resolves mode+tier combinations
 - Calculates token budgets per tier
@@ -104,11 +105,11 @@ graph TB
 ```typescript
 class PromptOrchestrator {
   // Get system prompt for mode and tier
-  getSystemPromptForTierAndMode(mode: OperationalMode, tier: ContextTier): string
-  
+  getSystemPromptForTierAndMode(mode: OperationalMode, tier: ContextTier): string;
+
   // Get token budget for tier
-  getSystemPromptTokenBudget(tier: ContextTier): number
-  
+  getSystemPromptTokenBudget(tier: ContextTier): number;
+
   // Update system prompt in context
   updateSystemPrompt(options: {
     mode: OperationalMode;
@@ -117,7 +118,7 @@ class PromptOrchestrator {
     activeGoal: Goal | null;
     currentContext: ConversationContext;
     contextPool: ContextPool;
-  }): void
+  }): void;
 }
 ```
 
@@ -132,14 +133,15 @@ class PromptOrchestrator {
 ```typescript
 class TieredPromptStore {
   // Load all templates from filesystem
-  load(): void
-  
+  load(): void;
+
   // Get template for mode and tier
-  get(mode: OperationalMode, tier: ContextTier): string | undefined
+  get(mode: OperationalMode, tier: ContextTier): string | undefined;
 }
 ```
 
 **Template Loading:**
+
 ```
 1. Scan templates/ directory
 2. Load all mode+tier combinations
@@ -158,19 +160,19 @@ class TieredPromptStore {
 ```typescript
 class PromptRegistry {
   // Register a prompt
-  register(definition: PromptDefinition): void
-  
+  register(definition: PromptDefinition): void;
+
   // Get prompt by ID
-  get(id: string): RegisteredPrompt | undefined
-  
+  get(id: string): RegisteredPrompt | undefined;
+
   // Get prompts by tag
-  getByTag(tag: string): RegisteredPrompt[]
-  
+  getByTag(tag: string): RegisteredPrompt[];
+
   // Get prompts by source
-  getBySource(source: 'static' | 'mcp' | 'config'): RegisteredPrompt[]
-  
+  getBySource(source: 'static' | 'mcp' | 'config'): RegisteredPrompt[];
+
   // Clear MCP prompts when server disconnects
-  clearMcpPrompts(serverName: string): void
+  clearMcpPrompts(serverName: string): void;
 }
 ```
 
@@ -185,7 +187,7 @@ interface RegisteredPrompt {
   requiredTools?: string[];
   tags?: string[];
   source: 'static' | 'mcp' | 'config';
-  serverName?: string;  // If from MCP
+  serverName?: string; // If from MCP
   registeredAt: number;
 }
 ```
@@ -216,7 +218,7 @@ class SystemPromptBuilder {
     goal: Goal | null;
     useSanityChecks: boolean;
     additionalInstructions?: string;
-  }): string
+  }): string;
 }
 ```
 
@@ -231,25 +233,25 @@ class SystemPromptBuilder {
 ```typescript
 class GoalManager {
   // Goal lifecycle
-  createGoal(description: string, priority: 'high' | 'medium' | 'low'): Goal
-  getActiveGoal(): Goal | null
-  pauseGoal(goalId: string): void
-  completeGoal(goalId: string, summary: string): void
-  
+  createGoal(description: string, priority: 'high' | 'medium' | 'low'): Goal;
+  getActiveGoal(): Goal | null;
+  pauseGoal(goalId: string): void;
+  completeGoal(goalId: string, summary: string): void;
+
   // Checkpoints
-  createCheckpoint(goalId: string, description: string): Checkpoint
-  updateCheckpoint(goalId: string, checkpointId: string, status: CheckpointStatus): void
-  
+  createCheckpoint(goalId: string, description: string): Checkpoint;
+  updateCheckpoint(goalId: string, checkpointId: string, status: CheckpointStatus): void;
+
   // Decisions
-  recordDecision(goalId: string, description: string, rationale: string): Decision
-  lockDecision(goalId: string, decisionId: string): void
-  
+  recordDecision(goalId: string, description: string, rationale: string): Decision;
+  lockDecision(goalId: string, decisionId: string): void;
+
   // Artifacts
-  recordArtifact(goalId: string, type: ArtifactType, path: string, action: ArtifactAction): void
-  
+  recordArtifact(goalId: string, type: ArtifactType, path: string, action: ArtifactAction): void;
+
   // Query
-  getGoalProgress(goalId: string): { completed: number; total: number; percentage: number }
-  getGoalHistory(): Goal[]
+  getGoalProgress(goalId: string): { completed: number; total: number; percentage: number };
+  getGoalHistory(): Goal[];
 }
 ```
 
@@ -261,43 +263,48 @@ class GoalManager {
 
 Prompt tiers correspond to context tiers and determine the detail level of system prompts.
 
-| Tier | Context Size | Prompt Budget | % of Context |
-|------|--------------|---------------|--------------|
-| **Tier 1 (Minimal)** | 2K, 4K | 200 tokens | 5-10% |
-| **Tier 2 (Basic)** | 8K | 500 tokens | 6.3% |
-| **Tier 3 (Standard)** | 16K | 1000 tokens | 6.3% |
-| **Tier 4 (Premium)** | 32K | 1500 tokens | 4.7% |
-| **Tier 5 (Ultra)** | 64K, 128K | 1500 tokens | 1.2-2.3% |
+| Tier                  | Context Size | Prompt Budget | % of Context |
+| --------------------- | ------------ | ------------- | ------------ |
+| **Tier 1 (Minimal)**  | 2K, 4K       | 200 tokens    | 5-10%        |
+| **Tier 2 (Basic)**    | 8K           | 500 tokens    | 6.3%         |
+| **Tier 3 (Standard)** | 16K          | 1000 tokens   | 6.3%         |
+| **Tier 4 (Premium)**  | 32K          | 1500 tokens   | 4.7%         |
+| **Tier 5 (Ultra)**    | 64K, 128K    | 1500 tokens   | 1.2-2.3%     |
 
 **Principle:** Larger contexts can afford more detailed prompts without sacrificing user content space.
 
 ### Why Scale Prompts by Tier?
 
 **Tier 1 (2-4K):** Minimal context
+
 - ~200 tokens (5% of 4K)
 - Essential behavior only
 - No verbose instructions
 - Focus on core capabilities
 
 **Tier 2 (8K):** Basic context
+
 - ~500 tokens (6.3% of 8K)
 - Detailed guidance
 - Basic tool instructions
 - Mode-specific behavior
 
 **Tier 3 (16K):** Standard context ⭐
+
 - ~1000 tokens (6.3% of 16K)
 - Comprehensive instructions
 - Full tool documentation
 - Mode-specific strategies
 
 **Tier 4 (32K):** Premium context
+
 - ~1500 tokens (4.7% of 32K)
 - Expert-level guidance
 - Advanced patterns
 - Optimization strategies
 
 **Tier 5 (64-128K):** Ultra context
+
 - ~1500 tokens (1.2% of 131K)
 - Maximum sophistication
 - Complex reasoning patterns
@@ -313,7 +320,7 @@ sequenceDiagram
     participant GM as GoalManager
     participant SPB as SystemPromptBuilder
     participant PR as PromptRegistry
-    
+
     CM->>PO: updateSystemPrompt(mode, tier, skills, goal)
     PO->>TPS: get(mode, tier)
     TPS-->>PO: tierPrompt
@@ -391,11 +398,11 @@ packages/core/src/prompts/templates/
 // TieredPromptStore loads templates at startup
 class TieredPromptStore {
   private templates: Map<string, string> = new Map();
-  
+
   load(): void {
     const modes = ['assistant', 'developer', 'planning', 'debugger', 'user'];
     const tiers = [1, 2, 3, 4, 5];
-    
+
     for (const mode of modes) {
       for (const tier of tiers) {
         const key = `${mode}-tier${tier}`;
@@ -404,7 +411,7 @@ class TieredPromptStore {
       }
     }
   }
-  
+
   get(mode: string, tier: number): string | undefined {
     const key = `${mode}-tier${tier}`;
     return this.templates.get(key);
@@ -442,7 +449,7 @@ interface Decision {
   id: string;
   description: string;
   rationale: string;
-  locked: boolean;  // Locked decisions cannot be changed
+  locked: boolean; // Locked decisions cannot be changed
 }
 
 interface Artifact {
@@ -520,30 +527,35 @@ These markers are parsed and used to update the goal structure automatically.
 ### Mode Profiles
 
 **Assistant Mode** (Default)
+
 - General-purpose conversational AI
 - Balanced between helpfulness and safety
 - Moderate tool usage
 - Template: `templates/assistant/tier{1-5}.txt`
 
 **Developer Mode**
+
 - Code-focused assistance
 - Aggressive tool usage
 - Technical language
 - Template: `templates/developer/tier{1-5}.txt`
 
 **Planning Mode**
+
 - Project planning and architecture
 - Goal-oriented thinking
 - Strategic recommendations
 - Template: `templates/planning/tier{1-5}.txt`
 
 **Debugger Mode**
+
 - Error analysis and troubleshooting
 - Systematic debugging approach
 - Root cause analysis
 - Template: `templates/debugger/tier{1-5}.txt`
 
 **User Mode** (Custom)
+
 - User-defined behavior
 - Customizable prompt templates
 - Same structure as Assistant mode (default copy)
@@ -556,7 +568,7 @@ These markers are parsed and used to update the goal structure automatically.
 class ContextManager {
   setMode(newMode: OperationalMode): void {
     this.currentMode = newMode;
-    
+
     // Update system prompt with new mode
     this.promptOrchestrator.updateSystemPrompt({
       mode: newMode,
@@ -564,9 +576,9 @@ class ContextManager {
       activeSkills: this.activeSkills,
       activeGoal: this.goalManager.getActiveGoal(),
       currentContext: this.currentContext,
-      contextPool: this.contextPool
+      contextPool: this.contextPool,
     });
-    
+
     this.emit('mode-changed', newMode);
   }
 }
@@ -594,7 +606,7 @@ promptRegistry.register({
   content: 'Instructions for GitHub operations...',
   source: 'mcp',
   serverName: 'github-mcp',
-  tags: ['skill', 'github']
+  tags: ['skill', 'github'],
 });
 
 // When server disconnects, clear its prompts
@@ -613,7 +625,7 @@ sequenceDiagram
     participant CM as ContextManager
     participant PO as PromptOrchestrator
     participant TPS as TieredPromptStore
-    
+
     App->>CM: start()
     CM->>CM: detect VRAM
     CM->>CM: determine context tier
@@ -634,7 +646,7 @@ sequenceDiagram
     participant CM as ContextManager
     participant PO as PromptOrchestrator
     participant TPS as TieredPromptStore
-    
+
     User->>CM: /mode developer
     CM->>CM: update currentMode
     CM->>PO: updateSystemPrompt(developer, tier)
@@ -658,8 +670,8 @@ interface SystemPromptConfig {
   useSanityChecks?: boolean;
   agentName?: string;
   additionalInstructions?: string;
-  skills?: string[];  // Skill IDs to include
-  goal?: Goal;        // Active goal to include
+  skills?: string[]; // Skill IDs to include
+  goal?: Goal; // Active goal to include
 }
 ```
 
@@ -671,7 +683,7 @@ const DEFAULT_CONFIG = {
   useSanityChecks: true,
   agentName: 'Assistant',
   additionalInstructions: '',
-  skills: []
+  skills: [],
 };
 ```
 
@@ -732,14 +744,14 @@ const DEFAULT_CONFIG = {
 
 ## File Locations
 
-| File | Purpose |
-|------|---------|
-| `packages/core/src/context/promptOrchestrator.ts` | Coordinator |
-| `packages/core/src/prompts/tieredPromptStore.ts` | Template loader |
-| `packages/core/src/prompts/PromptRegistry.ts` | Core prompt registry |
-| `packages/core/src/context/SystemPromptBuilder.ts` | Prompt assembly |
-| `packages/core/src/context/goalManager.ts` | Goal management |
-| `packages/core/src/prompts/templates/` | All prompt templates |
+| File                                               | Purpose              |
+| -------------------------------------------------- | -------------------- |
+| `packages/core/src/context/promptOrchestrator.ts`  | Coordinator          |
+| `packages/core/src/prompts/tieredPromptStore.ts`   | Template loader      |
+| `packages/core/src/prompts/PromptRegistry.ts`      | Core prompt registry |
+| `packages/core/src/context/SystemPromptBuilder.ts` | Prompt assembly      |
+| `packages/core/src/context/goalManager.ts`         | Goal management      |
+| `packages/core/src/prompts/templates/`             | All prompt templates |
 
 ---
 

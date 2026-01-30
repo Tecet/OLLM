@@ -9,12 +9,14 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ## 📚 Quick Navigation
 
 ### Getting Started
+
 - **[Introduction](Introduction.md)** - What is OLLM CLI and why use it?
 - **[Installation](Installation.md)** - Install OLLM CLI on your computer
 - **[Quick Start](Quickstart.md)** - Get up and running in 5 minutes
 - **[Troubleshooting](Troubleshooting.md)** - Common issues and solutions
 
 ### Core Documentation
+
 - **[User Interface](UI&Settings/README.md)** - Interface, commands, themes, and settings
 - **[Context Management](Context/README.md)** - Context sizing, compression, and VRAM
 - **[Model Management](LLM%20Models/README.md)** - Models, providers, and configuration
@@ -24,6 +26,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - **[Prompts System](Prompts%20System/README.md)** - System prompts and templates
 
 ### Development
+
 - **[Development Roadmap](DevelopmentRoadmap/README.md)** - Future plans and releases
 - **[Complete Index](Index.md)** - All documentation organized by topic
 
@@ -34,29 +37,34 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### I want to...
 
 **Get Started**
+
 1. [Install OLLM CLI](Installation.md)
 2. [Learn the basics](Quickstart.md)
 3. [Understand the interface](UI&Settings/UIGuide.md)
 
 **Use OLLM CLI**
+
 1. [Learn all commands](UI&Settings/Commands.md)
 2. [Master keyboard shortcuts](UI&Settings/Keybinds.md)
 3. [Use tools effectively](Tools/UserGuide.md)
 4. [Customize themes](UI&Settings/Themes.md)
 
 **Configure OLLM CLI**
+
 1. [Configure settings](UI&Settings/Configuration.md)
 2. [Manage models](LLM%20Models/README.md)
 3. [Set up MCP servers](MCP/MCP_GettingStarted.md)
 4. [Create hooks](Hooks/UserGuide.md)
 
 **Understand How It Works**
+
 1. [Context management](Context/ContextManagment.md)
 2. [Tool system architecture](Tools/Architecture.md)
 3. [UI architecture](UI&Settings/Architecture.md)
 4. [Prompts system](Prompts%20System/SystemPrompts.md)
 
 **Troubleshoot Issues**
+
 1. [Common problems](Troubleshooting.md)
 2. [Connection issues](Troubleshooting.md#connection-issues)
 3. [Tool problems](Troubleshooting.md#tool-execution-issues)
@@ -69,24 +77,28 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### Core Guides
 
 **[Introduction](Introduction.md)**
+
 - What is OLLM CLI?
 - Why use it?
 - Key features
 - Who is it for?
 
 **[Installation](Installation.md)**
+
 - Prerequisites
 - Installation steps
 - Platform-specific instructions
 - Verification
 
 **[Quick Start](Quickstart.md)**
+
 - First conversation
 - Using tools
 - Essential shortcuts
 - Common tasks
 
 **[Troubleshooting](Troubleshooting.md)**
+
 - Quick fixes
 - Common issues
 - Debug mode
@@ -97,6 +109,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### System Documentation
 
 **[User Interface & Settings](UI&Settings/README.md)**
+
 - Interface layout and components
 - Slash commands reference
 - Keyboard shortcuts
@@ -105,6 +118,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Configuration options
 
 **[Context Management](Context/README.md)**
+
 - Context sizing and tiers
 - VRAM monitoring
 - Context compression
@@ -112,6 +126,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Memory management
 
 **[Model Management](LLM%20Models/README.md)**
+
 - Model discovery and metadata
 - Provider integration (Ollama)
 - Context window configuration
@@ -120,6 +135,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Memory system
 
 **[Tools System](Tools/README.md)**
+
 - Available tools
 - Tool execution
 - Approval modes
@@ -127,6 +143,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Tool configuration
 
 **[Hooks System](Hooks/README.md)**
+
 - Event-driven automation
 - Hook types and events
 - Trust model
@@ -134,6 +151,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Hook protocol
 
 **[MCP Integration](MCP/README.md)**
+
 - Model Context Protocol
 - MCP servers
 - Tool integration
@@ -141,6 +159,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Server management
 
 **[Prompts System](Prompts%20System/README.md)**
+
 - System prompt construction
 - Prompt templates
 - Prompt routing
@@ -152,6 +171,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### Development Documentation
 
 **[Development Roadmap](DevelopmentRoadmap/README.md)**
+
 - Current version (v0.1.0)
 - Planned features
 - Release schedule
@@ -164,22 +184,26 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### For New Users
 
 **Day 1: Get Started**
+
 1. Read [Introduction](Introduction.md) (10 min)
 2. Follow [Installation](Installation.md) (10 min)
 3. Complete [Quick Start](Quickstart.md) (15 min)
 4. Explore [UI Guide](UI&Settings/UIGuide.md) (20 min)
 
 **Day 2: Learn Commands**
+
 1. Study [Commands Reference](UI&Settings/Commands.md) (30 min)
 2. Practice [Keyboard Shortcuts](UI&Settings/Keybinds.md) (15 min)
 3. Try different [Themes](UI&Settings/Themes.md) (10 min)
 
 **Day 3: Master Tools**
+
 1. Read [Tools User Guide](Tools/UserGuide.md) (30 min)
 2. Experiment with different tools (30 min)
 3. Configure [Approval Modes](Tools/UserGuide.md#approval-modes) (10 min)
 
 **Week 2: Advanced Features**
+
 1. Learn [Context Management](Context/ContextManagment.md)
 2. Explore [Model Management](LLM%20Models/README.md)
 3. Try [MCP Integration](MCP/MCP_GettingStarted.md)
@@ -188,6 +212,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### For Developers
 
 **Understanding Architecture**
+
 1. [UI Architecture](UI&Settings/Architecture.md)
 2. [Context Architecture](Context/ContextArchitecture.md)
 3. [Tools Architecture](Tools/Architecture.md)
@@ -195,6 +220,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 5. [Hooks Architecture](Hooks/Architecture.md)
 
 **Extending OLLM CLI**
+
 1. [Creating Hooks](Hooks/UserGuide.md)
 2. [MCP Server Development](MCP/MCP_Architecture.md)
 3. [Custom Tools](Tools/GettingStarted.md)
@@ -205,16 +231,16 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 
 ### Completed ✅
 
-| Section | Files | Status |
-|---------|-------|--------|
-| **Getting Started** | 4 files | ✅ Complete |
-| **UI & Settings** | 9 files | ✅ Complete |
-| **Context Management** | 6 files | ✅ Complete |
-| **Model Management** | 6 files | ✅ Complete |
-| **Tools System** | 6 files | ✅ Complete |
-| **Hooks System** | 7 files | ✅ Complete |
-| **MCP Integration** | 6 files | ✅ Complete |
-| **Prompts System** | 6 files | ✅ Complete |
+| Section                 | Files   | Status      |
+| ----------------------- | ------- | ----------- |
+| **Getting Started**     | 4 files | ✅ Complete |
+| **UI & Settings**       | 9 files | ✅ Complete |
+| **Context Management**  | 6 files | ✅ Complete |
+| **Model Management**    | 6 files | ✅ Complete |
+| **Tools System**        | 6 files | ✅ Complete |
+| **Hooks System**        | 7 files | ✅ Complete |
+| **MCP Integration**     | 6 files | ✅ Complete |
+| **Prompts System**      | 6 files | ✅ Complete |
 | **Development Roadmap** | 6 files | ✅ Complete |
 
 **Total:** 56 documentation files
@@ -226,6 +252,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 ### Finding Information
 
 **By Feature:**
+
 - Tools → [Tools System](Tools/README.md)
 - Hooks → [Hooks System](Hooks/README.md)
 - MCP → [MCP Integration](MCP/README.md)
@@ -233,12 +260,14 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 - Commands → [Commands Reference](UI&Settings/Commands.md)
 
 **By Task:**
+
 - Installation → [Installation Guide](Installation.md)
 - Configuration → [Configuration Guide](UI&Settings/Configuration.md)
 - Troubleshooting → [Troubleshooting Guide](Troubleshooting.md)
 - Customization → [UI & Settings](UI&Settings/README.md)
 
 **By Topic:**
+
 - Context → [Context Management](Context/README.md)
 - Models → [Model Management](LLM%20Models/README.md)
 - Prompts → [Prompts System](Prompts%20System/README.md)
@@ -268,6 +297,7 @@ Want to improve the documentation?
 ## 📱 Quick Reference
 
 ### Essential Commands
+
 ```bash
 /help              # Show all commands
 /model list        # List models
@@ -278,6 +308,7 @@ Want to improve the documentation?
 ```
 
 ### Essential Shortcuts
+
 ```
 Ctrl+K             # Command palette
 Ctrl+P             # Toggle side panel
@@ -288,6 +319,7 @@ Shift+Return       # New line
 ```
 
 ### Essential Files
+
 ```
 ~/.ollm/settings.json          # User settings
 .ollm/settings.json            # Workspace settings
@@ -299,11 +331,13 @@ Shift+Return       # New line
 ## 🌐 External Resources
 
 ### Official Resources
+
 - **GitHub:** [github.com/tecet/ollm](https://github.com/tecet/ollm)
 - **Issues:** [github.com/tecet/ollm/issues](https://github.com/tecet/ollm/issues)
 - **Discussions:** [github.com/tecet/ollm/discussions](https://github.com/tecet/ollm/discussions)
 
 ### Related Projects
+
 - **Ollama:** [ollama.ai](https://ollama.ai)
 - **Model Context Protocol:** [modelcontextprotocol.io](https://modelcontextprotocol.io)
 - **Ink (Terminal UI):** [github.com/vadimdemedes/ink](https://github.com/vadimdemedes/ink)

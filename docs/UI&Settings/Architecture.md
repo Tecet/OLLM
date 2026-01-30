@@ -40,17 +40,20 @@ The OLLM CLI UI is a terminal-based interface built with React + Ink. The layout
 ### Core Technologies
 
 **React + Ink:**
+
 - React 19.2.3 for component model
 - Ink 6.6.0 for terminal rendering
 - Functional components with hooks
 - Context API for state management
 
 **Terminal Rendering:**
+
 - ANSI escape codes for formatting
 - Flexbox-like layout system
 - Component-based architecture
 
 **State Management:**
+
 - React Context for global state
 - Local state with useState/useReducer
 - Event-driven updates
@@ -93,14 +96,14 @@ The OLLM CLI UI is a terminal-based interface built with React + Ink. The layout
   <Box flexShrink={0} height={1} borderStyle="single" borderBottom>
     <SystemBar />
   </Box>
-  
+
   {/* Main Content - Flexible */}
   <Box flexGrow={1} flexDirection="row">
     {/* Left Column - Chat */}
     <Box flexGrow={1} flexDirection="column" minWidth="60%">
       <ChatTab />
     </Box>
-    
+
     {/* Right Column - Side Panel (toggleable) */}
     {sidePanelVisible && (
       <Box flexShrink={0} width="40%" borderLeft>
@@ -108,7 +111,7 @@ The OLLM CLI UI is a terminal-based interface built with React + Ink. The layout
       </Box>
     )}
   </Box>
-  
+
   {/* Status Bar - Fixed height */}
   <Box flexShrink={0} height={1} borderStyle="single" borderTop>
     <StatusBar />
@@ -128,31 +131,31 @@ graph TB
     App --> SystemBar[SystemBar]
     App --> MainContent[Main Content]
     App --> StatusBar[StatusBar]
-    
+
     SystemBar --> ModelDisplay[Model Display]
     SystemBar --> ContextSection[Context Section]
     SystemBar --> ModeDisplay[Mode Display]
     SystemBar --> Clock[Clock]
-    
+
     MainContent --> ChatTab[Chat Tab]
     MainContent --> SidePanel[Side Panel]
-    
+
     ChatTab --> ChatHistory[Chat History]
     ChatTab --> ChatInput[Chat Input]
-    
+
     ChatHistory --> Message[Message]
     Message --> ReasoningBox[Reasoning Box]
     Message --> ToolCall[Tool Call]
-    
+
     SidePanel --> TabBar[Tab Bar]
     SidePanel --> TabContent[Tab Content]
-    
+
     TabContent --> ToolsTab[Tools Tab]
     TabContent --> HooksTab[Hooks Tab]
     TabContent --> FilesTab[Files Tab]
     TabContent --> MCPTab[MCP Tab]
     TabContent --> SettingsTab[Settings Tab]
-    
+
     style App fill:#e1f5ff
     style SystemBar fill:#fff4e1
     style MainContent fill:#f0f0f0
@@ -161,22 +164,22 @@ graph TB
 
 ### Component Locations
 
-| Component | File Path |
-|-----------|-----------|
-| App (Root) | `packages/cli/src/ui/App.tsx` |
-| SystemBar | `packages/cli/src/ui/components/layout/SystemBar.tsx` |
-| StatusBar | `packages/cli/src/ui/components/layout/StatusBar.tsx` |
-| SidePanel | `packages/cli/src/ui/components/layout/SidePanel.tsx` |
-| TabBar | `packages/cli/src/ui/components/layout/TabBar.tsx` |
-| ChatTab | `packages/cli/src/ui/components/tabs/ChatTab.tsx` |
-| ChatHistory | `packages/cli/src/ui/components/chat/ChatHistory.tsx` |
-| Message | `packages/cli/src/ui/components/chat/Message.tsx` |
+| Component     | File Path                                                 |
+| ------------- | --------------------------------------------------------- |
+| App (Root)    | `packages/cli/src/ui/App.tsx`                             |
+| SystemBar     | `packages/cli/src/ui/components/layout/SystemBar.tsx`     |
+| StatusBar     | `packages/cli/src/ui/components/layout/StatusBar.tsx`     |
+| SidePanel     | `packages/cli/src/ui/components/layout/SidePanel.tsx`     |
+| TabBar        | `packages/cli/src/ui/components/layout/TabBar.tsx`        |
+| ChatTab       | `packages/cli/src/ui/components/tabs/ChatTab.tsx`         |
+| ChatHistory   | `packages/cli/src/ui/components/chat/ChatHistory.tsx`     |
+| Message       | `packages/cli/src/ui/components/chat/Message.tsx`         |
 | ChatInputArea | `packages/cli/src/ui/components/layout/ChatInputArea.tsx` |
-| ToolsTab | `packages/cli/src/ui/components/tabs/ToolsTab.tsx` |
-| HooksTab | `packages/cli/src/ui/components/tabs/HooksTab.tsx` |
-| FilesTab | `packages/cli/src/ui/components/tabs/FilesTab.tsx` |
-| MCPTab | `packages/cli/src/ui/components/tabs/MCPTab.tsx` |
-| SettingsTab | `packages/cli/src/ui/components/tabs/SettingsTab.tsx` |
+| ToolsTab      | `packages/cli/src/ui/components/tabs/ToolsTab.tsx`        |
+| HooksTab      | `packages/cli/src/ui/components/tabs/HooksTab.tsx`        |
+| FilesTab      | `packages/cli/src/ui/components/tabs/FilesTab.tsx`        |
+| MCPTab        | `packages/cli/src/ui/components/tabs/MCPTab.tsx`          |
+| SettingsTab   | `packages/cli/src/ui/components/tabs/SettingsTab.tsx`     |
 
 ---
 
@@ -187,25 +190,25 @@ graph TB
 ```mermaid
 graph TB
     App[App Component]
-    
+
     App --> UIContext[UIContext]
     App --> ChatContext[ChatContext]
     App --> FocusContext[FocusContext]
     App --> InputRouting[InputRoutingContext]
     App --> Terminal1[TerminalContext]
     App --> Terminal2[Terminal2Context]
-    
+
     UIContext --> Theme[Theme State]
     UIContext --> SidePanel[Side Panel State]
     UIContext --> ActiveTab[Active Tab State]
-    
+
     ChatContext --> Messages[Messages State]
     ChatContext --> Input[Input State]
     ChatContext --> Streaming[Streaming State]
-    
+
     FocusContext --> FocusManager[Focus Manager]
     FocusContext --> ActiveElement[Active Element]
-    
+
     style App fill:#e1f5ff
     style UIContext fill:#fff4e1
     style ChatContext fill:#fff4e1
@@ -219,6 +222,7 @@ graph TB
 **Location:** `packages/cli/src/ui/contexts/UIContext.tsx`
 
 **State:**
+
 ```typescript
 interface UIState {
   theme: Theme;
@@ -229,6 +233,7 @@ interface UIState {
 ```
 
 **Actions:**
+
 ```typescript
 interface UIActions {
   setTheme: (theme: Theme) => void;
@@ -243,6 +248,7 @@ interface UIActions {
 **Location:** `packages/cli/src/features/context/ChatContext.tsx`
 
 **State:**
+
 ```typescript
 interface ChatState {
   messages: Message[];
@@ -254,6 +260,7 @@ interface ChatState {
 ```
 
 **Actions:**
+
 ```typescript
 interface ChatActions {
   addMessage: (message: Message) => void;
@@ -269,20 +276,18 @@ interface ChatActions {
 **Location:** `packages/cli/src/ui/contexts/FocusContext.tsx`
 
 **State:**
+
 ```typescript
 interface FocusState {
   activeElement: FocusableElement;
   focusHistory: FocusableElement[];
 }
 
-type FocusableElement = 
-  | 'chat-input'
-  | 'side-panel'
-  | 'file-explorer'
-  | 'dialog';
+type FocusableElement = 'chat-input' | 'side-panel' | 'file-explorer' | 'dialog';
 ```
 
 **Actions:**
+
 ```typescript
 interface FocusActions {
   setFocus: (element: FocusableElement) => void;
@@ -300,13 +305,14 @@ interface FocusActions {
 **IMPORTANT:** OLLM CLI uses a **line-based rendering system** for chat history, not React component trees.
 
 **Rendering Flow:**
+
 ```mermaid
 sequenceDiagram
     participant CM as ChatContext
     participant CH as ChatHistory
     participant BL as buildChatLines()
     participant Render as Ink Render
-    
+
     CM->>CM: Update message state
     CM->>CH: messages prop updated
     CH->>BL: buildChatLines(messages)
@@ -323,12 +329,14 @@ sequenceDiagram
 **State Control:** `message.expanded` field (boolean)
 
 **Collapsible Elements:**
+
 - Reasoning blocks (thinking process)
 - Tool calls with large arguments
 - Diffs with many lines
 - Long outputs
 
 **Behavior:**
+
 ```typescript
 // ChatHistory.tsx
 const isExpanded = message.expanded === true;
@@ -362,12 +370,13 @@ if (showReasoning && message.reasoning) {
    - Shows summary line only
 
 **Implementation:**
+
 ```typescript
 // ChatContext.tsx - Message Creation
 const assistantMsg = addMessage({
   role: 'assistant',
   content: '',
-  expanded: true,  // Start expanded to show reasoning
+  expanded: true, // Start expanded to show reasoning
 });
 
 // ChatContext.tsx - On Completion
@@ -376,7 +385,7 @@ if (msg.reasoning) {
     ...msg.reasoning,
     complete: true,
   };
-  updates.expanded = false;  // Auto-collapse when complete
+  updates.expanded = false; // Auto-collapse when complete
 }
 ```
 
@@ -392,12 +401,12 @@ graph LR
     SS[SettingsService]
     UC[UIContext]
     Comp[Components]
-    
+
     TM -->|load theme| UC
     SS -->|get/set theme| TM
     UC -->|provide theme| Comp
     Comp -->|use theme colors| Render[Rendered UI]
-    
+
     style TM fill:#fff4e1
     style SS fill:#f0f0f0
     style UC fill:#e1f5ff
@@ -409,36 +418,36 @@ graph LR
 interface Theme {
   name: string;
   bg: {
-    primary: string;    // Main background
-    secondary: string;  // Secondary background
-    tertiary: string;   // Tertiary background
+    primary: string; // Main background
+    secondary: string; // Secondary background
+    tertiary: string; // Tertiary background
   };
   text: {
-    primary: string;    // Main text color
-    secondary: string;  // Secondary text color
-    accent: string;     // Accent/highlight color
+    primary: string; // Main text color
+    secondary: string; // Secondary text color
+    accent: string; // Accent/highlight color
   };
   role: {
-    user: string;       // User message color
-    assistant: string;  // Assistant message color
-    system: string;     // System message color
-    tool: string;       // Tool call color
+    user: string; // User message color
+    assistant: string; // Assistant message color
+    system: string; // System message color
+    tool: string; // Tool call color
   };
   status: {
-    success: string;    // Success state color
-    warning: string;    // Warning state color
-    error: string;      // Error state color
-    info: string;       // Info state color
+    success: string; // Success state color
+    warning: string; // Warning state color
+    error: string; // Error state color
+    info: string; // Info state color
   };
   border: {
-    primary: string;    // Primary border color
-    secondary: string;  // Secondary border color
-    active: string;     // Active border color
-    style: string;      // Border style (round, single, double)
+    primary: string; // Primary border color
+    secondary: string; // Secondary border color
+    active: string; // Active border color
+    style: string; // Border style (round, single, double)
   };
   diff: {
-    added: string;      // Added lines in diff
-    removed: string;    // Removed lines in diff
+    added: string; // Added lines in diff
+    removed: string; // Removed lines in diff
   };
 }
 ```
@@ -477,7 +486,7 @@ graph TB
     Xterm[xterm.js Headless]
     Ser[terminalSerializer]
     Comp[Terminal2 Component]
-    
+
     TC -->|spawn| PTY
     TC -->|create| Xterm
     PTY -->|data| Xterm
@@ -485,7 +494,7 @@ graph TB
     Ser -->|AnsiLine[]| TC
     TC -->|output| Comp
     Comp -->|render| UI[Terminal UI]
-    
+
     style TC fill:#fff4e1
     style PTY fill:#f0f0f0
     style Xterm fill:#f0f0f0
@@ -494,6 +503,7 @@ graph TB
 ### PTY Integration
 
 **Process Spawning:**
+
 ```typescript
 const isWindows = os.platform() === 'win32';
 const shell = isWindows ? 'powershell.exe' : 'bash';
@@ -510,6 +520,7 @@ pty.spawn(shell, shellArgs, {
 ### ANSI Rendering
 
 **Token Structure:**
+
 ```typescript
 interface AnsiToken {
   text: string;
@@ -518,14 +529,15 @@ interface AnsiToken {
   underline: boolean;
   dim: boolean;
   inverse: boolean;
-  fg: string;  // Hex color
-  bg: string;  // Hex color
+  fg: string; // Hex color
+  bg: string; // Hex color
 }
 
 type AnsiLine = AnsiToken[];
 ```
 
 **Serialization Process:**
+
 1. Read xterm.js buffer cells
 2. Extract cell attributes (bold, italic, colors)
 3. Group consecutive cells with same attributes
@@ -580,21 +592,25 @@ interface FocusManager {
 ### Performance Strategies
 
 **1. Virtual Scrolling**
+
 - Only render visible messages
 - Lazy load older messages
 - Pagination for long conversations
 
 **2. Message Pagination**
+
 - Keep last 100 messages in memory
 - Older messages in session storage
 - Load on demand when scrolling
 
 **3. Efficient Updates**
+
 - React reconciliation for minimal updates
 - Memoization for expensive computations
 - Debounced state updates
 
 **4. Layout Optimization**
+
 - Fixed-size components where possible
 - Avoid unnecessary re-renders
 - Use React.memo for pure components
@@ -602,6 +618,7 @@ interface FocusManager {
 ### Memory Management
 
 **Chat History:**
+
 ```typescript
 // Keep recent messages in memory
 const recentMessages = messages.slice(-100);
@@ -612,12 +629,13 @@ sessionStorage.setItem('older-messages', JSON.stringify(olderMessages));
 ```
 
 **File Explorer:**
+
 ```typescript
 // Lazy load directory contents
 const loadDirectory = async (path: string) => {
   if (expandedDirs.has(path)) return;
   const contents = await fs.readdir(path);
-  setExpandedDirs(prev => new Set([...prev, path]));
+  setExpandedDirs((prev) => new Set([...prev, path]));
 };
 ```
 
@@ -631,6 +649,7 @@ const loadDirectory = async (path: string) => {
 **Recommended:** 120x40
 
 **Behavior:**
+
 - Side panel auto-hides on narrow terminals (< 100 columns)
 - Chat history scrolls on short terminals (< 30 rows)
 - Input area shrinks on very short terminals
@@ -691,16 +710,16 @@ const loadDirectory = async (path: string) => {
 
 ## File Locations
 
-| Category | Files |
-|----------|-------|
-| **Root** | `packages/cli/src/ui/App.tsx` |
-| **Layout** | `packages/cli/src/ui/components/layout/` |
-| **Chat** | `packages/cli/src/ui/components/chat/` |
-| **Tabs** | `packages/cli/src/ui/components/tabs/` |
-| **Contexts** | `packages/cli/src/ui/contexts/` |
-| **Hooks** | `packages/cli/src/ui/hooks/` |
-| **Utils** | `packages/cli/src/ui/utils/` |
-| **Themes** | `packages/cli/src/config/themes.ts` |
+| Category     | Files                                               |
+| ------------ | --------------------------------------------------- |
+| **Root**     | `packages/cli/src/ui/App.tsx`                       |
+| **Layout**   | `packages/cli/src/ui/components/layout/`            |
+| **Chat**     | `packages/cli/src/ui/components/chat/`              |
+| **Tabs**     | `packages/cli/src/ui/components/tabs/`              |
+| **Contexts** | `packages/cli/src/ui/contexts/`                     |
+| **Hooks**    | `packages/cli/src/ui/hooks/`                        |
+| **Utils**    | `packages/cli/src/ui/utils/`                        |
+| **Themes**   | `packages/cli/src/config/themes.ts`                 |
 | **Terminal** | `packages/cli/src/ui/contexts/Terminal*Context.tsx` |
 
 ---

@@ -17,6 +17,7 @@ This document defines the complete protocol for hook communication in OLLM CLI.
 7. [Security Considerations](#security-considerations)
 
 **See Also:**
+
 - [Hook System Overview](3%20projects/OLLM%20CLI/Hooks/README.md) - Hook system introduction
 - [Hook User Guide](3%20projects/OLLM%20CLI/Hooks/user-guide.md) - Using hooks
 - [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md) - Creating hooks
@@ -106,18 +107,21 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Field Definitions
 
 #### event (required)
+
 - **Type:** string
 - **Description:** Event type identifier
 - **Values:** See [Event Types](#event-types)
 - **Example:** `"pre-tool-call"`
 
 #### context (required)
+
 - **Type:** object
 - **Description:** Event-specific context data
 - **Contents:** Varies by event type
 - **Example:** `{"tool": "read-file", "args": {...}}`
 
 #### metadata (optional)
+
 - **Type:** object
 - **Description:** Additional metadata
 - **Fields:**
@@ -170,6 +174,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Field Definitions
 
 #### allow (required)
+
 - **Type:** boolean
 - **Description:** Whether to allow the operation
 - **Values:**
@@ -178,6 +183,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 - **Example:** `true`
 
 #### message (optional)
+
 - **Type:** string
 - **Description:** Human-readable message
 - **Use Cases:**
@@ -187,6 +193,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 - **Example:** `"Operation approved"`
 
 #### metadata (optional)
+
 - **Type:** object
 - **Description:** Additional data to return
 - **Contents:** Any JSON-serializable data
@@ -199,6 +206,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Example Output
 
 **Success:**
+
 ```json
 {
   "allow": true,
@@ -212,6 +220,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ```
 
 **Blocked:**
+
 ```json
 {
   "allow": false,
@@ -224,6 +233,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ```
 
 **Error:**
+
 ```json
 {
   "allow": false,
@@ -244,6 +254,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** Before LLM execution starts
 
 **Context:**
+
 ```json
 {
   "prompt": "string",
@@ -264,6 +275,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** After LLM execution completes
 
 **Context:**
+
 ```json
 {
   "prompt": "string",
@@ -284,6 +296,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** Before a tool is executed
 
 **Context:**
+
 ```json
 {
   "tool": "string",
@@ -300,6 +313,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** After a tool is executed
 
 **Context:**
+
 ```json
 {
   "tool": "string",
@@ -320,6 +334,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When an error occurs
 
 **Context:**
+
 ```json
 {
   "error": {
@@ -339,6 +354,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When a file is modified
 
 **Context:**
+
 ```json
 {
   "file": "string (path)",
@@ -358,6 +374,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** Before a git commit
 
 **Context:**
+
 ```json
 {
   "files": ["string (paths)"],
@@ -374,6 +391,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When a session starts
 
 **Context:**
+
 ```json
 {
   "session": {
@@ -390,6 +408,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When a session ends
 
 **Context:**
+
 ```json
 {
   "session": {
@@ -408,6 +427,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When context is full
 
 **Context:**
+
 ```json
 {
   "session": {
@@ -426,6 +446,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** When approval is needed
 
 **Context:**
+
 ```json
 {
   "operation": "string",
@@ -442,6 +463,7 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 **When:** Custom events triggered by extensions
 
 **Context:**
+
 ```json
 {
   "eventName": "string",
@@ -460,12 +482,14 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Hook Errors
 
 **Hook execution fails:**
+
 - Hook returns non-zero exit code
 - Hook times out
 - Hook produces invalid JSON
 - Hook crashes
 
 **Behavior:**
+
 - Operation is blocked (`allow: false`)
 - Error message is logged
 - User is notified
@@ -474,16 +498,19 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Invalid Input
 
 **Hook receives invalid input:**
+
 - Missing required fields
 - Invalid JSON
 - Unexpected event type
 
 **Recommended behavior:**
+
 - Return `allow: false`
 - Include error message
 - Log error details
 
 **Example:**
+
 ```json
 {
   "allow": false,
@@ -498,11 +525,13 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Invalid Output
 
 **Hook produces invalid output:**
+
 - Invalid JSON
 - Missing required fields
 - Wrong data types
 
 **Behavior:**
+
 - Operation is blocked
 - Error is logged
 - User is notified
@@ -510,18 +539,22 @@ The hook protocol defines how OLLM CLI communicates with hooks:
 ### Timeout Handling
 
 **Hook exceeds timeout:**
+
 - Hook process is terminated
 - Operation is blocked
 - Timeout error is logged
 
 **Recommended timeout handling in hooks:**
+
 ```javascript
 // Set internal timeout
 const timeout = setTimeout(() => {
-  console.log(JSON.stringify({
-    allow: false,
-    message: 'Hook timed out'
-  }));
+  console.log(
+    JSON.stringify({
+      allow: false,
+      message: 'Hook timed out',
+    })
+  );
   process.exit(1);
 }, 4000); // 4 seconds (before 5 second system timeout)
 
@@ -536,12 +569,14 @@ clearTimeout(timeout);
 ### Input Validation
 
 **Always validate:**
+
 - Event type is expected
 - Required fields are present
 - Data types are correct
 - Values are within expected ranges
 
 **Example:**
+
 ```javascript
 function validateInput(input) {
   if (!input.event) {
@@ -557,6 +592,7 @@ function validateInput(input) {
 ### Output Sanitization
 
 **Always sanitize:**
+
 - Remove sensitive data
 - Escape special characters
 - Limit message length
@@ -565,12 +601,14 @@ function validateInput(input) {
 ### Command Injection
 
 **Prevent command injection:**
+
 - Never use `eval()` or `exec()`
 - Sanitize file paths
 - Validate command arguments
 - Use safe APIs
 
 **Bad:**
+
 ```bash
 # DON'T DO THIS
 file=$(echo "$input" | jq -r '.context.file')
@@ -578,6 +616,7 @@ eval "cat $file"  # DANGEROUS!
 ```
 
 **Good:**
+
 ```bash
 # DO THIS
 file=$(echo "$input" | jq -r '.context.file')
@@ -587,6 +626,7 @@ cat "$file"  # Safe
 ### Resource Limits
 
 **Implement limits:**
+
 - Maximum execution time
 - Maximum memory usage
 - Maximum file size
@@ -595,6 +635,7 @@ cat "$file"  # Safe
 ### Privilege Separation
 
 **Run with minimal privileges:**
+
 - Don't run as root
 - Use dedicated user account
 - Limit file system access
@@ -634,12 +675,14 @@ Future versions may include version field:
 ### Performance
 
 **Do:**
+
 - ✅ Process input efficiently
 - ✅ Return response quickly (< 1 second)
 - ✅ Use streaming for large data
 - ✅ Cache results when appropriate
 
 **Don't:**
+
 - ❌ Make blocking network calls
 - ❌ Process large files synchronously
 - ❌ Perform expensive computations
@@ -648,12 +691,14 @@ Future versions may include version field:
 ### Reliability
 
 **Do:**
+
 - ✅ Handle all error cases
 - ✅ Validate all input
 - ✅ Return valid JSON always
 - ✅ Log errors appropriately
 
 **Don't:**
+
 - ❌ Crash on invalid input
 - ❌ Return empty output
 - ❌ Ignore errors silently
@@ -662,12 +707,14 @@ Future versions may include version field:
 ### Security
 
 **Do:**
+
 - ✅ Validate and sanitize input
 - ✅ Use safe APIs
 - ✅ Limit resource usage
 - ✅ Run with minimal privileges
 
 **Don't:**
+
 - ❌ Execute arbitrary code
 - ❌ Trust user input
 - ❌ Use eval or exec
@@ -694,35 +741,38 @@ const fs = require('fs');
 try {
   // Read and parse input
   const input = JSON.parse(fs.readFileSync(0, 'utf-8'));
-  
+
   // Validate input
   if (!input.event || !input.context) {
     throw new Error('Invalid input');
   }
-  
+
   // Process event
   const result = processEvent(input);
-  
+
   // Return response
-  console.log(JSON.stringify({
-    allow: result.success,
-    message: result.message,
-    metadata: {
-      duration: result.duration,
-      timestamp: new Date().toISOString()
-    }
-  }));
-  
+  console.log(
+    JSON.stringify({
+      allow: result.success,
+      message: result.message,
+      metadata: {
+        duration: result.duration,
+        timestamp: new Date().toISOString(),
+      },
+    })
+  );
 } catch (error) {
   // Return error response
-  console.log(JSON.stringify({
-    allow: false,
-    message: `Error: ${error.message}`,
-    metadata: {
-      error: error.name,
-      stack: error.stack
-    }
-  }));
+  console.log(
+    JSON.stringify({
+      allow: false,
+      message: `Error: ${error.message}`,
+      metadata: {
+        error: error.name,
+        stack: error.stack,
+      },
+    })
+  );
   process.exit(1);
 }
 
@@ -732,7 +782,7 @@ function processEvent(input) {
   return {
     success: true,
     message: 'Success',
-    duration: (Date.now() - start) / 1000
+    duration: (Date.now() - start) / 1000,
   };
 }
 ```
@@ -742,17 +792,20 @@ function processEvent(input) {
 ## Further Reading
 
 ### Documentation
+
 - [Hook System Overview](3%20projects/OLLM%20CLI/Hooks/README.md) - Introduction
 - [Hook User Guide](3%20projects/OLLM%20CLI/Hooks/user-guide.md) - Using hooks
 - [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md) - Creating hooks
 - [MCP Architecture](MCP_architecture.md) - System architecture
 
 ### Standards
+
 - JSON Specification (https://www.json.org/)
 - ISO 8601 (Timestamps) (https://en.wikipedia.org/wiki/ISO_8601)
 - UTF-8 Encoding (https://en.wikipedia.org/wiki/UTF-8)
 
 ### Tools
+
 - jq Manual (https://stedolan.github.io/jq/manual/)
 - JSON Schema (https://json-schema.org/)
 - JSON Validator (https://jsonlint.com/)

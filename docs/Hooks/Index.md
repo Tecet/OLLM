@@ -9,6 +9,7 @@ This index provides quick navigation to all Hook System documentation with brief
 ## 📚 Core Documentation
 
 ### [README.md](README.md)
+
 **Overview and Navigation Guide**
 
 Main entry point for Hook System documentation. Provides overview of event-driven automation, trust model, common use cases, and quick start guide.
@@ -19,6 +20,7 @@ Main entry point for Hook System documentation. Provides overview of event-drive
 ---
 
 ### [Architecture](Architecture.md)
+
 **System Architecture and Design**
 
 Complete technical documentation of the Hook System architecture. Covers hook registry, event system, execution engine, trust model, and all component interactions.
@@ -27,6 +29,7 @@ Complete technical documentation of the Hook System architecture. Covers hook re
 **Audience:** Developers, architects
 
 **Key Sections:**
+
 - System overview and architecture
 - Hook registry and management
 - Event system and dispatching
@@ -38,6 +41,7 @@ Complete technical documentation of the Hook System architecture. Covers hook re
 ---
 
 ### [User Guide](UserGuide.md)
+
 **Using Hooks for Automation**
 
 Comprehensive guide to using hooks in OLLM CLI. Covers listing, enabling, creating, and managing hooks for workflow automation.
@@ -46,6 +50,7 @@ Comprehensive guide to using hooks in OLLM CLI. Covers listing, enabling, creati
 **Audience:** All users
 
 **Key Sections:**
+
 - What are hooks
 - Listing and managing hooks
 - Enabling and disabling hooks
@@ -58,6 +63,7 @@ Comprehensive guide to using hooks in OLLM CLI. Covers listing, enabling, creati
 ---
 
 ### [Protocol](Protocol.md)
+
 **Hook Protocol Specification**
 
 Technical specification for the hook protocol. Defines JSON schema for hook input/output, event types, action types, and communication format.
@@ -66,6 +72,7 @@ Technical specification for the hook protocol. Defines JSON schema for hook inpu
 **Audience:** Developers
 
 **Key Sections:**
+
 - Hook file format (JSON schema)
 - Event types and payloads
 - Action types (askAgent, runCommand)
@@ -77,6 +84,7 @@ Technical specification for the hook protocol. Defines JSON schema for hook inpu
 ---
 
 ### [Visual Guide](VisualGuide.md)
+
 **Visual Diagrams and Examples**
 
 Visual guide with diagrams showing hook workflows, event flows, and execution patterns. Includes mermaid diagrams and ASCII art.
@@ -85,6 +93,7 @@ Visual guide with diagrams showing hook workflows, event flows, and execution pa
 **Audience:** All users
 
 **Key Sections:**
+
 - Hook lifecycle diagram
 - Event flow diagrams
 - Trust model visualization
@@ -95,6 +104,7 @@ Visual guide with diagrams showing hook workflows, event flows, and execution pa
 ---
 
 ### [Keyboard Shortcuts](KeyboardShortcuts.md)
+
 **Hook-Related Keybindings**
 
 Reference for keyboard shortcuts related to hook management and execution.
@@ -103,6 +113,7 @@ Reference for keyboard shortcuts related to hook management and execution.
 **Audience:** All users
 
 **Key Sections:**
+
 - Hook management shortcuts
 - Hook execution shortcuts
 - Hook debugging shortcuts
@@ -113,26 +124,31 @@ Reference for keyboard shortcuts related to hook management and execution.
 ## 📖 Documentation by Topic
 
 ### Hook Events
+
 - [User Guide](UserGuide.md#hook-events) - Event types overview
 - [Protocol](Protocol.md#event-types) - Event specifications
 - [Visual Guide](VisualGuide.md#event-flows) - Event flow diagrams
 
 ### Hook Actions
+
 - [User Guide](UserGuide.md#hook-actions) - Action types overview
 - [Protocol](Protocol.md#action-types) - Action specifications
 - [Architecture](Architecture.md#execution-engine) - Action execution
 
 ### Trust Model
+
 - [README](README.md#trust-model) - Trust overview
 - [Architecture](Architecture.md#trust-model) - Trust implementation
 - [User Guide](UserGuide.md#trust-management) - Managing trust
 
 ### Creating Hooks
+
 - [User Guide](UserGuide.md#creating-hooks) - Hook creation guide
 - [Protocol](Protocol.md#hook-format) - Hook file format
 - [Visual Guide](VisualGuide.md#examples) - Example hooks
 
 ### Configuration
+
 - [README](README.md#configuration) - Configuration overview
 - [User Guide](UserGuide.md#configuration) - Detailed settings
 - [Architecture](Architecture.md#configuration) - Configuration system
@@ -142,16 +158,19 @@ Reference for keyboard shortcuts related to hook management and execution.
 ## 📖 Documentation by Audience
 
 ### For New Users
+
 1. [README](README.md) - Start here
 2. [User Guide](UserGuide.md) - Using hooks
 3. [Visual Guide](VisualGuide.md) - Visual examples
 
 ### For Regular Users
+
 1. [User Guide](UserGuide.md#creating-hooks) - Creating hooks
 2. [Protocol](Protocol.md) - Hook format
 3. [README](README.md#common-use-cases) - Use case examples
 
 ### For Developers
+
 1. [Architecture](Architecture.md) - System design
 2. [Protocol](Protocol.md) - Protocol specification
 3. [User Guide](UserGuide.md#advanced-topics) - Advanced usage
@@ -161,14 +180,17 @@ Reference for keyboard shortcuts related to hook management and execution.
 ## 🔗 Related Documentation
 
 ### Core Systems
+
 - [Tools System](../Tools/README.md) - Tool execution
 - [MCP Integration](../MCP/MCP_Index.md) - MCP servers
 - [User Interface](../UI&Settings/README.md) - UI documentation
 
 ### Commands
+
 - [Hook Commands](../UI&Settings/Commands.md#hook-management) - CLI commands
 
 ### Developer Resources
+
 - Knowledge DB: `dev_HookSystem.md` - Architecture details
 
 ---
@@ -177,14 +199,14 @@ Reference for keyboard shortcuts related to hook management and execution.
 
 ### Completed ✅
 
-| Document | Status |
-|----------|--------|
-| README.md | ✅ Complete |
-| Index.md | ✅ Complete |
-| Architecture.md | ✅ Complete |
-| UserGuide.md | ✅ Complete |
-| Protocol.md | ✅ Complete |
-| VisualGuide.md | ✅ Complete |
+| Document             | Status      |
+| -------------------- | ----------- |
+| README.md            | ✅ Complete |
+| Index.md             | ✅ Complete |
+| Architecture.md      | ✅ Complete |
+| UserGuide.md         | ✅ Complete |
+| Protocol.md          | ✅ Complete |
+| VisualGuide.md       | ✅ Complete |
 | KeyboardShortcuts.md | ✅ Complete |
 
 **Overall Progress:** 100% complete (7/7 files)
@@ -194,6 +216,7 @@ Reference for keyboard shortcuts related to hook management and execution.
 ## 🎯 Quick Links
 
 ### Common Tasks
+
 - List hooks → [User Guide](UserGuide.md#listing-hooks)
 - Enable hook → [User Guide](UserGuide.md#enabling-hooks)
 - Create hook → [User Guide](UserGuide.md#creating-hooks)
@@ -201,6 +224,7 @@ Reference for keyboard shortcuts related to hook management and execution.
 - Debug hook → [User Guide](UserGuide.md#debugging-hooks)
 
 ### Understanding Systems
+
 - How hooks work → [README](README.md)
 - Hook events → [Protocol](Protocol.md#event-types)
 - Hook actions → [Protocol](Protocol.md#action-types)
@@ -208,6 +232,7 @@ Reference for keyboard shortcuts related to hook management and execution.
 - System architecture → [Architecture](Architecture.md)
 
 ### Examples
+
 - Auto-format on save → [README](README.md#auto-format-on-save)
 - Run tests → [README](README.md#run-tests-before-commit)
 - Safety gates → [README](README.md#block-dangerous-commands)

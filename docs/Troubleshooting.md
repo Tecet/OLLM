@@ -22,6 +22,7 @@ Having trouble with OLLM CLI? This guide covers common issues and their solution
 Try these first - they solve most problems:
 
 ### 1. Restart Everything
+
 ```bash
 # Exit OLLM CLI
 Ctrl+C
@@ -34,6 +35,7 @@ ollm
 ```
 
 ### 2. Check Ollama is Running
+
 ```bash
 # Test Ollama connection
 curl http://localhost:11434/api/tags
@@ -42,6 +44,7 @@ curl http://localhost:11434/api/tags
 ```
 
 ### 3. Verify Model is Downloaded
+
 ```bash
 # List models
 ollama list
@@ -51,6 +54,7 @@ ollama pull llama3.2:3b
 ```
 
 ### 4. Clear Cache and Restart
+
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -60,6 +64,7 @@ npm install -g @tecet/ollm
 ```
 
 ### 5. Check Node.js Version
+
 ```bash
 # Must be 20 or higher
 node --version
@@ -78,11 +83,13 @@ nvm use 20
 ### Cannot connect to Ollama
 
 **Symptoms:**
+
 - Error message: `Connection refused` or `ECONNREFUSED`
 - Error message: `Failed to connect to Ollama at http://localhost:11434`
 - Commands hang or timeout when trying to communicate with Ollama
 
 **Causes:**
+
 - Ollama service is not running
 - Ollama is running on a different host or port
 - Firewall blocking the connection
@@ -91,25 +98,28 @@ nvm use 20
 **Solutions:**
 
 1. **Start Ollama service:**
+
    ```bash
    # On macOS/Linux
    ollama serve
-   
+
    # On Windows
    # Ollama typically runs as a service, check if it's running
    ```
 
 2. **Verify Ollama is running:**
+
    ```bash
    # Check if Ollama is responding
    curl http://localhost:11434/api/tags
    ```
 
 3. **Specify custom host:**
+
    ```bash
    # If Ollama is running on a different host/port
    ollm --host http://192.168.1.100:11434
-   
+
    # Or set environment variable
    export OLLAMA_HOST=http://192.168.1.100:11434
    ollm
@@ -122,10 +132,11 @@ nvm use 20
    - On Linux: Check iptables or ufw rules
 
 5. **Verify network connectivity:**
+
    ```bash
    # Test if the host is reachable
    ping localhost
-   
+
    # Test if the port is open
    telnet localhost 11434
    ```
@@ -133,11 +144,13 @@ nvm use 20
 ### Model not found
 
 **Symptoms:**
+
 - Error message: `Model 'model-name' not found`
 - Error message: `404 Not Found` when trying to use a model
 - Model list doesn't show the expected model
 
 **Causes:**
+
 - Model hasn't been downloaded yet
 - Model name is misspelled
 - Model was removed or renamed
@@ -145,6 +158,7 @@ nvm use 20
 **Solutions:**
 
 1. **List available models:**
+
    ```bash
    ollm --list-models
    # Or directly with Ollama
@@ -152,10 +166,11 @@ nvm use 20
    ```
 
 2. **Pull the model:**
+
    ```bash
    # Using OLLM CLI
    ollm --pull llama3.1:8b
-   
+
    # Or directly with Ollama
    ollama pull llama3.1:8b
    ```
@@ -174,11 +189,13 @@ nvm use 20
 ### Network/Firewall Issues
 
 **Symptoms:**
+
 - Intermittent connection failures
 - Slow response times
 - Timeout errors
 
 **Causes:**
+
 - Corporate firewall blocking connections
 - VPN interfering with local connections
 - Proxy configuration issues
@@ -187,6 +204,7 @@ nvm use 20
 **Solutions:**
 
 1. **Check proxy settings:**
+
    ```bash
    # If behind a proxy, configure it
    export HTTP_PROXY=http://proxy.example.com:8080
@@ -215,11 +233,13 @@ nvm use 20
 ### Global install fails
 
 **Symptoms:**
+
 - `npm install -g ollm-cli` fails with errors
 - Permission denied errors during installation
 - Installation completes but `ollm` command not found
 
 **Causes:**
+
 - Insufficient permissions
 - npm global directory not in PATH
 - Corrupted npm cache
@@ -228,48 +248,53 @@ nvm use 20
 **Solutions:**
 
 1. **Use sudo (macOS/Linux):**
+
    ```bash
    sudo npm install -g ollm-cli
    ```
 
 2. **Configure npm to use user directory (recommended):**
+
    ```bash
    # Create a directory for global packages
    mkdir ~/.npm-global
-   
+
    # Configure npm to use it
    npm config set prefix '~/.npm-global'
-   
+
    # Add to PATH (add to ~/.bashrc or ~/.zshrc)
    export PATH=~/.npm-global/bin:$PATH
-   
+
    # Reload shell configuration
    source ~/.bashrc  # or source ~/.zshrc
-   
+
    # Install without sudo
    npm install -g ollm-cli
    ```
 
 3. **Clear npm cache:**
+
    ```bash
    npm cache clean --force
    npm install -g ollm-cli
    ```
 
 4. **Verify installation:**
+
    ```bash
    # Check if ollm is in PATH
    which ollm
-   
+
    # Check version
    ollm --version
    ```
 
 5. **Manual PATH configuration:**
+
    ```bash
    # Find npm global bin directory
    npm bin -g
-   
+
    # Add to PATH if not already there
    export PATH=$(npm bin -g):$PATH
    ```
@@ -277,11 +302,13 @@ nvm use 20
 ### Permission errors
 
 **Symptoms:**
+
 - `EACCES` or `EPERM` errors during installation
 - Cannot write to npm directories
 - Installation fails with permission denied
 
 **Causes:**
+
 - npm global directory owned by root
 - Insufficient file system permissions
 - Protected system directories
@@ -289,26 +316,29 @@ nvm use 20
 **Solutions:**
 
 1. **Fix npm permissions (macOS/Linux):**
+
    ```bash
    # Find npm directory
    npm config get prefix
-   
+
    # Change ownership (replace USERNAME with your username)
    sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
    ```
 
 2. **Use npx instead of global install:**
+
    ```bash
    # Run without installing globally
    npx ollm-cli -p "your prompt"
    ```
 
 3. **Install in user directory (Windows):**
+
    ```cmd
    # npm should install to %APPDATA%\npm by default
    # Verify with:
    npm config get prefix
-   
+
    # If needed, set to user directory:
    npm config set prefix %APPDATA%\npm
    ```
@@ -321,36 +351,41 @@ nvm use 20
 ### Node version incompatibility
 
 **Symptoms:**
+
 - Error message about unsupported Node.js version
 - Syntax errors during installation
 - Module loading errors
 
 **Causes:**
+
 - Node.js version is too old (< 20.0.0)
 - Using incompatible Node.js version
 
 **Solutions:**
 
 1. **Check Node.js version:**
+
    ```bash
    node --version
    ```
 
 2. **Upgrade Node.js:**
+
    ```bash
    # Using nvm (recommended)
    nvm install 20
    nvm use 20
-   
+
    # Or download from nodejs.org
    # https://nodejs.org/
    ```
 
 3. **Install nvm (Node Version Manager):**
+
    ```bash
    # macOS/Linux
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-   
+
    # Windows - use nvm-windows
    # https://github.com/coreybutler/nvm-windows
    ```
@@ -368,12 +403,14 @@ nvm use 20
 ### Tool support errors
 
 **Symptoms:**
+
 - Error message: `unknown field: tools`
 - Error message: `400 Bad Request` when using tools
 - Model returns errors about function calling
 - Tools don't work with certain models
 
 **Causes:**
+
 - Model doesn't support function calling
 - Tool support metadata is incorrect
 - Model was updated and capabilities changed
@@ -382,22 +419,27 @@ nvm use 20
 **Solutions:**
 
 1. **Check model tool support:**
+
    ```bash
    /model info model-name
    ```
+
    Look for "Tool calling" in capabilities.
 
 2. **For unknown models, configure tool support:**
    When switching to an unknown model, you'll be prompted:
+
    ```
    Does this model support function calling (tools)?
      [y] Yes, it supports tools
      [n] No, it doesn't support tools
      [a] Auto-detect (test with a sample request)
    ```
+
    Choose the appropriate option.
 
 3. **Manually update tool support in user_models.json:**
+
    ```json
    {
      "user_models": [
@@ -418,13 +460,16 @@ nvm use 20
 
 5. **Runtime learning:**
    If tool errors occur during usage, you'll be prompted:
+
    ```
    This model appears to not support tools. Update metadata? (y/n)
    ```
+
    Confirm to save the updated metadata.
 
 6. **Check system messages:**
    When switching models, look for:
+
    ```
    Switched to model-name. Tools: Enabled/Disabled
    ```
@@ -435,6 +480,7 @@ nvm use 20
    - System prompt includes note when tools are disabled
 
 **Prevention:**
+
 - Use models from the shipped profiles (LLM_profiles.json)
 - Confirm tool support when adding custom models
 - Keep user_models.json up to date with `/model list`
@@ -442,11 +488,13 @@ nvm use 20
 ### Shell command timeout
 
 **Symptoms:**
+
 - Long-running commands are interrupted
 - Error message: `Command timed out`
 - Commands that should complete are killed prematurely
 
 **Causes:**
+
 - Default timeout is too short for the command
 - Command is actually hanging or stuck
 - System resource constraints
@@ -454,32 +502,36 @@ nvm use 20
 **Solutions:**
 
 1. **Increase timeout in configuration:**
+
    ```yaml
    # ~/.ollm/config.yaml or .ollm/config.yaml
    tools:
      shell:
-       timeout: 60000  # 60 seconds (in milliseconds)
+       timeout: 60000 # 60 seconds (in milliseconds)
    ```
 
 2. **Use command-line flag:**
+
    ```bash
    ollm --tool-timeout 60000
    ```
 
 3. **Set environment variable:**
+
    ```bash
    export OLLM_TOOL_TIMEOUT=60000
    ollm
    ```
 
 4. **For specific long-running commands:**
+
    ```yaml
    # Configure per-tool timeouts
    tools:
      shell:
-       timeout: 120000  # 2 minutes for shell commands
+       timeout: 120000 # 2 minutes for shell commands
      web:
-       timeout: 30000   # 30 seconds for web requests
+       timeout: 30000 # 30 seconds for web requests
    ```
 
 5. **Check if command is actually stuck:**
@@ -491,11 +543,13 @@ nvm use 20
 ### File operation denied
 
 **Symptoms:**
+
 - Error message: `EACCES: permission denied`
 - Cannot read or write files
 - File operations fail silently
 
 **Causes:**
+
 - Insufficient file system permissions
 - File is locked by another process
 - Protected system directories
@@ -504,16 +558,18 @@ nvm use 20
 **Solutions:**
 
 1. **Check file permissions:**
+
    ```bash
    # macOS/Linux
    ls -la /path/to/file
-   
+
    # Fix permissions if needed
    chmod 644 /path/to/file  # For files
    chmod 755 /path/to/dir   # For directories
    ```
 
 2. **Run from correct directory:**
+
    ```bash
    # Ensure you're in a directory you have access to
    cd ~/projects/my-project
@@ -521,6 +577,7 @@ nvm use 20
    ```
 
 3. **Configure allowed paths:**
+
    ```yaml
    # ~/.ollm/config.yaml
    tools:
@@ -532,10 +589,11 @@ nvm use 20
    ```
 
 4. **Check file locks:**
+
    ```bash
    # macOS/Linux - check if file is open
    lsof /path/to/file
-   
+
    # Windows - check file handles
    # Use Process Explorer or Resource Monitor
    ```
@@ -551,12 +609,14 @@ nvm use 20
 ### Tools Panel issues
 
 **Symptoms:**
+
 - Tool settings don't persist across sessions
 - Disabled tools still appear to be called
 - Tools Panel shows incorrect state
 - Cannot toggle tools on/off
 
 **Causes:**
+
 - Settings file is corrupted or has wrong permissions
 - Workspace settings override user settings
 - Model doesn't support tools (all tools disabled)
@@ -565,15 +625,17 @@ nvm use 20
 **Solutions:**
 
 1. **Check settings file location:**
+
    ```bash
    # User settings
    cat ~/.ollm/settings.json
-   
+
    # Workspace settings (overrides user)
    cat .ollm/settings.json
    ```
 
 2. **Verify settings file format:**
+
    ```json
    {
      "tools": {
@@ -585,22 +647,24 @@ nvm use 20
    ```
 
 3. **Fix file permissions:**
+
    ```bash
    # macOS/Linux
    chmod 644 ~/.ollm/settings.json
-   
+
    # Windows
    # Check file properties and ensure you have write access
    ```
 
 4. **Reset to defaults:**
+
    ```bash
    # Backup current settings
    cp ~/.ollm/settings.json ~/.ollm/settings.json.backup
-   
+
    # Remove settings file to reset
    rm ~/.ollm/settings.json
-   
+
    # Restart OLLM CLI - new settings file will be created
    ```
 
@@ -610,10 +674,11 @@ nvm use 20
    - Check system message: "Switched to model. Tools: Enabled/Disabled"
 
 6. **Verify workspace overrides:**
+
    ```bash
    # Check if workspace has tool settings
    cat .ollm/settings.json
-   
+
    # Remove workspace settings to use user settings
    rm .ollm/settings.json
    ```
@@ -624,6 +689,7 @@ nvm use 20
    - Verify two-stage filtering: model capability + user preference
 
 **Prevention:**
+
 - Don't manually edit settings.json (use Tools Panel)
 - Keep backups of working configurations
 - Use version control for workspace settings
@@ -635,12 +701,14 @@ nvm use 20
 ### Out of memory errors
 
 **Symptoms:**
+
 - Error message: `JavaScript heap out of memory`
 - Process crashes during operation
 - System becomes unresponsive
 - Slow performance before crash
 
 **Causes:**
+
 - Context size too large for available memory
 - Too many messages in conversation history
 - Large files loaded into context
@@ -649,6 +717,7 @@ nvm use 20
 **Solutions:**
 
 1. **Increase Node.js memory limit:**
+
    ```bash
    # Set max memory to 4GB
    export NODE_OPTIONS="--max-old-space-size=4096"
@@ -656,39 +725,43 @@ nvm use 20
    ```
 
 2. **Reduce context size:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
-     maxTokens: 4096  # Reduce from default
-     maxMessages: 50  # Limit conversation history
+     maxTokens: 4096 # Reduce from default
+     maxMessages: 50 # Limit conversation history
    ```
 
 3. **Enable automatic context compression:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
      compression:
        enabled: true
-       strategy: "summarize"  # or "truncate"
-       threshold: 0.8  # Compress at 80% capacity
+       strategy: 'summarize' # or "truncate"
+       threshold: 0.8 # Compress at 80% capacity
    ```
 
 4. **Clear conversation history:**
+
    ```bash
    # In interactive mode, use slash command
    /clear
-   
+
    # Or start fresh session
    ollm --new-session
    ```
 
 5. **Use context snapshots:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
      snapshots:
        enabled: true
-       interval: 100  # Save every 100 messages
+       interval: 100 # Save every 100 messages
    ```
 
 6. **Monitor memory usage:**
@@ -700,12 +773,14 @@ nvm use 20
 ### Context overflow
 
 **Symptoms:**
+
 - Error message: `Context length exceeded`
 - Model refuses to process more input
 - Responses become truncated or incomplete
 - Warning about context limit
 
 **Causes:**
+
 - Conversation history too long
 - Large files or documents in context
 - Model's context limit reached
@@ -714,45 +789,50 @@ nvm use 20
 **Solutions:**
 
 1. **Enable automatic context management:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
      management:
        enabled: true
-       strategy: "sliding-window"  # Keep recent messages
+       strategy: 'sliding-window' # Keep recent messages
    ```
 
 2. **Configure context limits:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
-     maxTokens: 8192  # Match model's capacity
-     reserveTokens: 1024  # Reserve for response
+     maxTokens: 8192 # Match model's capacity
+     reserveTokens: 1024 # Reserve for response
    ```
 
 3. **Use context compression:**
+
    ```yaml
    # ~/.ollm/config.yaml
    context:
      compression:
        enabled: true
-       strategy: "summarize"
+       strategy: 'summarize'
        threshold: 0.75
    ```
 
 4. **Manually manage context:**
+
    ```bash
    # Clear old messages
    /clear
-   
+
    # Create snapshot before clearing
    /snapshot save important-context
-   
+
    # Load snapshot later
    /snapshot load important-context
    ```
 
 5. **Use models with larger context:**
+
    ```bash
    # Switch to model with larger context window
    ollm --model llama3.1:70b  # Has larger context capacity
@@ -763,7 +843,7 @@ nvm use 20
    # ~/.ollm/config.yaml
    tools:
      file:
-       maxFileSize: 100000  # Limit file size (bytes)
+       maxFileSize: 100000 # Limit file size (bytes)
        truncateOutput: true
        maxOutputLines: 100
    ```
@@ -775,11 +855,13 @@ nvm use 20
 ### Colors not showing correctly
 
 **Symptoms:**
+
 - Text appears in wrong colors
 - No colors at all (plain text)
 - Garbled characters or boxes
 
 **Causes:**
+
 - Terminal doesn't support 256 colors
 - Terminal color scheme overriding
 - Wrong terminal emulator
@@ -792,12 +874,14 @@ nvm use 20
    - **Linux:** Most modern terminals work
 
 2. **Check color support:**
+
    ```bash
    # Test 256 color support
    curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/ | bash
    ```
 
 3. **Try different theme:**
+
    ```bash
    /theme list
    /theme use neon-dark
@@ -824,11 +908,13 @@ nvm use 20
 ### Interface is cut off or wrapped weird
 
 **Symptoms:**
+
 - Text wraps incorrectly
 - Side panel overlaps chat
 - Status bar missing
 
 **Causes:**
+
 - Terminal window too small
 - Terminal size not detected correctly
 
@@ -839,6 +925,7 @@ nvm use 20
    - Recommended: 120 columns × 40 rows
 
 2. **Check terminal size:**
+
    ```bash
    # Show terminal dimensions
    echo $COLUMNS x $LINES
@@ -856,6 +943,7 @@ nvm use 20
 **Solutions:**
 
 1. **Use keyboard shortcut:**
+
    ```bash
    Ctrl+P  # Toggle side panel
    ```
@@ -872,11 +960,13 @@ nvm use 20
 ### Keyboard shortcuts not working
 
 **Symptoms:**
+
 - Ctrl+K doesn't open commands
 - Ctrl+P doesn't toggle panel
 - Other shortcuts don't respond
 
 **Causes:**
+
 - Terminal intercepting shortcuts
 - Wrong keyboard layout
 - Focus not on OLLM CLI
@@ -905,11 +995,13 @@ Debug mode provides detailed logging to help diagnose issues.
 ### Enable debug mode
 
 **Using command-line flag:**
+
 ```bash
 ollm --debug
 ```
 
 **Using environment variable:**
+
 ```bash
 # Set log level to debug
 export OLLM_LOG_LEVEL=debug
@@ -920,25 +1012,27 @@ OLLM_LOG_LEVEL=debug ollm
 ```
 
 **In configuration file:**
+
 ```yaml
 # ~/.ollm/config.yaml
 logging:
-  level: debug  # Options: error, warn, info, debug
-  file: ~/.ollm/logs/ollm.log  # Optional: log to file
+  level: debug # Options: error, warn, info, debug
+  file: ~/.ollm/logs/ollm.log # Optional: log to file
 ```
 
 ### Log levels
 
-| Level | Description | Use Case |
-|-------|-------------|----------|
-| `error` | Only errors | Production use |
-| `warn` | Errors and warnings | Normal use |
-| `info` | General information | Default |
+| Level   | Description             | Use Case        |
+| ------- | ----------------------- | --------------- |
+| `error` | Only errors             | Production use  |
+| `warn`  | Errors and warnings     | Normal use      |
+| `info`  | General information     | Default         |
 | `debug` | Detailed debugging info | Troubleshooting |
 
 ### Interpreting debug output
 
 **Connection debugging:**
+
 ```
 [DEBUG] Connecting to Ollama at http://localhost:11434
 [DEBUG] Request: POST /api/generate
@@ -946,6 +1040,7 @@ logging:
 ```
 
 **Tool execution debugging:**
+
 ```
 [DEBUG] Executing tool: read-file
 [DEBUG] Tool input: { path: "example.txt" }
@@ -954,6 +1049,7 @@ logging:
 ```
 
 **Context management debugging:**
+
 ```
 [DEBUG] Context usage: 3456/8192 tokens (42%)
 [DEBUG] VRAM usage: 4.2GB/8GB (52%)
@@ -962,6 +1058,7 @@ logging:
 ```
 
 **Model routing debugging:**
+
 ```
 [DEBUG] Model routing: selected llama3.1:8b
 [DEBUG] Routing reason: matches 'general' profile
@@ -982,25 +1079,28 @@ ollm --debug 2> debug.log
 logging:
   level: debug
   file: ~/.ollm/logs/debug.log
-  maxSize: 10485760  # 10MB
-  maxFiles: 5  # Keep 5 rotated logs
+  maxSize: 10485760 # 10MB
+  maxFiles: 5 # Keep 5 rotated logs
 ```
 
 ### Common debug patterns
 
 **Trace a specific request:**
+
 ```bash
 # Enable debug mode and watch for specific patterns
 OLLM_LOG_LEVEL=debug ollm 2>&1 | grep "POST /api"
 ```
 
 **Monitor tool execution:**
+
 ```bash
 # See all tool calls
 OLLM_LOG_LEVEL=debug ollm 2>&1 | grep "Executing tool"
 ```
 
 **Check context usage:**
+
 ```bash
 # Monitor context and memory
 OLLM_LOG_LEVEL=debug ollm 2>&1 | grep -E "(Context|VRAM)"
@@ -1015,11 +1115,13 @@ If you're still experiencing issues after trying the solutions above, here are a
 ### GitHub Issues
 
 Report bugs or request features:
+
 - **Repository:** https://github.com/ollm/ollm-cli
 - **Issues:** https://github.com/ollm/ollm-cli/issues
 - **Discussions:** https://github.com/ollm/ollm-cli/discussions
 
 **Before creating an issue:**
+
 1. Search existing issues to avoid duplicates
 2. Include debug logs (`ollm --debug`)
 3. Provide system information (OS, Node.js version, Ollama version)
@@ -1029,9 +1131,8 @@ Report bugs or request features:
 ### Documentation
 
 - **README:** [Main documentation](3%20projects/OLLM%20CLI/Development-Roadmap/README.md)
-- **Configuration Reference:** [Configuration guide](./configuration.md)
-- **Architecture:** System design (./architecture.md)
-- **Roadmap:** Future features (./ROADMAP.md)
+- **Configuration Reference:** [Configuration guide](./UI&Settings/Configuration.md)
+- **Roadmap:** Future features (./DevelopmentRoadmap/Roadmap.md)
 
 ### Community Resources
 
@@ -1112,11 +1213,11 @@ performance:
   # Reduce memory usage
   context:
     maxTokens: 4096
-  
+
   # Faster model for quick tasks
   routing:
-    defaultProfile: "fast"
-  
+    defaultProfile: 'fast'
+
   # Limit tool output
   tools:
     truncateOutput: true
@@ -1136,11 +1237,11 @@ security:
       deniedPaths:
         - ~/.ssh
         - ~/.aws
-  
+
   # Require confirmation for shell commands
   policy:
-    shell: "ask"
-    file: "auto"
+    shell: 'ask'
+    file: 'auto'
 ```
 
 ### Backup and recovery

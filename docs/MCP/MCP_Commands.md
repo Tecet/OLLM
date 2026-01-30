@@ -37,11 +37,13 @@ OLLM CLI provides comprehensive command-line interface for managing MCP servers,
 List all MCP servers and their status.
 
 **Usage:**
+
 ```bash
 /mcp
 ```
 
 **Output:**
+
 ```
 3 MCP server(s):
 
@@ -55,6 +57,7 @@ List all MCP servers and their status.
 ```
 
 **Status Icons:**
+
 - `✓` - Connected and healthy
 - `✗` - Error or failed
 - `○` - Disconnected or not started
@@ -66,11 +69,13 @@ List all MCP servers and their status.
 List tools available from a specific MCP server.
 
 **Usage:**
+
 ```bash
 /mcp tools github
 ```
 
 **Output:**
+
 ```
 12 tool(s) from 'github':
 
@@ -99,11 +104,13 @@ List tools available from a specific MCP server.
 List resources available from a specific MCP server.
 
 **Usage:**
+
 ```bash
 /mcp resources github
 ```
 
 **Output:**
+
 ```
 5 resource(s) from 'github':
 
@@ -125,11 +132,13 @@ List resources available from a specific MCP server.
 List prompts available from a specific MCP server.
 
 **Usage:**
+
 ```bash
 /mcp prompts github
 ```
 
 **Output:**
+
 ```
 3 prompt(s) from 'github':
 
@@ -155,6 +164,7 @@ List prompts available from a specific MCP server.
 Show detailed status of MCP servers.
 
 **Usage:**
+
 ```bash
 # All servers
 /mcp status
@@ -164,6 +174,7 @@ Show detailed status of MCP servers.
 ```
 
 **Output (all servers):**
+
 ```
 3 MCP server(s):
 
@@ -173,6 +184,7 @@ Show detailed status of MCP servers.
 ```
 
 **Output (specific server):**
+
 ```
 Server: github
 Status: connected
@@ -192,11 +204,13 @@ Last Check: 2 seconds ago
 Check health status of all MCP servers.
 
 **Usage:**
+
 ```bash
 /mcp health
 ```
 
 **Output:**
+
 ```
 **MCP Server Health Status**
 
@@ -217,11 +231,13 @@ Check health status of all MCP servers.
 Check health of a specific MCP server.
 
 **Usage:**
+
 ```bash
 /mcp health check github
 ```
 
 **Output:**
+
 ```
 **github** Health Check
 
@@ -240,17 +256,20 @@ Check health of a specific MCP server.
 Manually restart an MCP server.
 
 **Usage:**
+
 ```bash
 /mcp restart slack
 ```
 
 **Output:**
+
 ```
 🔄 Restarting server "slack"...
 ✅ Successfully restarted server "slack"
 ```
 
 **Notes:**
+
 - Stops the server gracefully
 - Starts a new server process
 - Re-discovers tools
@@ -263,11 +282,13 @@ Manually restart an MCP server.
 Start automatic health monitoring.
 
 **Usage:**
+
 ```bash
 /mcp health start
 ```
 
 **Output:**
+
 ```
 ✅ Health monitoring started
 
@@ -276,6 +297,7 @@ Failed servers will be automatically restarted.
 ```
 
 **Configuration:**
+
 - Check interval: 30 seconds (configurable)
 - Max restart attempts: 3
 - Exponential backoff: 1s, 2s, 4s
@@ -287,11 +309,13 @@ Failed servers will be automatically restarted.
 Stop automatic health monitoring.
 
 **Usage:**
+
 ```bash
 /mcp health stop
 ```
 
 **Output:**
+
 ```
 ⏸️ Health monitoring stopped
 ```
@@ -303,11 +327,13 @@ Stop automatic health monitoring.
 Show health monitoring status.
 
 **Usage:**
+
 ```bash
 /mcp health status
 ```
 
 **Output:**
+
 ```
 **Health Monitoring Status**
 
@@ -328,12 +354,14 @@ Failed servers will be automatically restarted.
 Show help for health monitoring commands.
 
 **Usage:**
+
 ```bash
 /mcp health help
 ```
 
 **Output:**
-```
+
+````
 **MCP Health Monitoring**
 
 Automatically monitors MCP server health and restarts failed servers.
@@ -364,8 +392,9 @@ mcpHealth:
   checkInterval: 30000  # 30 seconds
   maxRestartAttempts: 3
   autoRestart: true
-```
-```
+````
+
+````
 
 ---
 
@@ -378,9 +407,10 @@ Start OAuth authentication flow for an MCP server.
 **Usage:**
 ```bash
 /mcp oauth login github
-```
+````
 
 **Output:**
+
 ```
 🔐 Starting OAuth flow for "github"...
 
@@ -395,6 +425,7 @@ Server "github" is now authenticated.
 ```
 
 **Process:**
+
 1. Opens browser to authorization page
 2. User authorizes the application
 3. Receives authorization code
@@ -408,11 +439,13 @@ Server "github" is now authenticated.
 Check OAuth authentication status for an MCP server.
 
 **Usage:**
+
 ```bash
 /mcp oauth status github
 ```
 
 **Output (authenticated):**
+
 ```
 **OAuth Status: github**
 
@@ -426,6 +459,7 @@ Token will be automatically refreshed before expiration.
 ```
 
 **Output (not authenticated):**
+
 ```
 **OAuth Status: github**
 
@@ -441,11 +475,13 @@ Use `/mcp oauth login github` to authenticate.
 Revoke OAuth token for an MCP server.
 
 **Usage:**
+
 ```bash
 /mcp oauth revoke github
 ```
 
 **Output:**
+
 ```
 🔐 Revoking OAuth token for "github"...
 
@@ -457,6 +493,7 @@ Use `/mcp oauth login github` to re-authenticate.
 ```
 
 **Actions:**
+
 - Revokes token with OAuth provider (if supported)
 - Removes token from local storage
 - Requires re-authentication for future use
@@ -468,11 +505,13 @@ Use `/mcp oauth login github` to re-authenticate.
 List OAuth authentication status for all servers.
 
 **Usage:**
+
 ```bash
 /mcp oauth list
 ```
 
 **Output:**
+
 ```
 **OAuth Authentication Status**
 
@@ -495,11 +534,13 @@ List OAuth authentication status for all servers.
 Show help for OAuth commands.
 
 **Usage:**
+
 ```bash
 /mcp oauth help
 ```
 
 **Output:**
+
 ```
 **MCP OAuth Authentication**
 
@@ -538,11 +579,13 @@ Tokens are stored securely:
 Enable hook debugging mode.
 
 **Usage:**
+
 ```bash
 /hooks debug on
 ```
 
 **Output:**
+
 ```
 ✅ Hook debugging enabled
 
@@ -557,11 +600,13 @@ Use `/hooks debug status` to view traces.
 Disable hook debugging mode.
 
 **Usage:**
+
 ```bash
 /hooks debug off
 ```
 
 **Output:**
+
 ```
 ⏸️ Hook debugging disabled
 ```
@@ -573,11 +618,13 @@ Disable hook debugging mode.
 Show hook debugging status and recent traces.
 
 **Usage:**
+
 ```bash
 /hooks debug status
 ```
 
 **Output:**
+
 ```
 **Hook Debugging Status**
 
@@ -608,11 +655,13 @@ Show hook debugging status and recent traces.
 Clear all hook debug traces.
 
 **Usage:**
+
 ```bash
 /hooks debug clear
 ```
 
 **Output:**
+
 ```
 🗑️ Cleared 15 debug traces
 ```
@@ -624,6 +673,7 @@ Clear all hook debug traces.
 Export hook debug traces.
 
 **Usage:**
+
 ```bash
 # Export as JSON
 /hooks debug export json
@@ -636,6 +686,7 @@ Export hook debug traces.
 ```
 
 **Output:**
+
 ```
 📄 Exported 15 traces to: ~/.ollm/hook-traces-2026-01-16.json
 ```
@@ -647,11 +698,13 @@ Export hook debug traces.
 Show summary statistics of hook execution.
 
 **Usage:**
+
 ```bash
 /hooks debug summary
 ```
 
 **Output:**
+
 ```
 **Hook Execution Summary**
 
@@ -678,11 +731,13 @@ Show summary statistics of hook execution.
 Show only failed hook executions.
 
 **Usage:**
+
 ```bash
 /hooks debug failed
 ```
 
 **Output:**
+
 ```
 **Failed Hook Executions (8)**
 
@@ -708,11 +763,13 @@ Show only failed hook executions.
 List all registered hooks.
 
 **Usage:**
+
 ```bash
 /hooks list
 ```
 
 **Output:**
+
 ```
 **Registered Hooks**
 
@@ -738,11 +795,13 @@ List all registered hooks.
 Search for extensions in the marketplace.
 
 **Usage:**
+
 ```bash
 /extensions search github
 ```
 
 **Output:**
+
 ```
 **Extension Search Results**
 
@@ -770,11 +829,13 @@ Use `/extensions install <name>` to install.
 Install an extension from the marketplace.
 
 **Usage:**
+
 ```bash
 /extensions install github-integration
 ```
 
 **Output:**
+
 ```
 📦 Installing extension "github-integration"...
 
@@ -796,11 +857,13 @@ Use `/extensions enable github-integration` to activate.
 List all installed extensions.
 
 **Usage:**
+
 ```bash
 /extensions list
 ```
 
 **Output:**
+
 ```
 **Installed Extensions**
 
@@ -824,11 +887,13 @@ List all installed extensions.
 Enable an installed extension.
 
 **Usage:**
+
 ```bash
 /extensions enable slack-bot
 ```
 
 **Output:**
+
 ```
 ✅ Enabling extension "slack-bot"...
 
@@ -846,11 +911,13 @@ Extension "slack-bot" is now enabled.
 Disable an enabled extension.
 
 **Usage:**
+
 ```bash
 /extensions disable slack-bot
 ```
 
 **Output:**
+
 ```
 ⏸️ Disabling extension "slack-bot"...
 
@@ -868,11 +935,13 @@ Extension "slack-bot" is now disabled.
 Show detailed information about an extension.
 
 **Usage:**
+
 ```bash
 /extensions info github-integration
 ```
 
 **Output:**
+
 ```
 **Extension: github-integration**
 
@@ -905,11 +974,13 @@ Show detailed information about an extension.
 Reload an extension (hot-reload).
 
 **Usage:**
+
 ```bash
 /extensions reload custom-tools
 ```
 
 **Output:**
+
 ```
 🔄 Reloading extension "custom-tools"...
 
@@ -1016,12 +1087,12 @@ Extension "custom-tools" reloaded successfully.
 
 Many commands have shorter aliases:
 
-| Full Command | Alias |
-|--------------|-------|
-| `/extensions` | `/ext` |
-| `/mcp health check` | `/mcp check` |
-| `/mcp health start` | `/mcp monitor start` |
-| `/mcp health stop` | `/mcp monitor stop` |
+| Full Command         | Alias                 |
+| -------------------- | --------------------- |
+| `/extensions`        | `/ext`                |
+| `/mcp health check`  | `/mcp check`          |
+| `/mcp health start`  | `/mcp monitor start`  |
+| `/mcp health stop`   | `/mcp monitor stop`   |
 | `/mcp health status` | `/mcp monitor status` |
 
 ---

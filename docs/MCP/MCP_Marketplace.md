@@ -9,20 +9,24 @@
 ### Official Extensions
 
 **Development Tools:**
+
 - `ollm-dev-tools` - Code formatting, linting, testing
 - `ollm-git` - Git integration and workflows
 
 **Integrations:**
+
 - `ollm-github` - GitHub API integration
 - `ollm-gitlab` - GitLab API integration
 - `ollm-database` - Database tools (PostgreSQL, MySQL, SQLite)
 
 **Documentation:**
+
 - `ollm-docs` - Documentation templates and generators
 
 ### Community Extensions
 
 Browse community extensions:
+
 - GitHub Topics (https://github.com/topics/ollm-extension)
 - Extension Registry (https://github.com/ollm/extensions)
 
@@ -111,6 +115,7 @@ gh release create v1.0.0 my-extension-1.0.0.tar.gz
 ### Quality Standards
 
 **Required:**
+
 - ✅ Valid manifest.json
 - ✅ README.md with usage instructions
 - ✅ LICENSE file
@@ -118,6 +123,7 @@ gh release create v1.0.0 my-extension-1.0.0.tar.gz
 - ✅ Working examples
 
 **Recommended:**
+
 - ✅ Comprehensive documentation
 - ✅ Test suite
 - ✅ Changelog
@@ -126,12 +132,14 @@ gh release create v1.0.0 my-extension-1.0.0.tar.gz
 ### Security Requirements
 
 **Must:**
+
 - ✅ Request minimal permissions
 - ✅ No malicious code
 - ✅ No data collection without disclosure
 - ✅ Safe dependencies
 
 **Must Not:**
+
 - ❌ Include credentials or secrets
 - ❌ Execute arbitrary code
 - ❌ Access sensitive files

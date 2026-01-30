@@ -15,6 +15,7 @@
 7. [Security Model](#security-model)
 
 **See Also:**
+
 - [Hook User Guide](UserGuide.md) - Using hooks
 - [Hook Protocol](Protocol.md) - Technical protocol specification
 - [MCP Architecture](../MCP/MCP_Architecture.md) - System architecture
@@ -51,7 +52,7 @@ graph TB
         ToolEvent["Tool Events"]
         UserEvent["User Events"]
     end
-    
+
     subgraph HookSystem["Hook System"]
         EventHandler["Hook Event Handler"]
         Registry["Hook Registry"]
@@ -60,12 +61,12 @@ graph TB
         Translator["Hook Translator"]
         TrustModel["Trust Model"]
     end
-    
+
     subgraph Execution["Execution"]
         AskAgent["Ask Agent"]
         RunCommand["Run Command"]
     end
-    
+
     Events --> EventHandler
     EventHandler --> Registry
     Registry --> Planner
@@ -74,7 +75,7 @@ graph TB
     Runner --> Translator
     Translator --> AskAgent
     Translator --> RunCommand
-    
+
     style HookSystem fill:#f9f,stroke:#333,stroke-width:2px
     style Events fill:#bbf,stroke:#333,stroke-width:2px
     style Execution fill:#bfb,stroke:#333,stroke-width:2px
@@ -91,7 +92,7 @@ flowchart LR
     Trust --> Runner[Hook Runner]
     Runner --> Exec[Execute Hook]
     Exec --> Result[Process Result]
-    
+
     style Event fill:#e1f5ff
     style Trust fill:#ffe1e1
     style Exec fill:#e8f5e9
@@ -107,11 +108,13 @@ flowchart LR
 **Location:** `packages/core/src/hooks/hookEventHandler.ts`
 
 **Responsibilities:**
+
 - Emit events when lifecycle points are reached
 - Provide event data to hook system
 - Manage event subscriptions
 
 **Key Methods:**
+
 ```typescript
 interface HookEventHandler {
   emit(eventType: string, eventData: any): Promise<void>;
@@ -121,6 +124,7 @@ interface HookEventHandler {
 ```
 
 **Event Types (12 total):**
+
 1. `session_start` - Session initialization
 2. `session_end` - Session cleanup
 3. `before_agent` - Before agent processes request
@@ -139,12 +143,14 @@ interface HookEventHandler {
 **Location:** `packages/core/src/hooks/hookRegistry.ts`
 
 **Responsibilities:**
+
 - Store and retrieve hook definitions
 - Filter hooks by event type
 - Manage hook lifecycle (register, unregister)
 - Track hook metadata
 
 **Key Methods:**
+
 ```typescript
 interface HookRegistry {
   registerHook(hook: HookDefinition): void;
@@ -156,6 +162,7 @@ interface HookRegistry {
 ```
 
 **Hook Definition:**
+
 ```typescript
 interface HookDefinition {
   id: string;
@@ -178,6 +185,7 @@ interface HookDefinition {
 **Location:** `packages/core/src/hooks/hookPlanner.ts`
 
 **Responsibilities:**
+
 - Determine execution strategy (sequential, parallel, optimized)
 - Check execution conditions
 - Evaluate priorities
@@ -189,23 +197,23 @@ interface HookDefinition {
 graph TD
     Start[Hook List] --> Analyze[Analyze Dependencies]
     Analyze --> HasDeps{Has Dependencies?}
-    
+
     HasDeps -->|Yes| Sequential[Sequential Execution]
     HasDeps -->|No| CheckParallel{Can Parallelize?}
-    
+
     CheckParallel -->|Yes| Parallel[Parallel Execution]
     CheckParallel -->|No| Sequential
-    
+
     Sequential --> Execute1[Execute Hook 1]
     Execute1 --> Execute2[Execute Hook 2]
     Execute2 --> Execute3[Execute Hook 3]
-    
+
     Parallel --> ParallelExec[Execute All Hooks]
     ParallelExec --> Wait[Wait for All]
-    
+
     Execute3 --> Done[Complete]
     Wait --> Done
-    
+
     style Start fill:#e1f5ff
     style Sequential fill:#fff4e1
     style Parallel fill:#e8f5e9
@@ -213,6 +221,7 @@ graph TD
 ```
 
 **Rate Limiting:**
+
 - Per-hook rate limits
 - Global rate limits
 - Cooldown periods
@@ -223,6 +232,7 @@ graph TD
 **Location:** `packages/core/src/hooks/hookRunner.ts`
 
 **Responsibilities:**
+
 - Execute hook processes
 - Manage stdin/stdout communication
 - Handle timeouts
@@ -230,16 +240,9 @@ graph TD
 - Enforce command whitelist
 
 **Command Whitelist (Line 128):**
+
 ```typescript
-const WHITELISTED_COMMANDS = [
-  'node',
-  'python',
-  'python3',
-  'bash',
-  'sh',
-  'npx',
-  'uvx'
-];
+const WHITELISTED_COMMANDS = ['node', 'python', 'python3', 'bash', 'sh', 'npx', 'uvx'];
 ```
 
 **Execution Flow:**
@@ -248,26 +251,26 @@ const WHITELISTED_COMMANDS = [
 flowchart TD
     Start[Start Execution] --> Validate[Validate Command]
     Validate --> Whitelist{In Whitelist?}
-    
+
     Whitelist -->|No| Block[Block Execution]
     Whitelist -->|Yes| Spawn[Spawn Process]
-    
+
     Spawn --> WriteStdin[Write Event to stdin]
     WriteStdin --> Wait[Wait for Response]
     Wait --> Timeout{Timeout?}
-    
+
     Timeout -->|Yes| Kill[Kill Process]
     Timeout -->|No| ReadStdout[Read from stdout]
-    
+
     ReadStdout --> Parse[Parse JSON]
     Parse --> Valid{Valid JSON?}
-    
+
     Valid -->|No| Error[Return Error]
     Valid -->|Yes| Return[Return Result]
-    
+
     Kill --> Error
     Block --> Error
-    
+
     style Start fill:#e1f5ff
     style Whitelist fill:#fff4e1
     style Block fill:#ffe1e1
@@ -279,12 +282,14 @@ flowchart TD
 **Location:** `packages/core/src/hooks/hookTranslator.ts`
 
 **Responsibilities:**
+
 - Translate legacy hook format to modern format
 - Convert between JSON and TypeScript types
 - Format hook input/output
 - Handle protocol versioning
 
 **Translation Flow:**
+
 ```typescript
 // Legacy Format (JSON)
 {
@@ -313,6 +318,7 @@ flowchart TD
 **Location:** `packages/core/src/hooks/trustedHooks.ts`
 
 **Responsibilities:**
+
 - Verify hook trust level
 - Request user approval
 - Store approval decisions
@@ -323,25 +329,25 @@ flowchart TD
 ```mermaid
 graph TD
     Hook[Hook] --> CheckSource{Check Source}
-    
+
     CheckSource -->|Builtin| Trusted[Always Trusted]
     CheckSource -->|User| CheckHash{Check Hash}
     CheckSource -->|Workspace| CheckApproval{Check Approval}
     CheckSource -->|Extension| CheckApproval
-    
+
     CheckHash -->|Match| Trusted
     CheckHash -->|Mismatch| RequestApproval[Request Approval]
-    
+
     CheckApproval -->|Approved| Trusted
     CheckApproval -->|Not Approved| RequestApproval
-    
+
     RequestApproval --> UserDecision{User Approves?}
     UserDecision -->|Yes| StoreApproval[Store Approval]
     UserDecision -->|No| Block[Block Execution]
-    
+
     StoreApproval --> Trusted
     Trusted --> Execute[Execute Hook]
-    
+
     style Trusted fill:#e8f5e9
     style Block fill:#ffe1e1
     style Execute fill:#e1f5ff
@@ -352,6 +358,7 @@ graph TD
 **Location:** `packages/core/src/hooks/messageBus.ts`
 
 **Responsibilities:**
+
 - Event-driven architecture
 - Decouple components
 - Enable parallel execution
@@ -366,17 +373,17 @@ sequenceDiagram
     participant Handler as Event Handler
     participant Registry as Hook Registry
     participant Runner as Hook Runner
-    
+
     Source->>Bus: emit(event, data)
     Bus->>Handler: notify(event, data)
     Handler->>Registry: getHooksForEvent(event)
     Registry-->>Handler: hooks[]
-    
+
     loop For each hook
         Handler->>Runner: execute(hook, data)
         Runner-->>Handler: result
     end
-    
+
     Handler-->>Bus: complete
     Bus-->>Source: done
 ```
@@ -394,34 +401,34 @@ flowchart TD
     Handler --> Registry[Get Hooks from Registry]
     Registry --> Filter[Filter by Event Type]
     Filter --> Planner[Hook Planner]
-    
+
     Planner --> Strategy[Determine Strategy]
     Strategy --> RateLimit[Check Rate Limits]
     RateLimit --> Trust[Check Trust]
-    
+
     Trust --> Approval{Needs Approval?}
     Approval -->|Yes| RequestApproval[Request User Approval]
     Approval -->|No| Execute[Execute Hook]
-    
+
     RequestApproval --> UserApproves{User Approves?}
     UserApproves -->|Yes| Execute
     UserApproves -->|No| Skip[Skip Hook]
-    
+
     Execute --> Runner[Hook Runner]
     Runner --> Spawn[Spawn Process]
     Spawn --> WriteStdin[Write Event Data]
     WriteStdin --> ReadStdout[Read Response]
     ReadStdout --> Parse[Parse JSON]
     Parse --> Process[Process Result]
-    
+
     Process --> Continue{Continue Flag?}
     Continue -->|Yes| NextHook[Next Hook]
     Continue -->|No| Stop[Stop Execution]
-    
+
     NextHook --> Registry
     Skip --> NextHook
     Stop --> Done[Complete]
-    
+
     style Event fill:#e1f5ff
     style Trust fill:#fff4e1
     style Execute fill:#e8f5e9
@@ -440,7 +447,7 @@ flowchart LR
     Stdout --> ParseJSON[Parse JSON]
     ParseJSON --> Validate[Validate Response]
     Validate --> Result[Process Result]
-    
+
     style EventData fill:#e1f5ff
     style Hook fill:#e8f5e9
     style Result fill:#f3e5f5
@@ -465,13 +472,14 @@ Hooks can trigger tool execution through `askAgent` action:
 ```
 
 **Flow:**
+
 ```mermaid
 sequenceDiagram
     participant Hook as Hook
     participant Agent as Agent
     participant Tool as Tool Registry
     participant Shell as Shell Tool
-    
+
     Hook->>Agent: askAgent("Run linting...")
     Agent->>Tool: selectTool("shell")
     Tool-->>Agent: shell tool
@@ -485,17 +493,18 @@ sequenceDiagram
 **Important:** MCP OAuth must be completed BEFORE hook execution.
 
 **Pre-Authentication Flow:**
+
 ```mermaid
 flowchart TD
     User[User] --> Panel[MCP Panel UI]
     Panel --> OAuth[OAuth Flow]
     OAuth --> Store[Store Tokens]
     Store --> Ready[Ready for Hooks]
-    
+
     Ready --> HookTrigger[Hook Triggers]
     HookTrigger --> UseToken[Use Existing Token]
     UseToken --> MCPCall[MCP Tool Call]
-    
+
     style OAuth fill:#fff4e1
     style Store fill:#e8f5e9
     style MCPCall fill:#e1f5ff
@@ -524,6 +533,7 @@ Extensions can register hooks via manifest:
 ```
 
 **Registration Flow:**
+
 ```mermaid
 flowchart LR
     Extension[Extension] --> Manager[Extension Manager]
@@ -531,7 +541,7 @@ flowchart LR
     Parse --> Register[Register Hooks]
     Register --> Registry[Hook Registry]
     Registry --> Available[Available to System]
-    
+
     style Extension fill:#e1f5ff
     style Register fill:#e8f5e9
     style Available fill:#f3e5f5
@@ -546,12 +556,14 @@ flowchart LR
 **Decision:** Use JSON over stdin/stdout for hook communication
 
 **Rationale:**
+
 - Language-agnostic (works with any language)
 - Simple to implement
 - Standard input/output (no special libraries needed)
 - Easy to debug and test
 
 **Trade-offs:**
+
 - ✅ Universal compatibility
 - ✅ Simple implementation
 - ❌ No streaming support
@@ -562,12 +574,14 @@ flowchart LR
 **Decision:** Only allow whitelisted commands in `runCommand` hooks
 
 **Rationale:**
+
 - Security first approach
 - Prevent arbitrary command execution
 - Limit attack surface
 - User control over allowed commands
 
 **Whitelisted Commands:**
+
 - `node` - Node.js runtime
 - `python`, `python3` - Python runtime
 - `bash`, `sh` - Shell scripts
@@ -575,6 +589,7 @@ flowchart LR
 - `uvx` - uv package runner
 
 **Trade-offs:**
+
 - ✅ Enhanced security
 - ✅ Predictable behavior
 - ❌ Limited flexibility
@@ -585,18 +600,21 @@ flowchart LR
 **Decision:** Require approval for untrusted hooks
 
 **Rationale:**
+
 - Security and safety
 - User control
 - Prevent malicious code execution
 - Hash verification for changes
 
 **Trust Levels:**
+
 1. **Builtin** - Always trusted
 2. **User** - Trusted by default
 3. **Workspace** - Requires approval
 4. **Downloaded** - Requires approval
 
 **Trade-offs:**
+
 - ✅ Enhanced security
 - ✅ User awareness
 - ❌ Additional friction
@@ -607,12 +625,14 @@ flowchart LR
 **Decision:** Use MessageBus for event-driven architecture
 
 **Rationale:**
+
 - Decouples components
 - Enables parallel execution
 - Supports complex workflows
 - Easy to extend
 
 **Benefits:**
+
 - ✅ Loose coupling
 - ✅ Testability
 - ✅ Extensibility
@@ -623,12 +643,14 @@ flowchart LR
 **Decision:** Implement per-hook and global rate limits
 
 **Rationale:**
+
 - Prevent hook spam
 - Protect system resources
 - Avoid infinite loops
 - Better user experience
 
 **Configuration:**
+
 - Per-hook max executions per minute
 - Global max executions per minute
 - Cooldown period between runs
@@ -643,12 +665,14 @@ flowchart LR
 **Threat:** Malicious hooks executing arbitrary commands
 
 **Mitigation:**
+
 - Command whitelist enforcement
 - Argument sanitization
 - No shell expansion
 - Safe process spawning
 
 **Implementation:**
+
 ```typescript
 // Check command is whitelisted
 if (!WHITELISTED_COMMANDS.includes(command)) {
@@ -657,8 +681,8 @@ if (!WHITELISTED_COMMANDS.includes(command)) {
 
 // Spawn process safely (no shell)
 const process = spawn(command, args, {
-  shell: false,  // Prevent shell injection
-  stdio: ['pipe', 'pipe', 'pipe']
+  shell: false, // Prevent shell injection
+  stdio: ['pipe', 'pipe', 'pipe'],
 });
 ```
 
@@ -667,12 +691,14 @@ const process = spawn(command, args, {
 **Threat:** Malformed input causing crashes or exploits
 
 **Mitigation:**
+
 - JSON schema validation
 - Type checking
 - Required field verification
 - Value range validation
 
 **Implementation:**
+
 ```typescript
 function validateHookInput(input: any): void {
   if (!input.event) {
@@ -690,19 +716,21 @@ function validateHookInput(input: any): void {
 **Threat:** Malicious output affecting system
 
 **Mitigation:**
+
 - JSON parsing with error handling
 - Output size limits
 - Special character escaping
 - Sensitive data redaction
 
 **Implementation:**
+
 ```typescript
 function sanitizeHookOutput(output: string): any {
   // Limit output size
   if (output.length > MAX_OUTPUT_SIZE) {
     output = output.substring(0, MAX_OUTPUT_SIZE);
   }
-  
+
   // Parse JSON safely
   try {
     return JSON.parse(output);
@@ -717,12 +745,14 @@ function sanitizeHookOutput(output: string): any {
 **Threat:** Hooks consuming excessive resources
 
 **Mitigation:**
+
 - Execution timeout (default: 5 seconds)
 - Memory limits
 - Process isolation
 - Rate limiting
 
 **Implementation:**
+
 ```typescript
 // Set timeout
 const timeout = setTimeout(() => {
@@ -741,6 +771,7 @@ process.on('exit', () => {
 **Threat:** Hooks accessing sensitive resources
 
 **Mitigation:**
+
 - Run with minimal privileges
 - File system access restrictions
 - Network access restrictions
@@ -758,25 +789,25 @@ process.on('exit', () => {
 graph LR
     Start[Start] --> Analyze[Analyze Dependencies]
     Analyze --> Independent{Independent?}
-    
+
     Independent -->|Yes| Parallel[Execute in Parallel]
     Independent -->|No| Sequential[Execute Sequentially]
-    
+
     Parallel --> Hook1[Hook 1]
     Parallel --> Hook2[Hook 2]
     Parallel --> Hook3[Hook 3]
-    
+
     Hook1 --> Wait[Wait for All]
     Hook2 --> Wait
     Hook3 --> Wait
-    
+
     Sequential --> Hook1Seq[Hook 1]
     Hook1Seq --> Hook2Seq[Hook 2]
     Hook2Seq --> Hook3Seq[Hook 3]
-    
+
     Wait --> Done[Complete]
     Hook3Seq --> Done
-    
+
     style Parallel fill:#e8f5e9
     style Sequential fill:#fff4e1
 ```
@@ -786,6 +817,7 @@ graph LR
 **Optimization:** Reuse hook processes for multiple executions
 
 **Implementation:**
+
 - Keep processes alive
 - Reuse for multiple events
 - Close on idle timeout
@@ -796,6 +828,7 @@ graph LR
 **Optimization:** Load hooks only when needed
 
 **Implementation:**
+
 - Load hook definitions on startup
 - Spawn processes only on execution
 - Cache hook metadata
@@ -805,39 +838,42 @@ graph LR
 
 ## File Locations
 
-| File | Purpose |
-|------|---------|
-| `packages/core/src/hooks/hookRegistry.ts` | Hook storage and retrieval |
-| `packages/core/src/hooks/hookEventHandler.ts` | Event emission |
-| `packages/core/src/hooks/hookPlanner.ts` | Execution planning |
-| `packages/core/src/hooks/hookRunner.ts` | Hook execution (line 128: whitelist) |
-| `packages/core/src/hooks/types.ts` | Type definitions (line 30-42: events) |
-| `packages/core/src/hooks/hookDebugger.ts` | Debugging and logging |
-| `packages/core/src/hooks/hookTranslator.ts` | Legacy format translation |
-| `packages/core/src/hooks/trustedHooks.ts` | Trust management |
-| `packages/core/src/hooks/config.ts` | Hook configuration |
-| `packages/core/src/hooks/messageBus.ts` | Event bus |
-| `packages/cli/src/commands/hookCommands.ts` | Hook management commands |
-| `packages/core/src/services/hookService.ts` | Hook service integration |
-| `packages/cli/src/services/hookLoader.ts` | Hook loading |
-| `packages/cli/src/services/hookFileService.ts` | Hook file operations |
+| File                                           | Purpose                               |
+| ---------------------------------------------- | ------------------------------------- |
+| `packages/core/src/hooks/hookRegistry.ts`      | Hook storage and retrieval            |
+| `packages/core/src/hooks/hookEventHandler.ts`  | Event emission                        |
+| `packages/core/src/hooks/hookPlanner.ts`       | Execution planning                    |
+| `packages/core/src/hooks/hookRunner.ts`        | Hook execution (line 128: whitelist)  |
+| `packages/core/src/hooks/types.ts`             | Type definitions (line 30-42: events) |
+| `packages/core/src/hooks/hookDebugger.ts`      | Debugging and logging                 |
+| `packages/core/src/hooks/hookTranslator.ts`    | Legacy format translation             |
+| `packages/core/src/hooks/trustedHooks.ts`      | Trust management                      |
+| `packages/core/src/hooks/config.ts`            | Hook configuration                    |
+| `packages/core/src/hooks/messageBus.ts`        | Event bus                             |
+| `packages/cli/src/commands/hookCommands.ts`    | Hook management commands              |
+| `packages/core/src/services/hookService.ts`    | Hook service integration              |
+| `packages/cli/src/services/hookLoader.ts`      | Hook loading                          |
+| `packages/cli/src/services/hookFileService.ts` | Hook file operations                  |
 
 ---
 
 ## Further Reading
 
 ### Documentation
+
 - [Hook User Guide](UserGuide.md) - Using hooks
 - [Hook Protocol](Protocol.md) - Technical protocol specification
 - [Keyboard Shortcuts](KeyboardShortcuts.md) - Hooks Panel UI shortcuts
 - [Visual Guide](VisualGuide.md) - Hooks Panel UI visual guide
 
 ### Related Systems
+
 - [MCP Architecture](../MCP/MCP_Architecture.md) - MCP system architecture
 - [Tool Execution](../Tools/Architecture.md) - Tool system architecture
 - [Extension System](../Tools/GettingStarted.md) - Extension system
 
 ### External References
+
 - JSON Specification (https://www.json.org/)
 - Process Management (https://nodejs.org/api/child_process.html)
 - Event-Driven Architecture (https://en.wikipedia.org/wiki/Event-driven_architecture)
@@ -847,4 +883,3 @@ graph LR
 **Document Version:** 1.0  
 **Last Updated:** 2026-01-26  
 **Status:** ✅ Complete
-

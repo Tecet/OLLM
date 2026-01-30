@@ -9,6 +9,7 @@ Welcome to the Prompts System documentation for OLLM CLI. This section covers sy
 ## 📚 Documentation Overview
 
 ### Core Documentation
+
 - **[Architecture](Architecture.md)** - System architecture and design (Coming Soon)
 - **[System Prompts](SystemPrompts.md)** - System prompt construction
 - **[Prompt Templates](PromptsTemplates.md)** - Template system
@@ -21,7 +22,9 @@ Welcome to the Prompts System documentation for OLLM CLI. This section covers sy
 The **Prompts System** manages how instructions are sent to the LLM, including system prompts, templates, and routing:
 
 ### 1. **System Prompts**
+
 Core instructions that define LLM behavior:
+
 - Identity and capabilities
 - Tool usage instructions
 - Context management rules
@@ -29,14 +32,18 @@ Core instructions that define LLM behavior:
 - Safety guidelines
 
 ### 2. **Prompt Templates**
+
 Reusable prompt patterns:
+
 - Task-specific templates
 - Variable substitution
 - Template composition
 - Template library
 
 ### 3. **Prompt Routing**
+
 Intelligent prompt selection:
+
 - Mode-based routing (chat, code, planning)
 - Context-aware selection
 - Dynamic prompt assembly
@@ -61,9 +68,11 @@ docs/Prompts System/
 ## 🎓 Key Concepts
 
 ### System Prompt Construction
+
 System prompts are built from multiple components:
 
 **Core Components:**
+
 - **Identity** - Who the assistant is
 - **Capabilities** - What it can do
 - **Tools** - Available tools and usage
@@ -71,6 +80,7 @@ System prompts are built from multiple components:
 - **Rules** - Behavioral guidelines
 
 **Assembly Process:**
+
 1. Load base system prompt
 2. Add tool descriptions
 3. Inject context information
@@ -80,15 +90,18 @@ System prompts are built from multiple components:
 **See:** [System Prompts](SystemPrompts.md)
 
 ### Prompt Templates
+
 Reusable patterns for common tasks:
 
 **Template Types:**
+
 - **Task Templates** - Specific tasks (code review, debugging)
 - **Mode Templates** - Mode-specific prompts
 - **Workflow Templates** - Multi-step workflows
 - **Custom Templates** - User-defined templates
 
 **Template Features:**
+
 - Variable substitution (`{{variable}}`)
 - Conditional sections
 - Template inheritance
@@ -97,15 +110,18 @@ Reusable patterns for common tasks:
 **See:** [Prompt Templates](PromptsTemplates.md)
 
 ### Prompt Routing
+
 Intelligent selection of prompts:
 
 **Routing Modes:**
+
 - **Chat Mode** - General conversation
 - **Code Mode** - Code-focused assistance
 - **Planning Mode** - Task planning and breakdown
 - **Review Mode** - Code review and analysis
 
 **Routing Logic:**
+
 1. Detect user intent
 2. Select appropriate mode
 3. Load mode-specific prompt
@@ -119,6 +135,7 @@ Intelligent selection of prompts:
 ## 💡 Common Use Cases
 
 ### Using System Prompts
+
 ```bash
 # View current system prompt
 /prompt show
@@ -131,6 +148,7 @@ Intelligent selection of prompts:
 ```
 
 ### Using Templates
+
 ```bash
 # List available templates
 /template list
@@ -143,6 +161,7 @@ Intelligent selection of prompts:
 ```
 
 ### Switching Modes
+
 ```bash
 # Switch to code mode
 /mode code
@@ -161,42 +180,45 @@ Intelligent selection of prompts:
 ## 🛠️ Configuration
 
 ### System Prompt Settings
+
 ```yaml
 prompts:
   # System prompt file
   systemPromptFile: system-prompt.md
-  
+
   # Enable dynamic optimization
   dynamicOptimization: true
-  
+
   # Include tool descriptions
   includeTools: true
-  
+
   # Include context information
   includeContext: true
 ```
 
 ### Template Settings
+
 ```yaml
 templates:
   # Template directories
   directories:
-    - .ollm/templates/      # Workspace templates
-    - ~/.ollm/templates/    # User templates
-  
+    - .ollm/templates/ # Workspace templates
+    - ~/.ollm/templates/ # User templates
+
   # Enable template caching
   cacheTemplates: true
 ```
 
 ### Routing Settings
+
 ```yaml
 routing:
   # Default mode
   defaultMode: chat
-  
+
   # Enable auto-detection
   autoDetectMode: true
-  
+
   # Mode-specific settings
   modes:
     code:
@@ -214,36 +236,41 @@ routing:
 ### Common Issues
 
 **System prompt not loading:**
+
 - Check file exists: `system-prompt.md`
 - Verify file permissions
 - Check syntax errors
 - Reload: `/prompt reload`
 
 **Template not found:**
+
 - List templates: `/template list`
 - Check template directory
 - Verify template name
 - Check file extension (.md)
 
 **Mode not switching:**
+
 - Check mode exists: `/mode list`
 - Verify mode configuration
 - Check for errors: `/mode status`
 - Reset to default: `/mode chat`
 
 **Prompt too long:**
+
 - Enable optimization: `/config set prompts.dynamicOptimization true`
 - Reduce context: `/context compact`
 - Use shorter templates
 - Disable unnecessary sections
 
-**See:** [Troubleshooting Guide](../troubleshooting.md)
+**See:** [Troubleshooting Guide](../Troubleshooting.md)
 
 ---
 
 ## 📊 Implementation Status
 
 ### Current (v0.1.0)
+
 - ✅ System Prompt Construction
 - ✅ Tool Description Injection
 - ✅ Context Information Injection
@@ -252,12 +279,14 @@ routing:
 - ✅ Prompt Commands
 
 ### Planned (v0.2.0)
+
 - ⏳ Advanced Template System
 - ⏳ Template Marketplace
 - ⏳ Auto Mode Detection
 - ⏳ Prompt Analytics
 
 ### Planned (v0.3.0)
+
 - ⏳ Prompt Optimization
 - ⏳ A/B Testing
 - ⏳ Prompt Versioning
@@ -267,16 +296,19 @@ routing:
 ## 🤝 Related Documentation
 
 ### Core Systems
+
 - [Context Management](../Context/ContextManagment.md) - Context system
 - [Tools System](../Tools/README.md) - Tool execution
 - [Model Management](../LLM%20Models/README.md) - Model selection
 
 ### Commands
+
 - [Prompt Commands](../UI&Settings/Commands.md#prompt-commands) - CLI commands
 - [Template Commands](../UI&Settings/Commands.md#template-commands) - Template management
 - [Mode Commands](../UI&Settings/Commands.md#mode-commands) - Mode switching
 
 ### Developer Resources
+
 - Knowledge DB: `dev_PromptSystem.md` - Prompt system architecture
 
 ---
@@ -286,11 +318,13 @@ routing:
 ### For New Users
 
 1. **View System Prompt**
+
    ```bash
    /prompt show
    ```
 
 2. **List Templates**
+
    ```bash
    /template list
    ```
@@ -305,11 +339,13 @@ routing:
 ### For Advanced Users
 
 1. **Create Custom Template**
+
    ```bash
    /template create my-workflow
    ```
 
 2. **Optimize Prompts**
+
    ```bash
    /config set prompts.dynamicOptimization true
    ```

@@ -9,6 +9,7 @@ OLLM CLI is a friendly command-line tool that brings the power of AI language mo
 ## What is OLLM CLI?
 
 Imagine having a conversation with an AI that can:
+
 - Help you write and debug code
 - Answer questions about your project
 - Search the web for information
@@ -23,18 +24,22 @@ That's OLLM CLI. It's like ChatGPT, but it runs entirely on your computer using 
 ## Why Use OLLM CLI?
 
 ### 🔒 Privacy First
+
 Your conversations, code, and data never leave your computer. No cloud services, no data collection, no privacy concerns.
 
 ### 💰 Completely Free
+
 No subscriptions, no API costs, no hidden fees. Once installed, it's yours to use as much as you want.
 
 ### 🚀 Powerful Features
+
 - **Smart Tools** - The AI can read files, search the web, and run commands
 - **Memory System** - Remembers important information across sessions
 - **Multiple Models** - Choose from dozens of open-source AI models
 - **Customizable** - Themes, modes, and settings to match your workflow
 
 ### 🎯 Built for Developers
+
 - Syntax highlighting for code
 - Git integration
 - File explorer
@@ -58,6 +63,7 @@ You → OLLM CLI → Ollama → AI Model → Response → OLLM CLI → You
 5. **OLLM CLI** displays the response with nice formatting
 
 The AI can also use "tools" to help you:
+
 - Read files in your project
 - Search the internet
 - Run shell commands
@@ -115,6 +121,7 @@ AI: [Analyzes errors, edits files] "I've fixed the failing tests..."
 ### 🎨 Beautiful Terminal Interface
 
 OLLM CLI has a modern, colorful interface that makes conversations easy to follow:
+
 - **Header Bar** - Shows your current model, context usage, and mode
 - **Chat Area** - Your conversation with the AI
 - **Side Panel** - Quick access to tools, files, and settings
@@ -123,6 +130,7 @@ OLLM CLI has a modern, colorful interface that makes conversations easy to follo
 ### 🧠 Smart Context Management
 
 The AI needs to remember your conversation, but it has limits. OLLM CLI automatically:
+
 - Tracks how much "memory" is being used
 - Compresses old messages when needed
 - Keeps important information
@@ -131,6 +139,7 @@ The AI needs to remember your conversation, but it has limits. OLLM CLI automati
 ### 🛠️ Powerful Tools
 
 The AI can use tools to help you:
+
 - **File Tools** - Read, write, and edit files
 - **Web Tools** - Search the internet and fetch web pages
 - **Shell Tool** - Run commands in your terminal
@@ -140,6 +149,7 @@ The AI can use tools to help you:
 ### 🎯 Multiple Modes
 
 Switch between different "personalities" for different tasks:
+
 - **Assistant Mode** - General help and conversation
 - **Developer Mode** - Focused on coding and technical tasks
 - **Planning Mode** - Help with project planning and architecture
@@ -148,6 +158,7 @@ Switch between different "personalities" for different tasks:
 ### 🎨 Customizable Themes
 
 Choose from beautiful color schemes:
+
 - Solarized Dark (default)
 - Neon Dark
 - Dracula
@@ -159,24 +170,28 @@ Choose from beautiful color schemes:
 ## Who Is It For?
 
 ### Developers
+
 - Write code faster with AI assistance
 - Debug issues with intelligent help
 - Learn new technologies
 - Automate repetitive tasks
 
 ### Students
+
 - Get explanations of complex topics
 - Help with homework and projects
 - Learn programming concepts
 - Practice coding with feedback
 
 ### Researchers
+
 - Search and summarize information
 - Analyze documents
 - Generate reports
 - Organize research notes
 
 ### Anyone Who Uses a Terminal
+
 - Automate tasks
 - Get quick answers
 - Manage files and projects
@@ -187,6 +202,7 @@ Choose from beautiful color schemes:
 ## What Makes It Different?
 
 ### vs. ChatGPT
+
 - ✅ Runs on your computer (private)
 - ✅ Free to use (no subscription)
 - ✅ Can access your files and run commands
@@ -195,6 +211,7 @@ Choose from beautiful color schemes:
 - ❌ Needs a decent computer
 
 ### vs. GitHub Copilot
+
 - ✅ Works in the terminal, not just editors
 - ✅ Can search the web and run commands
 - ✅ Free and open-source
@@ -203,6 +220,7 @@ Choose from beautiful color schemes:
 - ❌ Requires manual setup
 
 ### vs. Other CLI Tools
+
 - ✅ Full conversation interface
 - ✅ Rich terminal UI with colors and formatting
 - ✅ Tool system for file operations
@@ -214,6 +232,7 @@ Choose from beautiful color schemes:
 ## System Requirements
 
 ### Minimum Requirements
+
 - **Computer:** Modern laptop or desktop
 - **RAM:** 8GB (16GB recommended)
 - **Storage:** 10GB free space
@@ -221,6 +240,7 @@ Choose from beautiful color schemes:
 - **Node.js:** Version 20 or higher
 
 ### Recommended Setup
+
 - **RAM:** 16GB or more
 - **GPU:** NVIDIA, AMD, or Apple Silicon (for faster AI)
 - **Storage:** SSD with 20GB+ free space
