@@ -438,3 +438,6 @@ Want to contribute to Tool documentation?
 **Last Updated:** 2026-01-26  
 **Version:** 0.1.6  
 **Documentation Progress:** 100% complete
+
+<!-- Alpha release v0.1.6 -->
+

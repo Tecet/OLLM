@@ -622,3 +622,6 @@ Create a PR for the feature branch
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.6  
 **Next:** [Extension Development Guide](3%20projects/OLLM%20CLI/Extensions/development-guide.md)
+
+<!-- Alpha release v0.1.6 -->
+

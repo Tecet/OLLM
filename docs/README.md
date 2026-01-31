@@ -408,3 +408,6 @@ setting: value
 **License:** MIT
 
 For the latest documentation, visit [github.com/tecet/ollm](https://github.com/tecet/ollm)
+
+<!-- Alpha release v0.1.6 -->
+

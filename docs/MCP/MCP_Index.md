@@ -522,3 +522,6 @@ Want to contribute to MCP documentation?
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.6  
 **Documentation Progress:** 72% complete
+
+<!-- Alpha release v0.1.6 -->
+

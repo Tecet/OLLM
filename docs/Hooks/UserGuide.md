@@ -1481,3 +1481,6 @@ A: Enable debug mode with `/hooks debug on`, then check the debug output with `/
 **Version:** 0.1.6  
 **Features:** Hooks Panel UI added in v0.1.6  
 **Next:** [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md)
+
+<!-- Alpha release v0.1.6 -->
+

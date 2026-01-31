@@ -417,3 +417,6 @@ providers:
 
 **Last Updated:** January 28, 2026  
 **Current Version:** v0.1.6
+
+<!-- Alpha release v0.1.6 -->
+

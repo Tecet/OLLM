@@ -172,3 +172,6 @@ Have suggestions for the roadmap?
 
 **Last Updated:** 2026-01-16  
 **Status:** Living document
+
+<!-- Alpha release v0.1.6 -->
+

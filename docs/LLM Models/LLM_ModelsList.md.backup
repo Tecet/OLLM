@@ -398,3 +398,6 @@ Error: Context length exceeds model maximum
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.6  
 **Source:** Ollama Documentation, llama.cpp, community benchmarks
+
+<!-- Alpha release v0.1.6 -->
+

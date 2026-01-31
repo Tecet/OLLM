@@ -587,3 +587,6 @@ OLLM CLI is built on the shoulders of giants:
 Made with ❤️ by **[tecet](https://github.com/tecet)**
 
 </div>
+
+<!-- Alpha release v0.1.6 -->
+

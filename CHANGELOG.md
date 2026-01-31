@@ -248,3 +248,6 @@ and this project adheres to Semantic Versioning (https://semver.org/spec/v2.0.0.
 - File operation permissions validation
 - Sandboxed tool execution environment
 
+
+<!-- Alpha release v0.1.6 -->
+

@@ -497,3 +497,6 @@ If you discover issues or have recommendations:
 ---
 
 **Note:** This document reflects the current state of testing. Status marked as "⊘ Not Tested" indicates that automated tests require a running server with the model installed. To get actual test results, run the integration tests with your models installed.
+
+<!-- Alpha release v0.1.6 -->
+

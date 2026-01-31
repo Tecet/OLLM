@@ -533,3 +533,6 @@ For more advanced features, explore the [complete documentation](README.md).
 **Last Updated:** January 26, 2026  
 **Version:** 0.1.6  
 **Author:** tecet
+
+<!-- Alpha release v0.1.6 -->
+

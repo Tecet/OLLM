@@ -158,3 +158,6 @@ gh release create v1.0.0 my-extension-1.0.0.tar.gz
 
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.6
+
+<!-- Alpha release v0.1.6 -->
+

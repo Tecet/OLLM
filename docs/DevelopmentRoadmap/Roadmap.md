@@ -570,3 +570,6 @@ Your input shapes the roadmap!
 **Last Updated:** January 26, 2026  
 **Current Version:** v0.1.6 (Alpha)  
 **Next Release:** v0.2.0 (Planned)
+
+<!-- Alpha release v0.1.6 -->
+

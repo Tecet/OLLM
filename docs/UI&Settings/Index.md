@@ -291,3 +291,6 @@ Complete guide to UI configuration options. Covers layout settings, display pref
 
 **Last Updated:** January 26, 2026  
 **Version:** 0.1.6
+
+<!-- Alpha release v0.1.6 -->
+

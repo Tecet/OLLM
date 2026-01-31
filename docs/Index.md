@@ -504,3 +504,6 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 **Total Documentation:** 57 files
 
 For the latest documentation, visit [github.com/tecet/ollm](https://github.com/tecet/ollm)
+
+<!-- Alpha release v0.1.6 -->
+

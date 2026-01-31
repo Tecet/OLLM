@@ -1263,3 +1263,6 @@ cp ~/.ollm/config.yaml.backup ~/.ollm/config.yaml
 **Version:** 0.1.6
 
 For the latest troubleshooting information, visit the GitHub repository (https://github.com/ollm/ollm-cli).
+
+<!-- Alpha release v0.1.6 -->
+

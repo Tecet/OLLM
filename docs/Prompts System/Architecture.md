@@ -758,3 +758,6 @@ const DEFAULT_CONFIG = {
 **Last Updated:** January 26, 2026  
 **Version:** 0.1.6  
 **Status:** Active Development
+
+<!-- Alpha release v0.1.6 -->
+

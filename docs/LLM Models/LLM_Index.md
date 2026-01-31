@@ -699,3 +699,6 @@ Complete API reference for the Project Profile Service.
 **Last Updated:** 2026-01-16  
 **Version:** 0.1.6  
 **Status:** Complete
+
+<!-- Alpha release v0.1.6 -->
+
