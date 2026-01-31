@@ -1045,3 +1045,6 @@ graph TB
 **Last Updated:** January 26, 2026  
 **Visual Diagrams:** 12 mermaid diagrams  
 **Purpose:** Visual guide to prompt routing and selection
+
+<!-- Alpha Release: v0.1.6 -->
+

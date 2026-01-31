@@ -1100,3 +1100,6 @@ Templates support variable substitution:
 ---
 
 **Note:** This document contains the actual prompt templates used in production. For architectural overview and design principles, see `SystemPrompts.md`.
+
+<!-- Alpha Release: v0.1.6 -->
+

@@ -276,3 +276,6 @@ Welcome to the OLLM CLI User Interface documentation. This section covers all as
 ---
 
 **Last Updated:** January 26, 2026
+
+<!-- Alpha Release: v0.1.6 -->
+

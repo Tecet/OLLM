@@ -548,3 +548,6 @@ See [Themes Guide](./Themes.md) for detailed theme documentation.
 ---
 
 **Last Updated:** January 26, 2026
+
+<!-- Alpha Release: v0.1.6 -->
+

@@ -748,3 +748,6 @@ const trigger = context.maxTokens * 0.75; // Correct - uses ollama limit
 **Purpose:** Complete guide to context management system
 
 **Note:** This document focuses on context sizing logic. For compression and snapshots, see `ContextCompression.md`. For prompt structure, see `SystemPrompts.md`.
+
+<!-- Alpha Release: v0.1.6 -->
+

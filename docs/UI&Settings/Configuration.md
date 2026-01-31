@@ -870,3 +870,6 @@ Advanced AI capabilities configuration:
 ---
 
 **Last Updated:** January 15, 2026
+
+<!-- Alpha Release: v0.1.6 -->
+

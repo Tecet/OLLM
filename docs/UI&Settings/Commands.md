@@ -753,3 +753,6 @@ Dump current prompt/context details.
 ---
 
 **Last Updated:** January 26, 2026
+
+<!-- Alpha Release: v0.1.6 -->
+

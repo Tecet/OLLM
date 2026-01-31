@@ -1069,3 +1069,6 @@ Always leave 1-2 GB of VRAM free for your display and OS overhead. If the chart 
 **Last Updated:** 2026-01-28  
 **Version:** 0.2.0  
 **Source:** Ollama Documentation, llama.cpp, community benchmarks, OLLM CLI Model Database
+
+<!-- Alpha Release: v0.1.6 -->
+

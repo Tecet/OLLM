@@ -635,3 +635,6 @@ Get-ChildItem      # PowerShell (auto-colored)
 ---
 
 **Last Updated:** January 26, 2026
+
+<!-- Alpha Release: v0.1.6 -->
+

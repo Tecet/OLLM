@@ -335,3 +335,6 @@ cp ~/.ollm/memory.json ~/.ollm/memory.json.backup
 
 **Document Version:** 1.0  
 **Last Updated:** 2026-01-16
+
+<!-- Alpha Release: v0.1.6 -->
+

@@ -854,3 +854,6 @@ const DEFAULT_PROMPT_CONFIG = {
 ---
 
 **Note:** This document focuses on system prompt architecture. For context sizing logic, see `ContextManagement.md`. For compression and snapshots, see `ContextCompression.md`.
+
+<!-- Alpha Release: v0.1.6 -->
+

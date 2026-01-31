@@ -671,3 +671,6 @@ Status Icons:
 **Document Status:** ✅ Updated  
 **Last Updated:** January 26, 2026  
 **Purpose:** Visual guide to checkpoint compression flow
+
+<!-- Alpha Release: v0.1.6 -->
+
