@@ -66,6 +66,15 @@ npm install -g @tecet/ollm
 ollm
 ```
 
+## OLLM Un-Install
+
+
+```bash
+# Removing OLLM
+npm uninstall -g @ollm/cli
+```
+
+
 That's it! The interactive installer will handle everything else.
 
 ---
@@ -133,53 +142,7 @@ npm install @tecet/ollm
 npx ollm
 ```
 
-### Step 3: Interactive Setup
 
-After installation, the setup wizard will start automatically:
-
-```
-┌─ OLLM CLI Setup ─────────────────────────┐
-│                                           │
-│ Welcome to OLLM CLI!                     │
-│                                           │
-│ Checking for Ollama...                   │
-```
-
-**If Ollama is not installed:**
-
-```
-│ ✗ Ollama not detected                    │
-│                                           │
-│ Ollama is required to run local models.  │
-│ Install Ollama now? (Y/n):               │
-```
-
-Type `Y` and press Enter. The installer will:
-
-1. Download Ollama for your platform
-2. Install it automatically
-3. Start the Ollama service
-
-**Download a starter model:**
-
-```
-│ Pull default model (llama3.2:3b ~2GB)?  │
-│ This will download a small model to      │
-│ get you started. (Y/n):                  │
-```
-
-Type `Y` to download a small, fast model (about 2GB).
-
-**Setup complete:**
-
-```
-│ ✓ Setup complete!                        │
-│                                           │
-│ Start using OLLM CLI:                    │
-│   ollm                                   │
-│                                           │
-└───────────────────────────────────────────┘
-```
 
 ---
 
@@ -440,6 +403,10 @@ npm update -g @tecet/ollm
 
 # Or reinstall
 npm install -g @tecet/ollm@latest
+```
+```bash
+# Removing OLLM
+npm uninstall -g @ollm/cli
 ```
 
 ### Update Ollama
