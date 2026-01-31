@@ -1,7 +1,7 @@
 # Planned Features - Quick Reference
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)
+**Current Version:** v0.1.6 (Alpha)
 
 > **Status:** All features listed below are **planned for future alpha releases** (v0.2.0 - v0.9.0) and are not yet implemented.
 
@@ -219,18 +219,18 @@ Extended provider system for production deployments.
 
 | Feature            | Version | Priority | Dependencies |
 | ------------------ | ------- | -------- | ------------ |
-| File Explorer      | v0.2.0  | High     | v0.1.0       |
-| Enhanced MCP       | v0.2.0  | High     | v0.1.0       |
+| File Explorer      | v0.2.0  | High     | v0.1.6       |
+| Enhanced MCP       | v0.2.0  | High     | v0.1.6       |
 | Advanced Explorer  | v0.3.0  | High     | v0.2.0       |
 | MCP Polish         | v0.3.0  | High     | v0.2.0       |
-| Code Editor        | v0.4.0  | High     | v0.1.0       |
-| RAG Search         | v0.5.0  | High     | v0.1.0       |
-| Kraken (CLI)       | v0.6.0  | High     | v0.1.0       |
-| Kraken (API)       | v0.6.0  | High     | v0.1.0       |
-| GitHub Integration | v0.7.0  | Medium   | v0.1.0       |
-| Cross-Platform     | v0.8.0  | Medium   | v0.1.0       |
-| vLLM Provider      | v0.9.0  | Medium   | v0.1.0       |
-| LM Studio          | v0.9.0  | Medium   | v0.1.0       |
+| Code Editor        | v0.4.0  | High     | v0.1.6       |
+| RAG Search         | v0.5.0  | High     | v0.1.6       |
+| Kraken (CLI)       | v0.6.0  | High     | v0.1.6       |
+| Kraken (API)       | v0.6.0  | High     | v0.1.6       |
+| GitHub Integration | v0.7.0  | Medium   | v0.1.6       |
+| Cross-Platform     | v0.8.0  | Medium   | v0.1.6       |
+| vLLM Provider      | v0.9.0  | Medium   | v0.1.6       |
+| LM Studio          | v0.9.0  | Medium   | v0.1.6       |
 
 ---
 
@@ -368,7 +368,7 @@ providers:
 
 ## Release Timeline
 
-**Current Status:** v0.1.0 (Alpha) - Released
+**Current Status:** v0.1.6 (Alpha) - Released
 
 **Alpha Releases (v0.2.0 - v0.9.0):** Timeline to be determined based on:
 
@@ -444,5 +444,5 @@ See [Development Roadmap](Roadmap.md#contributing) for detailed contribution gui
 ---
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)  
+**Current Version:** v0.1.6 (Alpha)  
 **Document Version:** 2.0

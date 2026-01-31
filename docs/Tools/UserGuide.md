@@ -769,5 +769,5 @@ LLM: "Here's a summary of React documentation..."
 ---
 
 **Last Updated:** 2026-01-26  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Next:** [Tool Architecture](Architecture.md)

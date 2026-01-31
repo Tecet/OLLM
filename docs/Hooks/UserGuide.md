@@ -877,7 +877,7 @@ Hooks have three trust levels:
 
 **Verify installation:**
 
-- Hooks Panel UI is available in OLLM CLI v0.1.0+
+- Hooks Panel UI is available in OLLM CLI v0.1.6+
 - Check version: `ollm --version`
 
 **Restart CLI:**
@@ -1478,6 +1478,6 @@ A: Enable debug mode with `/hooks debug on`, then check the debug output with `/
 ---
 
 **Last Updated:** 2026-01-18  
-**Version:** 0.1.0  
-**Features:** Hooks Panel UI added in v0.1.0  
+**Version:** 0.1.6  
+**Features:** Hooks Panel UI added in v0.1.6  
 **Next:** [Hook Development Guide](3%20projects/OLLM%20CLI/Hooks/development-guide.md)

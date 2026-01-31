@@ -368,5 +368,5 @@ Use the "Reset All" button in Settings UI or delete `~/.ollm/user_keybinds.json`
 ---
 
 **Last Updated:** 2026-01-26  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Next:** [UI Guide](UIGuide.md)

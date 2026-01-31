@@ -269,7 +269,7 @@ routing:
 
 ## 📊 Implementation Status
 
-### Current (v0.1.0)
+### Current (v0.1.6)
 
 - ✅ System Prompt Construction
 - ✅ Tool Description Injection
@@ -385,5 +385,5 @@ routing:
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Status:** Active Development

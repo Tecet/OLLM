@@ -206,4 +206,4 @@ Visual guide to the checkpoint system with flow diagrams. Explains checkpoint ty
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0
+**Version:** 0.1.6

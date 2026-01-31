@@ -1,7 +1,7 @@
 # OLLM CLI - Visual Roadmap
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)
+**Current Version:** v0.1.6 (Alpha)
 
 > **Note:** This is a visual representation of the OLLM CLI development roadmap. All versions marked as "Planned" are future development and not yet implemented.
 
@@ -26,13 +26,13 @@ Stages 1-9: Foundation Development                         [██████�
 ├─ Stage 8: Testing & QA                                   🔄 In Progress
 └─ Stage 9: Documentation & Release                        ✅ Complete
 
-Result: v0.1.0 Alpha Release                               ✅ Released
+Result: v0.1.6 Alpha Release                               ✅ Released
 
 
-ALPHA RELEASES (v0.1.0 - v0.9.0)
+ALPHA RELEASES (v0.1.6 - v0.9.0)
 ═══════════════════════════════════════════════════════════════════════════
 
-v0.1.0: Foundation Release                                 [████████████] 100%
+v0.1.6: Foundation Release                                 [████████████] 100%
 ├─ Interactive TUI (React + Ink)                           ✅ Complete
 ├─ Non-Interactive Mode                                    ✅ Complete
 ├─ Tool System (File, Shell, Web)                          ✅ Complete
@@ -140,7 +140,7 @@ Priority: CRITICAL
                     ┌─────────────────────┐
                     │   Pre-Alpha         │
                     │   Stages 1-9        │
-                    │   → v0.1.0          │
+                    │   → v0.1.6          │
                     └──────────┬──────────┘
                                │
                 ┌──────────────┼──────────────┐
@@ -227,7 +227,7 @@ Low Priority
 │                   community feedback and resources)                   │
 └──────────────────────────────────────────────────────────────────────┘
 
-Q1 2026  │ ████████████ v0.1.0: Foundation (Released)
+Q1 2026  │ ████████████ v0.1.6: Foundation (Released)
          │
 Q2 2026  │ █████████░░░ v0.2.0: File Explorer & MCP (Planned)
          │ ░░░░░░░░░░░░ v0.3.0: Advanced Explorer (Planned)
@@ -257,31 +257,31 @@ Legend:
 └──────────────────────────────────────────────────────────────────────┘
 
 🎨 USER INTERFACE
-├─ Interactive TUI                                         ✅ v0.1.0
-├─ Non-Interactive Mode                                    ✅ v0.1.0
-├─ Status Bar & Indicators                                 ✅ v0.1.0
+├─ Interactive TUI                                         ✅ v0.1.6
+├─ Non-Interactive Mode                                    ✅ v0.1.6
+├─ Status Bar & Indicators                                 ✅ v0.1.6
 ├─ File Explorer                                           📋 v0.2.0
 ├─ Advanced File Explorer                                  📋 v0.3.0
 └─ Code Editor                                             📋 v0.4.0
 
 🔧 CORE FUNCTIONALITY
-├─ Tool System                                             ✅ v0.1.0
-├─ Policy Engine                                           ✅ v0.1.0
-├─ Hook System                                             ✅ v0.1.0
-├─ MCP Integration                                         ✅ v0.1.0
+├─ Tool System                                             ✅ v0.1.6
+├─ Policy Engine                                           ✅ v0.1.6
+├─ Hook System                                             ✅ v0.1.6
+├─ MCP Integration                                         ✅ v0.1.6
 ├─ Enhanced MCP                                            📋 v0.2.0
 └─ GitHub Integration                                      📋 v0.7.0
 
 🧠 INTELLIGENCE
-├─ Context Management                                      ✅ v0.1.0
-├─ VRAM Monitoring                                         ✅ v0.1.0
-├─ Session Compression                                     ✅ v0.1.0
+├─ Context Management                                      ✅ v0.1.6
+├─ VRAM Monitoring                                         ✅ v0.1.6
+├─ Session Compression                                     ✅ v0.1.6
 ├─ Semantic Search (RAG)                                   📋 v0.6.0
 ├─ Codebase Indexing                                       📋 v0.6.0
 └─ Vector Database                                         📋 v0.6.0
 
 🔌 PROVIDERS
-├─ Ollama (Local)                                          ✅ v0.1.0
+├─ Ollama (Local)                                          ✅ v0.1.6
 ├─ External LLMs (Kraken)                                  📋 v0.5.0
 │  ├─ CLI Bridge (Gemini, Claude, Codex)                   📋 v0.5.0
 │  └─ API Providers (OpenAI, Anthropic, Google)            📋 v0.5.0
@@ -290,13 +290,13 @@ Legend:
 └─ Text Generation WebUI                                   📋 v0.9.0
 
 📁 FILE HANDLING
-├─ File Read/Write Tools                                   ✅ v0.1.0
+├─ File Read/Write Tools                                   ✅ v0.1.6
 ├─ File Explorer                                           📋 v0.2.0
 ├─ Multi-file Selection                                    📋 v0.3.0
 └─ File Preview                                            📋 v0.3.0
 
 🖥️ PLATFORM
-├─ Basic Cross-Platform                                    ✅ v0.1.0
+├─ Basic Cross-Platform                                    ✅ v0.1.6
 └─ Enhanced Cross-Platform                                 📋 v0.8.0
    ├─ Platform Detection                                   📋 v0.8.0
    ├─ XDG/AppData Path Resolution                          📋 v0.8.0
@@ -304,7 +304,7 @@ Legend:
    └─ Cross-Platform GPU Monitoring                        📋 v0.8.0
 
 💰 COST & TRACKING
-├─ Basic Token Counting                                    ✅ v0.1.0
+├─ Basic Token Counting                                    ✅ v0.1.6
 ├─ Cost Tracking                                           📋 v0.5.0
 └─ Budget Enforcement                                      📋 v0.5.0
 
@@ -315,7 +315,7 @@ Legend:
 └─ Symbol Search                                           📋 v0.6.0
 
 ✏️ EDITING
-├─ Basic File Operations                                   ✅ v0.1.0
+├─ Basic File Operations                                   ✅ v0.1.6
 ├─ Code Editor                                             📋 v0.4.0
 ├─ Syntax Highlighting                                     📋 v0.4.0
 └─ Prettier Formatting                                     📋 v0.4.0
@@ -343,7 +343,7 @@ Pre-Alpha (Stages 1-9)
 ├─ Stage 1-9: Foundation Development                       ✅ Complete
 
 Alpha Releases
-├─ v0.1.0: Foundation Release                              ✅ Released
+├─ v0.1.6: Foundation Release                              ✅ Released
 ├─ v0.2.0: File Explorer & Enhanced MCP                    📋 Planned
 ├─ v0.3.0: Advanced File Explorer & MCP Polish             📋 Planned
 ├─ v0.4.0: Code Editor                                     📋 Planned
@@ -367,6 +367,6 @@ Beta Release
 ---
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)  
+**Current Version:** v0.1.6 (Alpha)  
 **Document Version:** 2.0  
 **Status:** Living document - Updated as development progresses

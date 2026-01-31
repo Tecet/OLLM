@@ -6,7 +6,7 @@ This document tracks all OLLM CLI releases with detailed notes on features, chan
 
 ---
 
-## v0.1.0 - Foundation Release
+## v0.1.6 - Foundation Release
 
 **Released:** January 30, 2026  
 **Status:** ✅ Released
@@ -393,7 +393,7 @@ providers:
 
 | Version | Release Date | Status      | Key Features                               |
 | ------- | ------------ | ----------- | ------------------------------------------ |
-| v0.1.0  | Jan 2026     | ✅ Released | Foundation, TUI, Tools, Context Management |
+| v0.1.6  | Jan 2026     | ✅ Released | Foundation, TUI, Tools, Context Management |
 | v0.2.0  | Q2 2026      | 📋 Planned  | File Explorer, Enhanced MCP                |
 | v0.3.0  | Q2 2026      | 📋 Planned  | Advanced Explorer, MCP Polish              |
 | v0.4.0  | Q3 2026      | 📋 Planned  | Code Editor                                |
@@ -416,4 +416,4 @@ providers:
 ---
 
 **Last Updated:** January 28, 2026  
-**Current Version:** v0.1.0
+**Current Version:** v0.1.6

@@ -65,12 +65,7 @@ and this project adheres to Semantic Versioning (https://semver.org/spec/v2.0.0.
 
 ### Known Issues
 
-- 57 tests still failing (3.6% of total), primarily:
-  - Session recording tests (5) - legacy feature needs investigation
-  - Context injection tests (3) - need contextManager mocks
-  - Checkpoint lifecycle tests (10) - checkpoint operations need review
-  - Integration tests (39) - various system behavior changes
-- These will be addressed in v0.1.3
+
 
 ### Documentation
 
@@ -94,7 +89,7 @@ and this project adheres to Semantic Versioning (https://semver.org/spec/v2.0.0.
 - TypeScript: 0 compilation errors ✅
 - Prettier: All files formatted ✅
 
-## [0.1.0] - 2026-01-26
+## [0.1.6] - 2026-01-30
 
 ### Added
 
@@ -253,6 +248,3 @@ and this project adheres to Semantic Versioning (https://semver.org/spec/v2.0.0.
 - File operation permissions validation
 - Sandboxed tool execution environment
 
-[Unreleased]: https://github.com/tecet/ollm/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/tecet/ollm/compare/v0.1.0...v0.1.2
-[0.1.0]: https://github.com/tecet/ollm/releases/tag/v0.1.0

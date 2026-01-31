@@ -1,13 +1,13 @@
 # OLLM CLI Development Roadmap
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)
+**Current Version:** v0.1.6 (Alpha)
 
 ---
 
 ## Overview
 
-OLLM CLI is a local-first command-line interface for open-source LLMs with tools, hooks, and MCP integration. This roadmap outlines the development path from pre-alpha stages through alpha (v0.1.0-v0.9.0) to beta (v1.0.0+).
+OLLM CLI is a local-first command-line interface for open-source LLMs with tools, hooks, and MCP integration. This roadmap outlines the development path from pre-alpha stages through alpha (v0.1.6-v0.9.0) to beta (v1.0.0+).
 
 ---
 
@@ -17,7 +17,7 @@ OLLM CLI is a local-first command-line interface for open-source LLMs with tools
 
 **Status:** ✅ Complete  
 **Timeline:** Development stages 1-9  
-**Result:** v0.1.0 Alpha Release
+**Result:** v0.1.6 Alpha Release
 
 The foundation of OLLM CLI has been successfully implemented through 9 development stages:
 
@@ -75,15 +75,15 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 - Complete documentation
 - User guides and API reference
 - Release preparation
-- v0.1.0 launch
+- v0.1.6 launch
 
 **See:** Development Plan (`.dev/development-plan.md`) for detailed stage information
 
 ---
 
-## Alpha Releases (v0.1.0 - v0.9.0)
+## Alpha Releases (v0.1.6 - v0.9.0)
 
-### v0.1.0 - Foundation Release ✅ COMPLETE
+### v0.1.6 - Foundation Release ✅ COMPLETE
 
 **Status:** Released  
 **Focus:** Core functionality and stability
@@ -401,7 +401,7 @@ The foundation of OLLM CLI has been successfully implemented through 9 developme
 
 ## Feature Roadmap Summary
 
-### Current (v0.1.0)
+### Current (v0.1.6)
 
 - ✅ Core TUI and non-interactive modes
 - ✅ Ollama provider integration
@@ -554,7 +554,7 @@ Your input shapes the roadmap!
 
 | Version | Release Date | Status      | Highlights                            |
 | ------- | ------------ | ----------- | ------------------------------------- |
-| v0.1.0  | 2026-01-26   | ✅ Released | Foundation release with core features |
+| v0.1.6  | 2026-01-26   | ✅ Released | Foundation release with core features |
 | v0.2.0  | TBD          | 📋 Planned  | File Explorer & Enhanced MCP          |
 | v0.3.0  | TBD          | 📋 Planned  | Advanced File Explorer & MCP Polish   |
 | v0.4.0  | TBD          | 📋 Planned  | Code Editor                           |
@@ -568,5 +568,5 @@ Your input shapes the roadmap!
 ---
 
 **Last Updated:** January 26, 2026  
-**Current Version:** v0.1.0 (Alpha)  
+**Current Version:** v0.1.6 (Alpha)  
 **Next Release:** v0.2.0 (Planned)

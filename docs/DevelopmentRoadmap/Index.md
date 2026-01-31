@@ -23,7 +23,7 @@ Main entry point for Development Roadmap documentation. Provides overview of the
 
 **Detailed Development Roadmap**
 
-Complete development roadmap with detailed version descriptions. Covers Pre-Alpha (Stages 1-9), Alpha (v0.1.0-v0.9.0), and Beta (v1.0.0+) phases with features and specifications for each release.
+Complete development roadmap with detailed version descriptions. Covers Pre-Alpha (Stages 1-9), Alpha (v0.1.6-v0.9.0), and Beta (v1.0.0+) phases with features and specifications for each release.
 
 **Topics:** Versions, Features, Specifications, Timeline  
 **Audience:** All users
@@ -31,7 +31,7 @@ Complete development roadmap with detailed version descriptions. Covers Pre-Alph
 **Key Sections:**
 
 - Development phases overview
-- Pre-Alpha: Stages 1-9 → v0.1.0
+- Pre-Alpha: Stages 1-9 → v0.1.6
 - Alpha releases: v0.2.0 through v0.9.0
 - Beta releases: v1.0.0+
 - Feature descriptions
@@ -107,7 +107,7 @@ Detailed release notes and changelog for all OLLM CLI versions. Documents what w
 - [README](README.md#phases) - Quick reference
 - [Roadmap Visual](RoadmapVisual.md#phases) - Visual timeline
 
-### Alpha Releases (v0.1.0 - v0.9.0)
+### Alpha Releases (v0.1.6 - v0.9.0)
 
 - [Roadmap](Roadmap.md#alpha-releases) - Detailed descriptions
 - [Planned Features](PlanedFeatures.md) - Feature reference
@@ -207,14 +207,14 @@ Detailed release notes and changelog for all OLLM CLI versions. Documents what w
 
 ## 📅 Release Schedule
 
-### Pre-Alpha (Completed)
+- ### Pre-Alpha (Completed)
 
-- **Stages 1-9** → **v0.1.0** (Released)
+- **Stages 1-9** → **v0.1.6** (Released)
 - Foundation and core systems
 
 ### Alpha (Current & Planned)
 
-- **v0.1.0** - Foundation Release (Released)
+- **v0.1.6** - Foundation Release (Released)
 - **v0.2.0** - File Explorer & Enhanced MCP
 - **v0.3.0** - Advanced File Explorer & MCP Polish
 - **v0.4.0** - Code Editor
@@ -235,4 +235,4 @@ Detailed release notes and changelog for all OLLM CLI versions. Documents what w
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0
+**Version:** 0.1.6

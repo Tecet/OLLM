@@ -260,7 +260,7 @@ After installation, verify everything works:
 ollm --version
 ```
 
-Should show: `0.1.0` or higher
+Should show: `0.1.6` or higher
 
 ### 2. Check Ollama
 
@@ -549,5 +549,5 @@ For other issues:
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Author:** tecet

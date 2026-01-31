@@ -220,4 +220,4 @@ Guide to prompt routing and mode system. Explains how prompts are selected based
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0
+**Version:** 0.1.6

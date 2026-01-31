@@ -236,4 +236,4 @@ Complete guide to the cross-session memory system. Covers memory storage, inject
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0
+**Version:** 0.1.6

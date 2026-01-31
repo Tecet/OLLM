@@ -6,11 +6,11 @@
 
 ## Overview
 
-This directory contains documentation about planned future development for OLLM CLI beyond the current v0.1.0 release.
+This directory contains documentation about planned future development for OLLM CLI beyond the current v0.1.6 release.
 
 **Current Status:**
 
-- **Latest Release:** v0.1.0
+- **Latest Release:** v0.1.6
 - **Completed:** Stages 1-9 (Core features)
 - **Planned:** Stages 10-15 (Future development)
 
@@ -24,7 +24,7 @@ This directory contains documentation about planned future development for OLLM 
 
 Quick overview of completed and planned features:
 
-- Completed features (v0.1.0)
+- Completed features (v0.1.6)
 - Planned stages table with priorities
 - Contributing guidelines
 - Feedback channels

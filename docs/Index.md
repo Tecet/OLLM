@@ -500,7 +500,7 @@ Comprehensive troubleshooting guide covering connection issues, installation pro
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Total Documentation:** 57 files
 
 For the latest documentation, visit [github.com/tecet/ollm](https://github.com/tecet/ollm)

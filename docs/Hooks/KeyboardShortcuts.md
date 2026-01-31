@@ -244,5 +244,5 @@ Some keys have alternatives for different keyboard layouts:
 ---
 
 **Last Updated:** 2026-01-18  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Feature:** Hooks Panel UI

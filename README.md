@@ -86,7 +86,7 @@ npm install -g @tecet/ollm
 ```bash
 ollm --version
 ```
-#### >>>  0.1.3
+#### >>>  0.1.6
 
 
 ### Install Ollama with your favored model
@@ -385,7 +385,7 @@ See **[Project Structure](.kiro/steering/structure.md)** for detailed architectu
 
 OLLM CLI is under active development with a clear roadmap for future features.
 
-### ✅ Completed (v0.1.0 - Alpha)
+### ✅ Completed (v0.1.6 - Alpha)
 
 - Interactive TUI with React + Ink
 - Context management with VRAM monitoring

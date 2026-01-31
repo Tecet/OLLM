@@ -172,7 +172,7 @@ Welcome to the OLLM CLI documentation! This is your complete guide to using, con
 
 **[Development Roadmap](DevelopmentRoadmap/README.md)**
 
-- Current version (v0.1.0)
+- Current version (v0.1.6)
 - Planned features
 - Release schedule
 - Version history
@@ -403,7 +403,7 @@ setting: value
 ---
 
 **Last Updated:** January 26, 2026  
-**Version:** 0.1.0  
+**Version:** 0.1.6  
 **Author:** tecet  
 **License:** MIT
 

@@ -6,7 +6,7 @@ This document provides compatibility information for various LLM models tested w
 
 ## Test Environment
 
-- **OLLM CLI Version:** 0.1.0
+- **OLLM CLI Version:** 0.1.6
 - **Test Date:** 2026-01-15
 - **Server:** Ollama (latest)
 - **Test Framework:** Vitest with integration tests
@@ -483,7 +483,7 @@ If you discover issues or have recommendations:
 
 | Date       | CLI Version | Changes                              |
 | ---------- | ----------- | ------------------------------------ |
-| 2026-01-15 | 0.1.0       | Initial compatibility matrix created |
+| 2026-01-15 | 0.1.6       | Initial compatibility matrix created |
 
 ## References
 
